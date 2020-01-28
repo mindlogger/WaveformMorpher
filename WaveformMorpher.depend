@@ -1,3 +1,51 @@
 # depslib dependency file v1.0
-1580121417 source:/home/pi/WaveformMorpher/src/main.cpp
+1580209032 source:/home/pi/WaveformMorpher/src/main.cpp
+	"AudioOut.hpp"
+	"Framebuffer.hpp"
+	"Touchscreen.hpp"
+	"WaveOsc.hpp"
+
+1580209201 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+	"WaveOsc.hpp"
+	"portaudio.h"
+	<sys/types.h>
+	<stdio.h>
+
+1578321036 /home/pi/WaveformMorpher/src/WaveOsc.hpp
+
+1580208961 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
+	<sys/types.h>
+	<sys/ioctl.h>
+	<sys/mman.h>
+	<linux/fb.h>
+	<unistd.h>
+	<fcntl.h>
+	<stdio.h>
+	<math.h>
+	<iostream>
+	<fstream>
+
+1580209252 /home/pi/WaveformMorpher/src/AudioOut.hpp
+
+1580209261 /home/pi/WaveformMorpher/src/Framebuffer.hpp
+
+1580209228 /home/pi/WaveformMorpher/src/Touchscreen.hpp
+
+1580209047 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+	"Framebuffer.hpp"
+	<iostream>
+	<fstream>
+	<linux/input.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	<sys/mman.h>
+	<linux/fb.h>
+	<unistd.h>
+	<fcntl.h>
+	<signal.h>
+	<stdio.h>
+
+1580209117 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+	"WaveOsc.hpp"
+	<math.h>
 

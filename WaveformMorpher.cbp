@@ -23,6 +23,14 @@
 			<Add option="-lrt -lm -lasound -pthread" />
 			<Add library="/usr/local/lib/libportaudio.a" />
 		</Linker>
+		<Unit filename="src/AudioOut.cpp" />
+		<Unit filename="src/AudioOut.hpp" />
+		<Unit filename="src/Framebuffer.cpp" />
+		<Unit filename="src/Framebuffer.hpp" />
+		<Unit filename="src/Touchscreen.cpp" />
+		<Unit filename="src/Touchscreen.hpp" />
+		<Unit filename="src/WaveOsc.cpp" />
+		<Unit filename="src/WaveOsc.hpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
