@@ -1,19 +1,21 @@
 # depslib dependency file v1.0
-1580209032 source:/home/pi/WaveformMorpher/src/main.cpp
+1580380239 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"Framebuffer.hpp"
 	"Touchscreen.hpp"
 	"WaveOsc.hpp"
+	"MidiHandling.hpp"
 
-1580209201 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1580380884 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	<sys/types.h>
 	<stdio.h>
 
-1578321036 /home/pi/WaveformMorpher/src/WaveOsc.hpp
+1580380873 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1580208961 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
+1580212181 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
+	"Framebuffer.hpp"
 	<sys/types.h>
 	<sys/ioctl.h>
 	<sys/mman.h>
@@ -27,11 +29,11 @@
 
 1580209252 /home/pi/WaveformMorpher/src/AudioOut.hpp
 
-1580209261 /home/pi/WaveformMorpher/src/Framebuffer.hpp
+1580376790 /home/pi/WaveformMorpher/src/Framebuffer.hpp
 
-1580209228 /home/pi/WaveformMorpher/src/Touchscreen.hpp
+1580212147 /home/pi/WaveformMorpher/src/Touchscreen.hpp
 
-1580209047 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1580212272 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Framebuffer.hpp"
 	<iostream>
 	<fstream>
@@ -45,7 +47,22 @@
 	<signal.h>
 	<stdio.h>
 
-1580209117 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1580380866 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	<math.h>
+
+1555590958 /home/pi/WaveformMorpher/src/RtMidi.h
+	<exception>
+	<iostream>
+	<string>
+	<vector>
+
+1580376800 /home/pi/WaveformMorpher/src/MidiHandling.hpp
+
+1580380317 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+	"MidiHandling.hpp"
+	<iostream>
+	<cstdlib>
+	"WaveOsc.hpp"
+	"RtMidi.h"
 

@@ -5,7 +5,7 @@
 #define WAVE_TABLE_SIZE (480)
 #define SAMPLE_RATE (48000)
 
-
+float freq = 440;
 
 float scale(int x)
 {
@@ -18,7 +18,7 @@ float step_size = (float) WAVE_TABLE_SIZE * ((float)440/(float)SAMPLE_RATE);
 
 float interpol = 0.0;
 
-float getWavetableValue(int* wave_table, float freq)
+float getWavetableValue(int* wave_table)
 {
     step_size = (float) WAVE_TABLE_SIZE * ((float)freq/(float)SAMPLE_RATE);
 
@@ -41,4 +41,9 @@ float getWavetableValue(int* wave_table, float freq)
     }
 
     return interpol;
+}
+
+void setfreq(float f)
+{
+    freq = f;
 }

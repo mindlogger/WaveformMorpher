@@ -18,15 +18,20 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-D__LINUX_ALSA__" />
 		</Compiler>
 		<Linker>
 			<Add option="-lrt -lm -lasound -pthread" />
 			<Add library="/usr/local/lib/libportaudio.a" />
+			<Add library="../../../usr/local/lib/librtmidi.a" />
 		</Linker>
 		<Unit filename="src/AudioOut.cpp" />
 		<Unit filename="src/AudioOut.hpp" />
 		<Unit filename="src/Framebuffer.cpp" />
 		<Unit filename="src/Framebuffer.hpp" />
+		<Unit filename="src/MidiHandling.cpp" />
+		<Unit filename="src/MidiHandling.hpp" />
+		<Unit filename="src/RtMidi.h" />
 		<Unit filename="src/Touchscreen.cpp" />
 		<Unit filename="src/Touchscreen.hpp" />
 		<Unit filename="src/WaveOsc.cpp" />

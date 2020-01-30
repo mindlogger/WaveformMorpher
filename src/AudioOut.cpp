@@ -26,14 +26,14 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     /* Cast data passed through stream to our structure. */
     paTestData *data = (paTestData*)userData;
     float *out = (float*)outputBuffer;
-    unsigned int i;
+    //unsigned int i;
 
     (void) inputBuffer; /* Prevent unused variable warning. */
 
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase;  /* right */
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-    float x = getWavetableValue(wave_table_audio,440);
+    float x = getWavetableValue(wave_table_audio);
     data->left_phase = x;
     data->right_phase = x;
     return 0;

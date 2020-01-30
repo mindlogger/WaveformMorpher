@@ -36,7 +36,7 @@ void initFramebuffer(int *wave_table)
 
     size_t buflen;
     int fd = -1;
-    int r = 1;
+    //int r = 1;
 
     fd = open("/dev/fb1", O_RDWR);
     system("xinput disable stmpe-ts");
@@ -85,7 +85,7 @@ void initFramebuffer(int *wave_table)
                  * Then you can write pixels at locations such as that.
                  */
 
-                r = 0;   /* Indicate success */
+                //r = 0;   /* Indicate success */
             }
             else
             {

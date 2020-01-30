@@ -48,7 +48,7 @@ void signal_callback_handler(int signum)
             out_y = abs(out_y - 320);
             out_x = (24 * (ev2.value - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
 
-            printf("IN Y : %d OUT Y %d || IN X: %d\ OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
+            printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
 
             int screen_scaling = 4;
             for(int i = 0; i < screen_scaling; i++)
@@ -94,7 +94,7 @@ void loopedtouch()
             out_y = abs(out_y - 320);
             out_x = (24 * (ev2.value - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
 
-            printf("IN Y : %d OUT Y %d || IN X: %d\ OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
+            printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
 
             int screen_scaling = 4;
             for(int i = 0; i < screen_scaling; i++)
@@ -106,7 +106,7 @@ void loopedtouch()
         }
     }
 }
-int initTouchscreen(int* screen_wave)
+void initTouchscreen(int* screen_wave)
 {
     //signal(SIGUSR1, &signal_callback_handler);
     in = open("/dev/input/event3",O_RDONLY); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
