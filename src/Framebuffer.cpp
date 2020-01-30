@@ -12,6 +12,7 @@
 #include <fstream>
 
 char *buffer = NULL;
+size_t buflen = 0;
 
 void setPixel(int x, int y)//480 x 320
 {
@@ -29,12 +30,19 @@ void setPixelOff(int x, int y)//480 x 320
     *(buffer + x + 1 + y * 960) = 0x00;
 }
 
-void initFramebuffer(int *wave_table)
+void clearScreen()
+{
+    for(size_t i = 0;i < buflen-1;i++)//MAX VAL FOR i = //307199
+    {
+        buffer[i] = 0x00;
+    }
+}
+
+void initFramebuffer(float *wave_table)
 {
     struct fb_var_screeninfo screen_info;
     struct fb_fix_screeninfo fixed_info;
 
-    size_t buflen;
     int fd = -1;
     //int r = 1;
 
@@ -56,11 +64,6 @@ void initFramebuffer(int *wave_table)
             if (buffer != MAP_FAILED)
             {
 
-                for(size_t i = 0;i < buflen-1;i++)//SET ARRAY TO ZERO //MAX VAL FOR i = //307199
-                {
-                    buffer[i] = 0x00;
-                }
-
                 /*for(size_t i = 0;i < 480;i++)//FILL ARRAY WITH LINE AT 160
                 {
                     setPixel(i,160);
@@ -69,12 +72,13 @@ void initFramebuffer(int *wave_table)
 
                 //setPixel(480,320,buffer); //THIS SHOULD BE THE BOTTOM RIGHT CORNER PIXEL
 
-                for(size_t i = 1;i<480;i++)//DRAW SINE
+                /*for(size_t i = 0;i<480;i++)//DRAW SINE
                 {
                 int x = (145+(int)(140*sin(2*3.14*i/480)));
                 setPixel(i,x);
                 wave_table[i] = x;
-                }
+                }*/
+                table2Screen(wave_table);
 
                 /*
                  * TODO: something interesting here.
@@ -107,4 +111,12 @@ void initFramebuffer(int *wave_table)
         close(fd);
 
     //return r;
+}
+void table2Screen(float* wave_table)
+{
+    clearScreen();
+    for(int i = 0;i<480;i++)
+    {
+    setPixel(i,((wave_table[i]*140) + 150));
+    }
 }

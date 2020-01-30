@@ -34,6 +34,8 @@
 		<Unit filename="src/RtMidi.h" />
 		<Unit filename="src/Touchscreen.cpp" />
 		<Unit filename="src/Touchscreen.hpp" />
+		<Unit filename="src/WaveGenerator.cpp" />
+		<Unit filename="src/WaveGenerator.hpp" />
 		<Unit filename="src/WaveOsc.cpp" />
 		<Unit filename="src/WaveOsc.hpp" />
 		<Unit filename="src/main.cpp" />

@@ -3,6 +3,7 @@
 
 #include <sys/types.h>
 #include <stdio.h>
+#include <iostream>
 
 #define NUM_SECONDS   (60)
 #define SAMPLE_RATE   (48000)
@@ -15,7 +16,7 @@ typedef struct
 paTestData;
 
 
-int* wave_table_audio = NULL;
+float* wave_table_audio = NULL;
 
 static int patestCallback( const void *inputBuffer, void *outputBuffer,
                            unsigned long framesPerBuffer,
@@ -40,7 +41,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
 }
 
 static paTestData data;
-void initAudio(int* wave_table)
+void initAudio(float* wave_table)
 {
     wave_table_audio = wave_table;//SET LOCAL POINTER
 

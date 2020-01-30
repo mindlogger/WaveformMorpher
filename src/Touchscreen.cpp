@@ -14,7 +14,7 @@
 
 
 int in = -1;//File Descriptor for touch
-int* wave_table_touchscreen = NULL;
+float* wave_table_touchscreen = NULL;
 void signal_callback_handler(int signum)
 {
     input_event ev1;//ABS_X -> Y
@@ -53,8 +53,11 @@ void signal_callback_handler(int signum)
             int screen_scaling = 4;
             for(int i = 0; i < screen_scaling; i++)
             {
-                setPixelOff(out_x + i,wave_table_touchscreen[out_x+ i]);//DELETE OLD PIXEL
-                wave_table_touchscreen[out_x+ i] = out_y;//STORE NEW PIXEL
+                /*int convertedVal = ((wave_table_touchscreen[out_x + i])*150) + 150; //SCALING FROM -1 +1 to 0 300
+                setPixelOff(out_x + i,convertedVal);*///DELETE OLD PIXEL
+                clearScreen();
+                float convertedVal2 = (out_y-150)/300; //SCALING FROM 0 300 to -1 1
+                wave_table_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
                 setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
             }
         }
@@ -106,10 +109,10 @@ void loopedtouch()
         }
     }
 }
-void initTouchscreen(int* screen_wave)
+void initTouchscreen(float* screen_wave)
 {
     //signal(SIGUSR1, &signal_callback_handler);
-    in = open("/dev/input/event3",O_RDONLY); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
+    in = open("/dev/input/event5",O_RDONLY); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
     /*fcntl(in, F_SETOWN, getpid());
     int oflags = fcntl(in, F_GETFL);
     fcntl(in, F_SETFL, oflags | O_ASYNC);
