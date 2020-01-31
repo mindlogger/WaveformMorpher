@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1580413038 source:/home/pi/WaveformMorpher/src/main.cpp
+1580415344 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"Framebuffer.hpp"
 	"Touchscreen.hpp"
