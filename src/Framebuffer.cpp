@@ -13,6 +13,7 @@
 
 char *buffer = NULL;
 size_t buflen = 0;
+int wave_table_framebuffer[480];
 
 void setPixel(int x, int y)//480 x 320
 {
@@ -28,6 +29,17 @@ void setPixelOff(int x, int y)//480 x 320
     y = y - 1;
     *(buffer + x + y * 960) = 0x00;
     *(buffer + x + 1 + y * 960) = 0x00;
+}
+void setPixelOff(int x)//480 x 320
+{
+    int y = wave_table_framebuffer[x];
+    x = x * 958/480;
+    for(size_t i = 1;i < 300;i++)
+    {
+    y = i;
+    *(buffer + x + y * 960) = 0x00;
+    *(buffer + x + 1 + y * 960) = 0x00;
+    }
 }
 
 void clearScreen()
@@ -117,6 +129,8 @@ void table2Screen(float* wave_table)
     clearScreen();
     for(int i = 0;i<480;i++)
     {
-    setPixel(i,((wave_table[i]*140) + 150));
+    float x = ((wave_table[i]*140) + 150);
+    setPixel(i,x);
+    wave_table_framebuffer[i] = round(x);
     }
 }

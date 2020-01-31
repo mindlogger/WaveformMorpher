@@ -32,6 +32,8 @@
 		<Unit filename="src/MidiHandling.cpp" />
 		<Unit filename="src/MidiHandling.hpp" />
 		<Unit filename="src/RtMidi.h" />
+		<Unit filename="src/TimerEvent.cpp" />
+		<Unit filename="src/TimerEvent.hpp" />
 		<Unit filename="src/Touchscreen.cpp" />
 		<Unit filename="src/Touchscreen.hpp" />
 		<Unit filename="src/WaveGenerator.cpp" />

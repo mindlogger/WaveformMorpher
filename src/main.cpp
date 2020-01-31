@@ -4,6 +4,7 @@
 #include "WaveOsc.hpp"
 #include "MidiHandling.hpp"
 #include "WaveGenerator.hpp"
+#include "TimerEvent.hpp"
 
 #define SAMPLE_RATE   (48000)
 #define WAVE_TABLE_SIZE (480)
@@ -14,6 +15,7 @@ float screen_wave[WAVE_TABLE_SIZE]; //y = 0..150..300
 
 int main()
 {
+    setupTimer();
     gensinus(screen_wave,WAVE_TABLE_SIZE);
     initFramebuffer(screen_wave);
     initAudio(screen_wave);

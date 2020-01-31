@@ -2,7 +2,17 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src/WaveGenerator.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/WaveOsc.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/MidiHandling.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="64" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/WaveGenerator.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="282" topLine="0" />
 		</Cursor>
@@ -11,68 +21,14 @@
 			<Collapse line="18" />
 		</Folding>
 	</File>
-	<File name="src/Touchscreen.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="678" topLine="8" />
-		</Cursor>
-		<Folding>
-			<Collapse line="54" />
-			<Collapse line="55" />
-			<Collapse line="67" />
-			<Collapse line="72" />
-			<Collapse line="75" />
-			<Collapse line="77" />
-			<Collapse line="81" />
-			<Collapse line="85" />
-			<Collapse line="89" />
-			<Collapse line="103" />
-			<Collapse line="112" />
-			<Collapse line="115" />
-		</Folding>
-	</File>
-	<File name="src/MidiHandling.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="64" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/Framebuffer.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="124" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/AudioOut.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="68" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/WaveOsc.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="48" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/AudioOut.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2391" topLine="35" />
-		</Cursor>
-		<Folding>
-			<Collapse line="11" />
-			<Collapse line="25" />
-		</Folding>
-	</File>
-	<File name="src/WaveOsc.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="543" topLine="0" />
+			<Cursor1 position="214" topLine="0" />
 		</Cursor>
 		<Folding>
 			<Collapse line="16" />
-			<Collapse line="29" />
-			<Collapse line="32" />
+			<Collapse line="24" />
 		</Folding>
-	</File>
-	<File name="src/main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="414" topLine="1" />
-		</Cursor>
 	</File>
 	<File name="src/MidiHandling.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -87,32 +43,80 @@
 			<Collapse line="177" />
 		</Folding>
 	</File>
-	<File name="src/Framebuffer.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Framebuffer.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="606" topLine="4" />
+			<Cursor1 position="146" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/WaveOsc.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="543" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="17" />
-			<Collapse line="25" />
-			<Collapse line="33" />
-			<Collapse line="35" />
-			<Collapse line="41" />
-			<Collapse line="52" />
-			<Collapse line="55" />
-			<Collapse line="64" />
-			<Collapse line="66" />
-			<Collapse line="74" />
-			<Collapse line="82" />
-			<Collapse line="94" />
-			<Collapse line="99" />
-			<Collapse line="104" />
-			<Collapse line="115" />
-			<Collapse line="118" />
+			<Collapse line="16" />
+			<Collapse line="29" />
+			<Collapse line="32" />
 		</Folding>
+	</File>
+	<File name="src/TimerEvent.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="59" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/AudioOut.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2391" topLine="35" />
+		</Cursor>
+		<Folding>
+			<Collapse line="11" />
+			<Collapse line="25" />
+		</Folding>
+	</File>
+	<File name="src/Touchscreen.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4060" topLine="92" />
+		</Cursor>
+		<Folding>
+			<Collapse line="54" />
+			<Collapse line="55" />
+			<Collapse line="77" />
+			<Collapse line="81" />
+			<Collapse line="85" />
+			<Collapse line="89" />
+		</Folding>
+	</File>
+	<File name="src/TimerEvent.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="176" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="src/Touchscreen.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="89" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Framebuffer.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="718" topLine="18" />
+		</Cursor>
+		<Folding>
+			<Collapse line="26" />
+			<Collapse line="47" />
+			<Collapse line="53" />
+			<Collapse line="64" />
+			<Collapse line="67" />
+			<Collapse line="76" />
+			<Collapse line="78" />
+			<Collapse line="86" />
+			<Collapse line="94" />
+			<Collapse line="106" />
+			<Collapse line="111" />
+			<Collapse line="116" />
+		</Folding>
+	</File>
+	<File name="src/AudioOut.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="68" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -102,8 +102,9 @@ void loopedtouch()
             int screen_scaling = 4;
             for(int i = 0; i < screen_scaling; i++)
             {
-                setPixelOff(out_x + i,wave_table_touchscreen[out_x+ i]);//DELETE OLD PIXEL
-                wave_table_touchscreen[out_x+ i] = out_y;//STORE NEW PIXEL
+                setPixelOff(out_x + i);//DELETE OLD PIXEL
+                float convertedVal2 = (out_y-150.0)/300.0;
+                wave_table_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
                 setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
             }
         }
