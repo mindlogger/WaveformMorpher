@@ -1,5 +1,7 @@
 //WaveGenerator.h
-void gensinus(float* wave_table,int size);
-void gensaw(float* wave_table,int size);
-void gensqr(float* wave_table,int size);
-void genmixed(float* wave_table,int size);
+#ifndef WAVEGENERATOR_H
+#define WAVEGENERATOR_H
+void genSin(double* waveTable,int N);
+void genSaw(double* waveTable,int N);
+void genSqr(double* waveTable,int N);
+#endif

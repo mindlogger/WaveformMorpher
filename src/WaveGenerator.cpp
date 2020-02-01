@@ -1,38 +1,36 @@
 #include "WaveGenerator.hpp"
 #include <math.h>
 
-#define M_PI 3.14159265359
-
-void gensinus(float* wave_table,int size)
+void genSin(double* waveTable,int N)
 {
     int i;
-	for(i = 0;i < size;i++)
+	for(i = 0;i < N;i++)
 	{
-		wave_table[i] = sin(2*M_PI*(1/(float)size)*i);
+		waveTable[i] = sin(2*M_PI*(1/(double)N)*i);
 	}
 }
 
-void gensaw(float* wave_table,int size)
+void genSaw(double* waveTable,int N)
 {
     int i;
-	for(i = 0;i < size;i++)
+	for(i = 0;i < N;i++)
 	{
-		wave_table[i] = ((float)i /(float)(size/2) ) - 1.0;
+		waveTable[i] = ((double)i /(double)(N/2) ) - 1.0;
 	}
 }
 
-void gensqr(float* wave_table,int size)
+void genSqr(double* waveTable,int N)
 {
     int i;
-	for(i = 0;i < size;i++)
+	for(i = 0;i < N;i++)
 	{
-		if(i <= size/2)
+		if(i <= N/2)
 		{
-			wave_table[i] = -1.0;
+			waveTable[i] = -1.0;
 		}
 		else
 		{
-			wave_table[i] = 1.0;
+			waveTable[i] = 1.0;
 		}
 	}
 }

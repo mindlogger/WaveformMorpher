@@ -1,0 +1,2 @@
+#define SAMPLE_RATE (48000)
+#define WAVE_TABLE_SIZE (480)

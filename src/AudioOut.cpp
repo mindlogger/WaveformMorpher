@@ -1,12 +1,9 @@
 #include "WaveOsc.hpp"
 #include "portaudio.h"
-
+#include "GlobalDefinitions.hpp"
 #include <sys/types.h>
 #include <stdio.h>
 #include <iostream>
-
-#define NUM_SECONDS   (60)
-#define SAMPLE_RATE   (48000)
 
 typedef struct
 {
@@ -16,7 +13,7 @@ typedef struct
 paTestData;
 
 
-float* wave_table_audio = NULL;
+double* wave_table_audio = NULL;
 
 static int patestCallback( const void *inputBuffer, void *outputBuffer,
                            unsigned long framesPerBuffer,
@@ -34,14 +31,14 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase;  /* right */
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-    float x = getWavetableValue(wave_table_audio);
+    float x = (float) getWavetableValue(wave_table_audio);
     data->left_phase = x;
     data->right_phase = x;
     return 0;
 }
 
 static paTestData data;
-void initAudio(float* wave_table)
+void initAudio(double* wave_table)
 {
     wave_table_audio = wave_table;//SET LOCAL POINTER
 

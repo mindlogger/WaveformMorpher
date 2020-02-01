@@ -8,7 +8,7 @@
 
 RtMidiIn *midiin;
 
-float MidiNote2Freq[120] = {16.35,
+double MidiNote2Freq[120] = {16.35,
 17.32,
 18.35,
 19.45,
@@ -128,7 +128,7 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
         case 144:{
                     std::cout << "ON ";
                     i++;
-                    float f = MidiNote2Freq[(int)message->at(i)];
+                    double f = MidiNote2Freq[(int)message->at(i)];
                     setfreq(f);
                     std::cout << f;
                     i++;
@@ -137,7 +137,7 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
         case 128:{
                     std::cout << "OFF ";
                     i++;
-                    float f = 440;
+                    double f = 440;
                     std::cout << MidiNote2Freq[(int)message->at(i)];
                     i++;
                     unsigned char val2 = (int)message->at(i);

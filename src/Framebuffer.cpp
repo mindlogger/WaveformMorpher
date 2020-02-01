@@ -50,7 +50,7 @@ void clearScreen()
     }
 }
 
-void initFramebuffer(float *wave_table)
+void initFramebuffer(double *wave_table)
 {
     struct fb_var_screeninfo screen_info;
     struct fb_fix_screeninfo fixed_info;
@@ -124,12 +124,12 @@ void initFramebuffer(float *wave_table)
 
     //return r;
 }
-void table2Screen(float* wave_table)
+void table2Screen(double* wave_table)
 {
     clearScreen();
     for(int i = 0;i<480;i++)
     {
-    float x = ((wave_table[i]*140) + 150);
+    double x = ((wave_table[i]*140.0) + 150.0);
     setPixel(i,x);
     wave_table_framebuffer[i] = round(x);
     }

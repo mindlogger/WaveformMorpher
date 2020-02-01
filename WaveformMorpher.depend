@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1580476143 source:/home/pi/WaveformMorpher/src/main.cpp
+1580592363 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"Framebuffer.hpp"
 	"Touchscreen.hpp"
@@ -7,17 +7,22 @@
 	"MidiHandling.hpp"
 	"WaveGenerator.hpp"
 	"TimerEvent.hpp"
+	"FourierTransformer.hpp"
+	"GlobalDefinitions.hpp"
+	<fftw3.h>
+	"iostream"
 
-1580412568 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1580589839 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
+	"GlobalDefinitions.hpp"
 	<sys/types.h>
 	<stdio.h>
 	<iostream>
 
-1580413516 /home/pi/WaveformMorpher/src/WaveOsc.hpp
+1580588145 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1580475146 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
+1580592507 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
 	"Framebuffer.hpp"
 	<sys/types.h>
 	<sys/ioctl.h>
@@ -30,13 +35,14 @@
 	<iostream>
 	<fstream>
 
-1580412531 /home/pi/WaveformMorpher/src/AudioOut.hpp
+1580588121 /home/pi/WaveformMorpher/src/AudioOut.hpp
 
-1580473643 /home/pi/WaveformMorpher/src/Framebuffer.hpp
+1580588126 /home/pi/WaveformMorpher/src/Framebuffer.hpp
 
-1580412525 /home/pi/WaveformMorpher/src/Touchscreen.hpp
+1580590267 /home/pi/WaveformMorpher/src/Touchscreen.hpp
 
-1580474515 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1580590269 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+	"Touchscreen.hpp"
 	"Framebuffer.hpp"
 	<iostream>
 	<fstream>
@@ -50,8 +56,9 @@
 	<signal.h>
 	<stdio.h>
 
-1580413533 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1580589901 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
+	"GlobalDefinitions.hpp"
 	<math.h>
 
 1555590958 /home/pi/WaveformMorpher/src/RtMidi.h
@@ -62,18 +69,34 @@
 
 1580376800 /home/pi/WaveformMorpher/src/MidiHandling.hpp
 
-1580380939 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1580588287 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
 	<iostream>
 	<cstdlib>
 	"RtMidi.h"
 
-1576067634 /home/pi/WaveformMorpher/src/WaveGenerator.hpp
+1580590374 /home/pi/WaveformMorpher/src/WaveGenerator.hpp
 
-1580413076 source:/home/pi/WaveformMorpher/src/WaveGenerator.cpp
+1580589982 source:/home/pi/WaveformMorpher/src/WaveGenerator.cpp
 	"WaveGenerator.hpp"
 	<math.h>
 
 1580476064 /home/pi/WaveformMorpher/src/TimerEvent.hpp
+
+1580477764 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
+	<stdio.h>
+	<signal.h>
+	<sys/time.h>
+
+1580589830 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+
+1580592911 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
+	"FourierTransformer.hpp"
+	"GlobalDefinitions.hpp"
+	"math.h"
+	<iostream>
+
+1580591319 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
+	<fftw3.h>
 

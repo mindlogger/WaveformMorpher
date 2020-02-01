@@ -5,25 +5,33 @@
 #include "MidiHandling.hpp"
 #include "WaveGenerator.hpp"
 #include "TimerEvent.hpp"
+#include "FourierTransformer.hpp"
+#include "GlobalDefinitions.hpp"
+#include <fftw3.h>
 
-#define SAMPLE_RATE   (48000)
-#define WAVE_TABLE_SIZE (480)
+#include "iostream"
+
+
 
 using namespace std;
 
-float screen_wave[WAVE_TABLE_SIZE]; //y = 0..150..300
+double screenWave[WAVE_TABLE_SIZE]; //y = 0..150..300
 
 int main()
 {
     setupTimer();
-    gensinus(screen_wave,WAVE_TABLE_SIZE);
-    initFramebuffer(screen_wave);
-    initAudio(screen_wave);
-    initTouchscreen(screen_wave);
+    genSqr(screenWave,WAVE_TABLE_SIZE);
+    initFramebuffer(screenWave);
+    initAudio(screenWave);
+    initTouchscreen(screenWave);
     initMidi();
+    initTransformer(screenWave);
+    double* test = transForward();
+    std::cout << test[1] << std::endl;
+    table2Screen(test);
     while(true)
     {
-        loopedtouch();
+        //loopedtouch();
     }
     return 0;
 }
