@@ -19,6 +19,7 @@ void setPixel(int x, int y)//480 x 320
 {
     x = x * 958/480;
     y = y - 1;
+    y = abs(y);
     *(buffer + x + y * 960) = 0xFF;
     *(buffer + x + 1 + y * 960) = 0xFF;
 }
@@ -34,7 +35,7 @@ void setPixelOff(int x)//480 x 320
 {
     int y = wave_table_framebuffer[x];
     x = x * 958/480;
-    for(size_t i = 1;i < 300;i++)
+    for(size_t i = 0;i < 320;i++)
     {
     y = i;
     *(buffer + x + y * 960) = 0x00;
@@ -127,10 +128,24 @@ void initFramebuffer(double *wave_table)
 void table2Screen(double* wave_table)
 {
     clearScreen();
-    for(int i = 0;i<480;i++)
+    for(int i = 1;i<480;i++)
     {
-    double x = ((wave_table[i]*140.0) + 150.0);
+    double x = ((wave_table[i]+1) * 160.0);
+    x = -1 * x + 320;
+    //x = x + 150;
+    x = round(x);
+    if(x < 0) //ONLY FOR DEBUGING REASONS
+    {
+        std::cout << "to small: " << x << std::endl;
+        x = 1;
+    }
+    if(x > 320) //ONLY FOR DEBUGING REASONS
+    {
+        std::cout << "to large: " << x << std::endl;
+        x = 320;
+    }
     setPixel(i,x);
-    wave_table_framebuffer[i] = round(x);
+    //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
+    wave_table_framebuffer[i] = x;
     }
 }

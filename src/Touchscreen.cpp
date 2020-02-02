@@ -51,13 +51,11 @@ void signal_callback_handler(int signum)
 
             printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
 
-            int screen_scaling = 4;
+            int screen_scaling = 2;
             for(int i = 0; i < screen_scaling; i++)
             {
-                /*int convertedVal = ((wave_table_touchscreen[out_x + i])*150) + 150; //SCALING FROM -1 +1 to 0 300
-                setPixelOff(out_x + i,convertedVal);*///DELETE OLD PIXEL
-                clearScreen();
-                double convertedVal2 = (out_y-150)/300; //SCALING FROM 0 300 to -1 1
+                setPixelOff(out_x + i);//DELETE OLD PIXEL
+                double convertedVal2 = (out_y-150.0)/300.0;
                 wave_table_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
                 setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
             }
@@ -113,9 +111,9 @@ void loopedtouch()
 }
 void initTouchscreen(double* screenWave)
 {
-    //signal(SIGUSR1, &signal_callback_handler);
-    in = open("/dev/input/event3",O_RDONLY); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
-    /*fcntl(in, F_SETOWN, getpid());
+    signal(SIGUSR1, &signal_callback_handler);
+    in = open("/dev/input/event5",O_RDONLY); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
+    fcntl(in, F_SETOWN, getpid());
     int oflags = fcntl(in, F_GETFL);
     fcntl(in, F_SETFL, oflags | O_ASYNC);
     int k = 0;
@@ -124,7 +122,7 @@ void initTouchscreen(double* screenWave)
 
     printf("My PID: %d\n",i);
     printf("fcntl return: %d\n",k);
-    */
+
     wave_table_touchscreen = screenWave;
 
     //raise(SIGUSR1); //FOR DEBUGGIN SENDS SIGNAL TO CURRENT PROCESS

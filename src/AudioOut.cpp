@@ -31,7 +31,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase;  /* right */
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-    float x = (float) getWavetableValue(wave_table_audio);
+    float x = getWavetableValue(wave_table_audio);
     data->left_phase = x;
     data->right_phase = x;
     return 0;
@@ -46,7 +46,7 @@ void initAudio(double* wave_table)
     PaStream *stream;
     PaError err;
 
-    printf("PortAudio Test: output sawtooth wave.\n");
+    printf("PortAudio initialized");
     /* Initialize our data for use by callback. */
     data.left_phase = data.right_phase = 0.0;
     /* Initialize library before making any other calls. */

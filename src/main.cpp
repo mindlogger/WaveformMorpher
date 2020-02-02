@@ -7,7 +7,6 @@
 #include "TimerEvent.hpp"
 #include "FourierTransformer.hpp"
 #include "GlobalDefinitions.hpp"
-#include <fftw3.h>
 
 #include "iostream"
 
@@ -15,22 +14,42 @@
 
 using namespace std;
 
-double screenWave[WAVE_TABLE_SIZE]; //y = 0..150..300
+double mainWave[WAVE_TABLE_SIZE]; //y = 0..150..300
 
 int main()
 {
-    setupTimer();
-    genSqr(screenWave,WAVE_TABLE_SIZE);
-    initFramebuffer(screenWave);
-    initAudio(screenWave);
-    initTouchscreen(screenWave);
+    //setupTimer();
+    genSqr(mainWave,WAVE_TABLE_SIZE);
+    initFramebuffer(mainWave);
+    initAudio(mainWave);
+    initTouchscreen(mainWave);
     initMidi();
-    initTransformer(screenWave);
-    double* test = transForward();
-    std::cout << test[1] << std::endl;
-    table2Screen(test);
+    initTransformer(mainWave);
+
     while(true)
     {
+
+        char input;
+        std::cout << "Enter f for forward or b for backward: ";
+        cin >> input;
+        switch(input)
+        {
+            case 'f' :
+            {
+                cout << "forward transform" << endl;
+                double* test = transForward();
+                table2Screen(test);
+                std::cout << test[1] << std::endl;
+                break ;
+            }
+            case 'b' :
+            {
+                cout << "backwards transform" << endl;
+                table2Screen(mainWave);
+                break;
+            }
+            default : cout << "\nBad Input. Must be f or b" ;
+        }
         //loopedtouch();
     }
     return 0;
