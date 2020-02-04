@@ -1,4 +1,5 @@
 #include "Framebuffer.hpp"
+#include "GlobalDefinitions.hpp"
 
 #include <sys/types.h>
 #include <sys/ioctl.h>
@@ -13,7 +14,7 @@
 
 char *buffer = NULL;
 size_t buflen = 0;
-int wave_table_framebuffer[480];
+int wave_table_framebuffer[WAVE_TABLE_SIZE];
 
 void setPixel(int x, int y)//480 x 320
 {
@@ -128,7 +129,7 @@ void initFramebuffer(double *wave_table)
 void table2Screen(double* wave_table)
 {
     clearScreen();
-    for(int i = 1;i<480;i++)
+    for(int i = 0;i<WAVE_TABLE_SIZE;i++)
     {
     double x = ((wave_table[i]+1) * 160.0);
     x = -1 * x + 320;
@@ -147,5 +148,35 @@ void table2Screen(double* wave_table)
     setPixel(i,x);
     //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
     wave_table_framebuffer[i] = x;
+    }
+}
+void screenTable2Continuous()
+{
+    for(size_t i = 0;i<WAVE_TABLE_SIZE-1;i++)
+    {
+        double x = wave_table_framebuffer[i] - wave_table_framebuffer[i+1];
+        if(abs(x) > 2)
+        {
+        if(x < 0)
+        {
+            std::cout << "SMALLER" << std::endl;
+            for(size_t a = 0;a < x;a++)
+            {
+                setPixel(i,a);
+
+            }
+            //NEXT IS SMALLER
+        }
+        else
+        {
+            std::cout << "BIGGER" << std::endl;
+            for(size_t b = wave_table_framebuffer[i];b > wave_table_framebuffer[i+1];b--)
+            {
+                //std::cout << b << std::endl;
+                setPixel(i, b);
+            }
+            //NEXT IS BIGGER
+        }
+        }
     }
 }

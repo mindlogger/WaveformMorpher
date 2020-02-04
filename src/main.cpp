@@ -8,24 +8,26 @@
 #include "FourierTransformer.hpp"
 #include "GlobalDefinitions.hpp"
 
-#include "iostream"
+#include <cstring>
+#include <iostream>
 
 
 
 using namespace std;
 
 double mainWave[WAVE_TABLE_SIZE]; //y = 0..150..300
+double mainFFT[WAVE_TABLE_SIZE];
 
 int main()
 {
     //setupTimer();
-    genSqr(mainWave,WAVE_TABLE_SIZE);
+    genSaw(mainWave,WAVE_TABLE_SIZE);
     initFramebuffer(mainWave);
     initAudio(mainWave);
     initTouchscreen(mainWave);
     initMidi();
-    initTransformer(mainWave);
-
+    initTransformer(mainWave,mainFFT);
+    //screenTable2Continuous();
     while(true)
     {
 
@@ -37,15 +39,23 @@ int main()
             case 'f' :
             {
                 cout << "forward transform" << endl;
-                double* test = transForward();
-                table2Screen(test);
-                std::cout << test[1] << std::endl;
+                double* fft_out_prescale = transForward();
+                double fft_out_postscale[WAVE_TABLE_SIZE];
+                for(size_t i = 0; i < WAVE_TABLE_SIZE;i++)
+                {
+                    fft_out_postscale[i] = (fft_out_prescale[i/2]);//scale without any interpoaltion
+                }
+                table2Screen(fft_out_postscale);
+                memcpy(mainFFT,fft_out_postscale,sizeof(double) * WAVE_TABLE_SIZE); //make globaly available
+                //screenTable2Continuous();
+                //std::cout << fft_out_prescale[1] << std::endl;
                 break ;
             }
             case 'b' :
             {
                 cout << "backwards transform" << endl;
-                table2Screen(mainWave);
+                double* ifft_out_prescale = transBackward();
+                table2Screen(ifft_out_prescale);
                 break;
             }
             default : cout << "\nBad Input. Must be f or b" ;
