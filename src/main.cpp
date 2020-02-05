@@ -20,7 +20,7 @@ double mainFFT[WAVE_TABLE_SIZE];
 
 int main()
 {
-    //setupTimer();
+    setupTimer();
     genSqr(mainWave,WAVE_TABLE_SIZE);
     initFramebuffer(mainWave);
     initAudio(mainWave);
@@ -70,7 +70,6 @@ int main()
             }
             default : cout << "\nBad Input. Must be f,b or r" ;
         }
-        //loopedtouch();
     }
     return 0;
 }

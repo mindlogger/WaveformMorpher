@@ -131,7 +131,7 @@ void table2Screen(double* wave_table)
     clearScreen();
     for(int i = 0; i<WAVE_TABLE_SIZE; i++)
     {
-        double x = ((wave_table[i]+1) * 160.0);
+        double x = ((wave_table[i]+1) * 159.0);
         x = -1 * x + 320;
         x = round(x);
         if(x < 0) //ONLY FOR DEBUGING REASONS
@@ -154,7 +154,7 @@ void screenTable2Continuous()
     for(size_t i = 0; i<WAVE_TABLE_SIZE-1; i++)
     {
         double x = wave_table_framebuffer[i] - wave_table_framebuffer[i+1];
-        if(abs(x) > 2)//PIXEL DIFFERENCE FOR SCALING TO TAKE PLACE
+        if(abs(x) > 3)//PIXEL DIFFERENCE FOR SCALING TO TAKE PLACE
         {
             if(x < 0)
             {
