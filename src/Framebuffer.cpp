@@ -14,7 +14,7 @@
 
 char *buffer = NULL;
 size_t buflen = 0;
-int wave_table_framebuffer[WAVE_TABLE_SIZE];
+int wave_table_framebuffer[WAVE_TABLE_SIZE];//TODO MAKE THIS size_t
 
 void setPixel(int x, int y)//480 x 320
 {
@@ -36,17 +36,17 @@ void setPixelOff(int x)//480 x 320
 {
     int y = wave_table_framebuffer[x];
     x = x * 958/480;
-    for(size_t i = 0;i < 320;i++)
+    for(size_t i = 0; i < 320; i++)
     {
-    y = i;
-    *(buffer + x + y * 960) = 0x00;
-    *(buffer + x + 1 + y * 960) = 0x00;
+        y = i;
+        *(buffer + x + y * 960) = 0x00;
+        *(buffer + x + 1 + y * 960) = 0x00;
     }
 }
 
 void clearScreen()
 {
-    for(size_t i = 0;i < buflen-1;i++)//MAX VAL FOR i = //307199
+    for(size_t i = 0; i < buflen-1; i++) //MAX VAL FOR i = //307199
     {
         buffer[i] = 0x00;
     }
@@ -70,11 +70,11 @@ void initFramebuffer(double *wave_table)
         {
             buflen = screen_info.yres_virtual * fixed_info.line_length;
             buffer = (char*) mmap(NULL,
-                          buflen,
-                          PROT_READ|PROT_WRITE,
-                          MAP_SHARED,
-                          fd,
-                          0);
+                                  buflen,
+                                  PROT_READ|PROT_WRITE,
+                                  MAP_SHARED,
+                                  fd,
+                                  0);
             if (buffer != MAP_FAILED)
             {
 
@@ -121,62 +121,68 @@ void initFramebuffer(double *wave_table)
     }
     if (buffer && buffer != MAP_FAILED)
         //munmap(buffer, buflen); //THIS LINE DESTROYS BASICALLY EVERYTHING
-    if (fd >= 0)
-        close(fd);
+        if (fd >= 0)
+            close(fd);
 
     //return r;
 }
 void table2Screen(double* wave_table)
 {
     clearScreen();
-    for(int i = 0;i<WAVE_TABLE_SIZE;i++)
+    for(int i = 0; i<WAVE_TABLE_SIZE; i++)
     {
-    double x = ((wave_table[i]+1) * 160.0);
-    x = -1 * x + 320;
-    //x = x + 150;
-    x = round(x);
-    if(x < 0) //ONLY FOR DEBUGING REASONS
-    {
-        std::cout << "to small: " << x << std::endl;
-        x = 1;
-    }
-    if(x > 320) //ONLY FOR DEBUGING REASONS
-    {
-        std::cout << "to large: " << x << std::endl;
-        x = 320;
-    }
-    setPixel(i,x);
-    //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
-    wave_table_framebuffer[i] = x;
+        double x = ((wave_table[i]+1) * 160.0);
+        x = -1 * x + 320;
+        x = round(x);
+        if(x < 0) //ONLY FOR DEBUGING REASONS
+        {
+            std::cout << "to small: " << x << std::endl; //DEBUG
+            x = 1;
+        }
+        if(x > 320) //ONLY FOR DEBUGING REASONS
+        {
+            std::cout << "to large: " << x << std::endl; //DEBUG
+            x = 320;
+        }
+        setPixel(i,x);
+        //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
+        wave_table_framebuffer[i] = x;
     }
 }
 void screenTable2Continuous()
 {
-    for(size_t i = 0;i<WAVE_TABLE_SIZE-1;i++)
+    for(size_t i = 0; i<WAVE_TABLE_SIZE-1; i++)
     {
         double x = wave_table_framebuffer[i] - wave_table_framebuffer[i+1];
-        if(abs(x) > 2)
+        if(abs(x) > 2)//PIXEL DIFFERENCE FOR SCALING TO TAKE PLACE
         {
-        if(x < 0)
-        {
-            std::cout << "SMALLER" << std::endl;
-            for(size_t a = 0;a < x;a++)
+            if(x < 0)
             {
-                setPixel(i,a);
+                for(size_t a = wave_table_framebuffer[i]; a < wave_table_framebuffer[i+1]; a++)
+                {
+                    //NEXT IS SMALLER PHYSICALLY
+                    setPixel(i,a);
+                }
 
             }
-            //NEXT IS SMALLER
-        }
-        else
-        {
-            std::cout << "BIGGER" << std::endl;
-            for(size_t b = wave_table_framebuffer[i];b > wave_table_framebuffer[i+1];b--)
+            else
             {
-                //std::cout << b << std::endl;
-                setPixel(i, b);
+                for(size_t b = wave_table_framebuffer[i]; b > wave_table_framebuffer[i+1]; b--)
+                {
+                    //NEXT IS BIGGER PHYSICALLY
+                    setPixel(i, b);
+                }
+
             }
-            //NEXT IS BIGGER
-        }
         }
     }
 }
+void fillScreen()
+{
+    for(size_t a = 0;a<480;a++) //EXPERIMENT FOR DEBUGING
+    {
+        for(size_t b = 0;b<320;b++)
+            setPixel(a,b);
+    }
+}
+

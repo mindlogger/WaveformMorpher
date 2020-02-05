@@ -24,9 +24,13 @@ void genSqr(double* waveTable,int N)
     int i;
 	for(i = 0;i < N;i++)
 	{
-		if(i <= N/2)
+		if(i < N/2)
 		{
 			waveTable[i] = -1.0;
+		}
+		else if(i == N/2)
+		{
+            waveTable[i] = 0.0;
 		}
 		else
 		{

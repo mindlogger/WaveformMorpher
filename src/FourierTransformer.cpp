@@ -14,7 +14,7 @@ fftw_plan fftForward,fftBackward;
 
 void initTransformer(double* waveTable,double* fftTable)
 {
-    fft_table = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*480*2);
+    fft_table = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*WAVE_TABLE_SIZE*2);
     fft_wave = waveTable;
     ifft_wave = fftTable;
     fftForward = fftw_plan_dft_r2c_1d(WAVE_TABLE_SIZE, fft_wave, fft_table,FFTW_ESTIMATE);
@@ -34,7 +34,7 @@ double* transForward()
 }
 double* transBackward()
 {
-    for(size_t i = 0;i < WAVE_TABLE_SIZE;i++)
+    for(size_t i = 0;i < WAVE_TABLE_SIZE;i++)//PROPER SCALING
     {
         fft_table[i][0] = (1.0/WAVE_TABLE_SIZE) *fft_table[i][0];
         fft_table[i][1] = (1.0/WAVE_TABLE_SIZE) *fft_table[i][1];

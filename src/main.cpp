@@ -21,13 +21,13 @@ double mainFFT[WAVE_TABLE_SIZE];
 int main()
 {
     //setupTimer();
-    genSaw(mainWave,WAVE_TABLE_SIZE);
+    genSqr(mainWave,WAVE_TABLE_SIZE);
     initFramebuffer(mainWave);
     initAudio(mainWave);
     initTouchscreen(mainWave);
     initMidi();
     initTransformer(mainWave,mainFFT);
-    //screenTable2Continuous();
+    screenTable2Continuous();
     while(true)
     {
 
@@ -43,12 +43,11 @@ int main()
                 double fft_out_postscale[WAVE_TABLE_SIZE];
                 for(size_t i = 0; i < WAVE_TABLE_SIZE;i++)
                 {
-                    fft_out_postscale[i] = (fft_out_prescale[i/2]);//scale without any interpoaltion
+                    fft_out_postscale[i] = (fft_out_prescale[i/2]);//scale without any interpoaltion because FFT is only N/2 in length
                 }
                 table2Screen(fft_out_postscale);
                 memcpy(mainFFT,fft_out_postscale,sizeof(double) * WAVE_TABLE_SIZE); //make globaly available
-                //screenTable2Continuous();
-                //std::cout << fft_out_prescale[1] << std::endl;
+                screenTable2Continuous();
                 break ;
             }
             case 'b' :
@@ -58,7 +57,18 @@ int main()
                 table2Screen(ifft_out_prescale);
                 break;
             }
-            default : cout << "\nBad Input. Must be f or b" ;
+            case 'r' :
+            {
+                cout << "rounding" << endl;
+                for(size_t i = 0; i < WAVE_TABLE_SIZE-1;i++)
+                {
+                    mainWave[i] = (mainWave[i] + mainWave[i+1]) / 2.0;
+                }
+                table2Screen(mainWave);
+                screenTable2Continuous();
+                break;
+            }
+            default : cout << "\nBad Input. Must be f,b or r" ;
         }
         //loopedtouch();
     }
