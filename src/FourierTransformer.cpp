@@ -2,7 +2,6 @@
 #include "GlobalDefinitions.hpp"
 #include "math.h"
 #include <iostream>
-#include <fftw3.h>
 
 fftw_complex *fft_table;// [WAVE_TABLE_SIZE*2];
 double* fft_wave = NULL;
@@ -12,11 +11,10 @@ double ifft_out[WAVE_TABLE_SIZE];
 
 fftw_plan fftForward,fftBackward;
 
-void initTransformer(double* waveTable,double* fftTable)
+void initTransformer(double* waveTable,fftw_complex* fftTable)
 {
-    fft_table = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*WAVE_TABLE_SIZE*2);
     fft_wave = waveTable;
-    ifft_wave = fftTable;
+    fft_table = fftTable;
     fftForward = fftw_plan_dft_r2c_1d(WAVE_TABLE_SIZE, fft_wave, fft_table,FFTW_ESTIMATE);
     fftBackward = fftw_plan_dft_c2r_1d(WAVE_TABLE_SIZE, fft_table, ifft_out,FFTW_ESTIMATE);
 }

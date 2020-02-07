@@ -13,9 +13,15 @@
 #include <signal.h>
 #include <stdio.h>
 
+#define GLOBALS 1
+#include "GlobalDefinitions.hpp"
+
 
 int in = -1;//File Descriptor for touch
+//Color::c = Color::Green;
+
 double* wave_table_touchscreen = NULL;
+fftw_complex* fft_touchscreen = NULL;
 void signal_callback_handler(int signum)
 {
     input_event ev;
@@ -85,21 +91,37 @@ void toScreen(size_t out_x,size_t out_y)
     out_x = (24 * (out_x - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
 
     //printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
-
-    int screen_scaling = 5;
-    for(int i = 0; i < screen_scaling; i++)
+    if(screenstate == Screenstates::A_W) //TODO CASE SWITCH IN THE FUTURE FOR MORPHING
     {
-        setPixelOff(out_x + i);//DELETE OLD PIXEL
-        double convertedVal2 = -(out_y/160.0)+1.0;
-        wave_table_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
-        setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
+        int screen_scaling = 5;
+        for(int i = 0; i < screen_scaling; i++)
+        {
+            setPixelOff(out_x + i);//DELETE OLD PIXEL
+            double convertedVal2 = -(out_y/160.0)+1.0;
+            wave_table_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
+            setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
+        }
+    }
+    else
+    {
+        int screen_scaling = 5;
+        for(int i = 0; i < screen_scaling; i++)
+        {
+            setPixelOff(out_x + i);//DELETE OLD PIXEL
+            double convertedVal2 = -(out_y/160.0)+1.0;
+            fft_touchscreen[out_x + i][1] = convertedVal2 * 240;//STORE NEW PIXEL
+            setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
+        }
     }
 }
 
-void initTouchscreen(double* screenWave)
+void initTouchscreen(double* screenWave,fftw_complex* screenFFT)
 {
+    wave_table_touchscreen = screenWave;
+    fft_touchscreen = screenFFT;
+    screenstate = Screenstates::A_W;
     signal(SIGUSR1, &signal_callback_handler);
-    in = open("/dev/input/event3",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
+    in = open("/dev/input/event5",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
     fcntl(in, F_SETOWN, getpid());
     int oflags = fcntl(in, F_GETFL);
     fcntl(in, F_SETFL, oflags | O_ASYNC);
@@ -114,7 +136,7 @@ void initTouchscreen(double* screenWave)
     //ioctl(in, FIOBIO, &flags);
 
 
-    wave_table_touchscreen = screenWave;
+
 
     //raise(SIGUSR1); //FOR DEBUGGIN SENDS SIGNAL TO CURRENT PROCESS
 }

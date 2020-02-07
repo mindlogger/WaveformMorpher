@@ -17,16 +17,19 @@ using namespace std;
 
 double mainWave[WAVE_TABLE_SIZE]; //y = 0..150..300
 double mainFFT[WAVE_TABLE_SIZE];
+fftw_complex *mainFFTc;
 
 int main()
 {
+    mainFFTc = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*WAVE_TABLE_SIZE/2);//TODO THINK ABOUT THIS
     setupTimer();
-    genSqr(mainWave,WAVE_TABLE_SIZE);
+    genSin(mainWave,WAVE_TABLE_SIZE);
     initFramebuffer(mainWave);
     initAudio(mainWave);
-    initTouchscreen(mainWave);
+    initTouchscreen(mainWave,mainFFTc);
     initMidi();
-    initTransformer(mainWave,mainFFT);
+
+    initTransformer(mainWave,mainFFTc);
     screenTable2Continuous();
     while(true)
     {
@@ -48,13 +51,17 @@ int main()
                 table2Screen(fft_out_postscale);
                 memcpy(mainFFT,fft_out_postscale,sizeof(double) * WAVE_TABLE_SIZE); //make globaly available
                 screenTable2Continuous();
+                screenstate = Screenstates::A_F;
                 break ;
             }
             case 'b' :
             {
                 cout << "backwards transform" << endl;
                 double* ifft_out_prescale = transBackward();
+                memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
                 table2Screen(ifft_out_prescale);
+                screenTable2Continuous();
+                screenstate = Screenstates::A_W;
                 break;
             }
             case 'r' :
@@ -66,6 +73,11 @@ int main()
                 }
                 table2Screen(mainWave);
                 screenTable2Continuous();
+                break;
+            }
+            case 'g' :
+            {
+                cout << (int) screenstate << endl;
                 break;
             }
             default : cout << "\nBad Input. Must be f,b or r" ;
