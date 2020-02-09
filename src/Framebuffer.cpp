@@ -18,29 +18,50 @@ int wave_table_framebuffer[WAVE_TABLE_SIZE];//TODO MAKE THIS size_t
 
 void setPixel(int x, int y)//480 x 320
 {
-    x = x * 958/480;
-    y = y - 1;
-    y = abs(y);
-    *(buffer + x + y * 960) = 0xFF;
-    *(buffer + x + 1 + y * 960) = 0xFF;
+    if(x > 0 && x <= 480 && y > 0 && y <= 320)
+    {
+        x = x * 958/480;
+        y = y - 1;
+        y = abs(y);
+        *(buffer + x + y * 960) = 0xFF;
+        *(buffer + x + 1 + y * 960) = 0xFF;
+    }
+    else
+    {
+        std::cout << "BAD VALUES: " << x << " " << y << std::endl;
+    }
 }
 
 void setPixelOff(int x, int y)//480 x 320
 {
-    x = x * 958/480;
-    y = y - 1;
-    *(buffer + x + y * 960) = 0x00;
-    *(buffer + x + 1 + y * 960) = 0x00;
+    if(x > 0 && x <= 480 && y > 0 && y <= 320)
+    {
+        x = x * 958/480;
+        y = y - 1;
+        *(buffer + x + y * 960) = 0x00;
+        *(buffer + x + 1 + y * 960) = 0x00;
+    }
+    else
+    {
+        std::cout << "BAD VALUES: " << x << " " << y << std::endl;
+    }
 }
 void setPixelOff(int x)//480 x 320
 {
-    int y = wave_table_framebuffer[x];
-    x = x * 958/480;
-    for(size_t i = 0; i < 320; i++)
+    if(x > 0 && x <= 420)
     {
-        y = i;
-        *(buffer + x + y * 960) = 0x00;
-        *(buffer + x + 1 + y * 960) = 0x00;
+        int y = wave_table_framebuffer[x];
+        x = x * 958/480;
+        for(size_t i = 0; i < 320; i++)
+        {
+            y = i;
+            *(buffer + x + y * 960) = 0x00;
+            *(buffer + x + 1 + y * 960) = 0x00;
+        }
+    }
+    else
+    {
+        std::cout << "BAD VALUES: " << x << std::endl;
     }
 }
 

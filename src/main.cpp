@@ -80,6 +80,31 @@ int main()
                 cout << (int) screenstate << endl;
                 break;
             }
+            case 's' :
+            {
+                genSin(mainWave,WAVE_TABLE_SIZE);
+                table2Screen(mainWave);
+                //TODO SET SCREENSTATE TO WAVE
+                cout << (int) screenstate << endl;
+                break;
+            }
+            case 'q' :
+            {
+                genSqr(mainWave,WAVE_TABLE_SIZE);
+                table2Screen(mainWave);
+                screenTable2Continuous();
+                //TODO SET SCREENSTATE TO WAVE
+                cout << (int) screenstate << endl;
+                break;
+            }
+            case 'w' :
+            {
+                genSaw(mainWave,WAVE_TABLE_SIZE);
+                table2Screen(mainWave);
+                //TODO SET SCREENSTATE TO WAVE
+                cout << (int) screenstate << endl;
+                break;
+            }
             default : cout << "\nBad Input. Must be f,b or r" ;
         }
     }

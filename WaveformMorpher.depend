@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1581084138 source:/home/pi/WaveformMorpher/src/main.cpp
+1581259815 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"Framebuffer.hpp"
 	"Touchscreen.hpp"
@@ -12,7 +12,7 @@
 	<cstring>
 	<iostream>
 
-1580640789 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1581257715 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	"GlobalDefinitions.hpp"
@@ -22,7 +22,7 @@
 
 1580640799 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1580910941 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
+1581259678 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
 	"Framebuffer.hpp"
 	"GlobalDefinitions.hpp"
 	<sys/types.h>
@@ -44,7 +44,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1581084234 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1581257507 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"Framebuffer.hpp"
 	<iostream>
@@ -73,9 +73,10 @@
 
 1580376800 /home/pi/WaveformMorpher/src/MidiHandling.hpp
 
-1580588287 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1581257809 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
+	"GlobalDefinitions.hpp"
 	<iostream>
 	<cstdlib>
 	"RtMidi.h"
@@ -93,9 +94,9 @@
 	<signal.h>
 	<sys/time.h>
 
-1581081286 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1581257591 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 
-1581082438 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
+1581259402 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
 	"FourierTransformer.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"

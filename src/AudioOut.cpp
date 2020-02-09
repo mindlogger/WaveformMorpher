@@ -31,7 +31,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase;  /* right */
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-    float x = getWavetableValue(wave_table_audio);
+    float x = getWavetableValue(wave_table_audio) * master_gain;
     data->left_phase = x;
     data->right_phase = x;
     return 0;
@@ -40,6 +40,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
 static paTestData data;
 void initAudio(double* wave_table)
 {
+    master_gain = 0;
     wave_table_audio = wave_table;//SET LOCAL POINTER
 
 
