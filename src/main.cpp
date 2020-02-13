@@ -6,6 +6,7 @@
 #include "WaveGenerator.hpp"
 #include "TimerEvent.hpp"
 #include "FourierTransformer.hpp"
+
 #include "GlobalDefinitions.hpp"
 
 #include <cstring>
@@ -17,19 +18,17 @@ using namespace std;
 
 double mainWave[WAVE_TABLE_SIZE]; //y = 0..150..300
 double mainFFT[WAVE_TABLE_SIZE];
-fftw_complex *mainFFTc;
 
 int main()
 {
-    mainFFTc = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*WAVE_TABLE_SIZE/2);//TODO THINK ABOUT THIS
     setupTimer();
     genSin(mainWave,WAVE_TABLE_SIZE);
     initFramebuffer(mainWave);
-    initAudio(mainWave);
-    initTouchscreen(mainWave,mainFFTc);
-    initMidi();
+    //initAudio(mainWave);
+    initTouchscreen(mainWave,mainFFT);
+    //initMidi();
 
-    initTransformer(mainWave,mainFFTc);
+    initTransformer(mainWave,mainFFT);
     screenTable2Continuous();
     while(true)
     {
@@ -58,8 +57,8 @@ int main()
             {
                 cout << "backwards transform" << endl;
                 double* ifft_out_prescale = transBackward();
-                memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
                 table2Screen(ifft_out_prescale);
+                memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
                 screenTable2Continuous();
                 screenstate = Screenstates::A_W;
                 break;
