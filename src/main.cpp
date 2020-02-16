@@ -59,7 +59,7 @@ int main()
                 double* ifft_out_prescale = transBackward();
                 table2Screen(ifft_out_prescale);
                 memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
-                screenTable2Continuous();
+                //screenTable2Continuous();
                 screenstate = Screenstates::A_W;
                 break;
             }

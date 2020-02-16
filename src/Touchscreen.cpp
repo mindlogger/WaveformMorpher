@@ -121,7 +121,7 @@ void initTouchscreen(double* screenWave,double* screenFFT)
     fft_touchscreen = screenFFT;
     screenstate = Screenstates::A_W;
     signal(SIGUSR1, &signal_callback_handler);
-    in = open("/dev/input/event5",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
+    in = open("/dev/input/event3",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
     fcntl(in, F_SETOWN, getpid());
     int oflags = fcntl(in, F_GETFL);
     fcntl(in, F_SETFL, oflags | O_ASYNC);
