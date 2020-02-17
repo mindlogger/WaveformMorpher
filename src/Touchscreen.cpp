@@ -104,7 +104,7 @@ void toScreen(size_t out_x,size_t out_y)
     }
     else
     {
-        int screen_scaling = 1;
+        int screen_scaling = 5;
         for(int i = 0; i < screen_scaling; i++)
         {
             setPixelOff(out_x + i);//DELETE OLD PIXEL

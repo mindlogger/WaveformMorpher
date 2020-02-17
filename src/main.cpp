@@ -24,9 +24,9 @@ int main()
     setupTimer();
     genSin(mainWave,WAVE_TABLE_SIZE);
     initFramebuffer(mainWave);
-    //initAudio(mainWave);
+    initAudio(mainWave);
     initTouchscreen(mainWave,mainFFT);
-    //initMidi();
+    initMidi();
 
     initTransformer(mainWave,mainFFT);
     screenTable2Continuous();
@@ -57,10 +57,18 @@ int main()
             {
                 cout << "backwards transform" << endl;
                 double* ifft_out_prescale = transBackward();
-                table2Screen(ifft_out_prescale);
+                //table2Screen(ifft_out_prescale);
                 memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
                 //screenTable2Continuous();
                 screenstate = Screenstates::A_W;
+
+                for(size_t i = 0; i < WAVE_TABLE_SIZE-1;i++) //THIS SHOULD NOT NEED TO BE HERE
+                {
+                    mainWave[i] = (mainWave[i] + mainWave[i+1]) / 2.0;
+                }
+                table2Screen(mainWave);
+                screenTable2Continuous();
+
                 break;
             }
             case 'r' :

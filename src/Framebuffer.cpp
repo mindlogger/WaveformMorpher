@@ -18,7 +18,7 @@ int wave_table_framebuffer[WAVE_TABLE_SIZE];//TODO MAKE THIS size_t
 
 void setPixel(int x, int y)//480 x 320
 {
-    if(x > 0 && x <= 480 && y > 0 && y <= 320)
+    if(x > 0 && x <= 480 && y > 0 && y <= 320) //TODO MAYBE NOT THE =
     {
         x = x * 958/480;
         y = y - 1;
@@ -28,7 +28,7 @@ void setPixel(int x, int y)//480 x 320
     }
     else
     {
-        //std::cout << "BAD VALUES: " << x << " " << y << std::endl;
+        std::cout << "err:setpixel(x,y): " << x << " " << y << std::endl;
     }
 }
 
@@ -43,7 +43,7 @@ void setPixelOff(int x, int y)//480 x 320
     }
     else
     {
-        //std::cout << "BAD VALUES: " << x << " " << y << std::endl;
+       std::cout << "err:setpixelOff(x,y): " << x << " " << y << std::endl;
     }
 }
 void setPixelOff(int x)//480 x 320
@@ -61,7 +61,7 @@ void setPixelOff(int x)//480 x 320
     }
     else
     {
-        //std::cout << "BAD VALUES: " << x << std::endl;
+        std::cout << "err:setpixelOff(x): " << x << std::endl;
     }
 }
 
@@ -157,12 +157,12 @@ void table2Screen(double* wave_table)
         x = round(x);
         if(x < 0) //ONLY FOR DEBUGING REASONS
         {
-            //std::cout << "to small: " << x << std::endl; //DEBUG
+            std::cout << "err:table2Screen:tosmall: " << x << std::endl; //DEBUG
             x = 1;
         }
         if(x > 320) //ONLY FOR DEBUGING REASONS
         {
-            //std::cout << "to large: " << x << std::endl; //DEBUG
+            std::cout << "err:table2Screen:tolarge: " << x << std::endl; //DEBUG
             x = 320;
         }
         setPixel(i,x);
