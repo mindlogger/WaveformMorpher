@@ -6,9 +6,6 @@
 
 fftw_complex *fft_table_complex;
 
-double* fft_wave = NULL;
-double* ifft_wave = NULL;
-
 double fft_out[WAVE_TABLE_SIZE];
 double ifft_out[WAVE_TABLE_SIZE];
 
@@ -16,12 +13,11 @@ double phase_table[WAVE_TABLE_SIZE];
 
 fftw_plan fftForward,fftBackward;
 
-void initTransformer(double* main_wave,double* main_fft)
+void initTransformer()
 {
     fft_table_complex = (fftw_complex*) fftw_malloc(sizeof(fftw_complex)*WAVE_TABLE_SIZE/2);
-    ifft_wave = main_fft; //make var locally available
-    fft_wave = main_wave; //make var locally available
-    fftForward = fftw_plan_dft_r2c_1d(WAVE_TABLE_SIZE, fft_wave, fft_table_complex,FFTW_ESTIMATE);
+
+    fftForward = fftw_plan_dft_r2c_1d(WAVE_TABLE_SIZE, mainWave, fft_table_complex,FFTW_ESTIMATE);
     fftBackward = fftw_plan_dft_c2r_1d(WAVE_TABLE_SIZE, fft_table_complex, ifft_out,FFTW_ESTIMATE);
 }
 double* transForward()
@@ -47,7 +43,7 @@ double* transBackward()
     size_t counter = 0;
     for(size_t i = 0;i < WAVE_TABLE_SIZE;i = i+2)//STEP IN 2 CUS COMPLEX ARRAY IS N/2
     {
-        ifft_wave[counter] = (ifft_wave[i] + 1.0)/3.8; //BACKSCALING FROM THE SCREEN
+        mainFFT[counter] = (mainFFT[i] + 1.0)/3.8; //BACKSCALING FROM THE SCREEN
         counter++;
     }
     for(size_t k = 0;k < WAVE_TABLE_SIZE/2;k++)//PROPER SCALING
@@ -57,8 +53,8 @@ double* transBackward()
     }
     for(size_t j = 0;j < WAVE_TABLE_SIZE/2;j++)
     {
-        fft_table_complex[j][0] = ifft_wave[j] * cos(phase_table[j]);//CALC REAL
-        fft_table_complex[j][1] = ifft_wave[j] * sin(phase_table[j]);//CALC COMPLEX
+        fft_table_complex[j][0] = mainFFT[j] * cos(phase_table[j]);//CALC REAL
+        fft_table_complex[j][1] = mainFFT[j] * sin(phase_table[j]);//CALC COMPLEX
         std::cout << "NUMBER: " << j << std::endl;
         //std::cout << "MAG: " << ifft_wave[j] << std::endl; //DEBUG MAGNITUDE
         std::cout << "OLD: " << old_d[j][0] << " " << old_d[j][1] << std::endl;

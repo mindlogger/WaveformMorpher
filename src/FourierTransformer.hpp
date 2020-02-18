@@ -2,7 +2,7 @@
 #include <fftw3.h>
 #ifndef FOURIERTRANSFORMER_H
 #define FOURIERTRANSFORMER_H
-void initTransformer(double* main_wave,double* main_fft);
+void initTransformer();
 double* transForward();
 double* transBackward();
 #endif

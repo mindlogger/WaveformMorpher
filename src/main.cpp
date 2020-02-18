@@ -12,23 +12,18 @@
 #include <cstring>
 #include <iostream>
 
-
-
 using namespace std;
-
-double mainWave[WAVE_TABLE_SIZE]; //y = 0..150..300
-double mainFFT[WAVE_TABLE_SIZE];
 
 int main()
 {
     setupTimer();
-    genSin(mainWave,WAVE_TABLE_SIZE);
-    initFramebuffer(mainWave);
-    initAudio(mainWave);
-    initTouchscreen(mainWave,mainFFT);
+    genSin();
+    initFramebuffer();
+    initAudio();
+    initTouchscreen();
     initMidi();
 
-    initTransformer(mainWave,mainFFT);
+    initTransformer();
     screenTable2Continuous();
     while(true)
     {
@@ -89,7 +84,7 @@ int main()
             }
             case 's' :
             {
-                genSin(mainWave,WAVE_TABLE_SIZE);
+                genSin();
                 table2Screen(mainWave);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
@@ -97,7 +92,7 @@ int main()
             }
             case 'q' :
             {
-                genSqr(mainWave,WAVE_TABLE_SIZE);
+                genSqr();
                 table2Screen(mainWave);
                 screenTable2Continuous();
                 //TODO SET SCREENSTATE TO WAVE
@@ -106,7 +101,7 @@ int main()
             }
             case 'w' :
             {
-                genSaw(mainWave,WAVE_TABLE_SIZE);
+                genSaw();
                 table2Screen(mainWave);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;

@@ -12,9 +12,6 @@ typedef struct
 }
 paTestData;
 
-
-double* wave_table_audio = NULL;
-
 static int patestCallback( const void *inputBuffer, void *outputBuffer,
                            unsigned long framesPerBuffer,
                            const PaStreamCallbackTimeInfo* timeInfo,
@@ -31,18 +28,16 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase;  /* right */
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-    float x = getWavetableValue(wave_table_audio) * master_gain;
+    float x = getWavetableValue() * master_gain;
     data->left_phase = x;
     data->right_phase = x;
     return 0;
 }
 
 static paTestData data;
-void initAudio(double* wave_table)
+void initAudio()
 {
     master_gain = 0;
-    wave_table_audio = wave_table;//SET LOCAL POINTER
-
 
     PaStream *stream;
     PaError err;

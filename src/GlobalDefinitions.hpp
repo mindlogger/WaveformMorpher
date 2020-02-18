@@ -8,4 +8,7 @@
 
 enum class Screenstates {A_W,SS_W,SE_W,R_W, A_F,SS_F,SE_F,R_F};
 EXTERN Screenstates screenstate;
-EXTERN float master_gain;
+EXTERN float master_gain; //0 -- 1
+
+EXTERN double mainWave[WAVE_TABLE_SIZE]; //-1 -- 0 -- 1
+EXTERN double mainFFT[WAVE_TABLE_SIZE]; //-1 -- 0 -- 1

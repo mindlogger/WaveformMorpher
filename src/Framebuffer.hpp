@@ -5,7 +5,7 @@ void setPixel(int x, int y);
 void setPixelOff(int x, int y);
 void setPixelOff(int x);
 void clearScreen();
-void initFramebuffer(double* wave_table);
+void initFramebuffer();
 void table2Screen(double* wave_table);
 void screenTable2Continuous();
 void fillScreen();

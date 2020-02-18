@@ -1,40 +1,41 @@
 #include "WaveGenerator.hpp"
+#include "GlobalDefinitions.hpp"
 #include <math.h>
 
-void genSin(double* waveTable,int N)
+void genSin()
 {
     int i;
-	for(i = 0;i < N;i++)
+	for(i = 0;i < WAVE_TABLE_SIZE;i++)
 	{
-		waveTable[i] = sin(2*M_PI*(1/(double)N)*i);
+		mainWave[i] = sin(2*M_PI*(1.0/(double)WAVE_TABLE_SIZE)*i);
 	}
 }
 
-void genSaw(double* waveTable,int N)
+void genSaw()
 {
     int i;
-	for(i = 0;i < N;i++)
+	for(i = 0;i < WAVE_TABLE_SIZE;i++)
 	{
-		waveTable[i] = ((double)i /(double)(N/2) ) - 1.0;
+		mainWave[i] = ((double)i /(double)(WAVE_TABLE_SIZE/2.0) ) - 1.0;
 	}
 }
 
-void genSqr(double* waveTable,int N)
+void genSqr()
 {
     int i;
-	for(i = 0;i < N;i++)
+	for(i = 0;i < WAVE_TABLE_SIZE;i++)
 	{
-		if(i < N/2)
+		if(i < WAVE_TABLE_SIZE/2)
 		{
-			waveTable[i] = -1.0;
+			mainWave[i] = -1.0;
 		}
-		else if(i == N/2)
+		else if(i == WAVE_TABLE_SIZE/2)
 		{
-            waveTable[i] = 0.0;
+            mainWave[i] = 0.0;
 		}
 		else
 		{
-			waveTable[i] = 1.0;
+			mainWave[i] = 1.0;
 		}
 	}
 }

@@ -20,8 +20,6 @@
 int in = -1;//File Descriptor for touch
 //Color::c = Color::Green;
 
-double* wave_table_touchscreen = NULL;
-double* fft_touchscreen = NULL;
 void signal_callback_handler(int signum)
 {
     input_event ev;
@@ -98,7 +96,7 @@ void toScreen(size_t out_x,size_t out_y)
         {
             setPixelOff(out_x + i);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            wave_table_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
+            mainWave[out_x + i] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
         }
     }
@@ -109,19 +107,17 @@ void toScreen(size_t out_x,size_t out_y)
         {
             setPixelOff(out_x + i);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            fft_touchscreen[out_x + i] = convertedVal2;//STORE NEW PIXEL
+            mainFFT[out_x + i] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
         }
     }
 }
 
-void initTouchscreen(double* screenWave,double* screenFFT)
+void initTouchscreen()
 {
-    wave_table_touchscreen = screenWave;
-    fft_touchscreen = screenFFT;
     screenstate = Screenstates::A_W;
     signal(SIGUSR1, &signal_callback_handler);
-    in = open("/dev/input/event3",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
+    in = open("/dev/input/event5",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
     fcntl(in, F_SETOWN, getpid());
     int oflags = fcntl(in, F_GETFL);
     fcntl(in, F_SETFL, oflags | O_ASYNC);

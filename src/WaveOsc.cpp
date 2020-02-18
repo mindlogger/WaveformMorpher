@@ -10,12 +10,12 @@ double step_size = (double) WAVE_TABLE_SIZE * ((double)440/(double)SAMPLE_RATE);
 
 double interpol = 0.0;
 
-float getWavetableValue(double* wave_table)
+float getWavetableValue()
 {
     step_size = (double) WAVE_TABLE_SIZE * (freq/(double)SAMPLE_RATE);
 
-    double f_x = wave_table[(int)waveOscIndex];
-    double steigung = wave_table[((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave_table[(int)waveOscIndex];
+    double f_x = mainWave[(int)waveOscIndex];
+    double steigung = mainWave[((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - mainWave[(int)waveOscIndex];
     double nachkomma_x = (int)waveOscIndex - waveOscIndex;
 
     interpol = f_x + steigung * nachkomma_x;

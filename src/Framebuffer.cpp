@@ -73,7 +73,7 @@ void clearScreen()
     }
 }
 
-void initFramebuffer(double *wave_table)
+void initFramebuffer()
 {
     struct fb_var_screeninfo screen_info;
     struct fb_fix_screeninfo fixed_info;
@@ -113,7 +113,7 @@ void initFramebuffer(double *wave_table)
                 setPixel(i,x);
                 wave_table[i] = x;
                 }*/
-                table2Screen(wave_table);
+                table2Screen(mainWave);
 
                 /*
                  * TODO: something interesting here.
