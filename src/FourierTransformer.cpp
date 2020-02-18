@@ -55,10 +55,10 @@ double* transBackward()
     {
         fft_table_complex[j][0] = mainFFT[j] * cos(phase_table[j]);//CALC REAL
         fft_table_complex[j][1] = mainFFT[j] * sin(phase_table[j]);//CALC COMPLEX
-        std::cout << "NUMBER: " << j << std::endl;
+        //std::cout << "NUMBER: " << j << std::endl;
         //std::cout << "MAG: " << ifft_wave[j] << std::endl; //DEBUG MAGNITUDE
-        std::cout << "OLD: " << old_d[j][0] << " " << old_d[j][1] << std::endl;
-        std::cout << "NEW: " << fft_table_complex[j][0] << " " << fft_table_complex[j][1] << std::endl;
+        //std::cout << "OLD: " << old_d[j][0] << " " << old_d[j][1] << std::endl;
+        //std::cout << "NEW: " << fft_table_complex[j][0] << " " << fft_table_complex[j][1] << std::endl;
     }/*
     for(size_t j = 0;j < (WAVE_TABLE_SIZE/2) +1;j++)
     {

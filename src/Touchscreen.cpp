@@ -68,6 +68,7 @@ void signal_callback_handler(int signum)
 
 void toScreen(size_t out_x,size_t out_y)
 {
+
     if(out_y <= 160)
     {
         out_y = 160;
@@ -82,7 +83,7 @@ void toScreen(size_t out_x,size_t out_y)
     }
     if(out_x > 3860)
     {
-        out_x = 160;
+        out_x = 3860;
     }
     out_y = (16 * (out_y - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
     out_y = abs(out_y - 320);

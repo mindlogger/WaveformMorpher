@@ -14,11 +14,11 @@
 
 char *buffer = NULL;
 size_t buflen = 0;
-int wave_table_framebuffer[WAVE_TABLE_SIZE];//TODO MAKE THIS size_t
+int wave_table_framebuffer[WAVE_TABLE_SIZE]; // 320 -- 160 -- 0
 
 void setPixel(int x, int y)//480 x 320
 {
-    if(x > 0 && x <= 480 && y > 0 && y <= 320) //TODO MAYBE NOT THE =
+    if(x >= 0 && x <= 480 && y >= 0 && y <= 320)
     {
         x = x * 958/480;
         y = y - 1;
@@ -34,7 +34,7 @@ void setPixel(int x, int y)//480 x 320
 
 void setPixelOff(int x, int y)//480 x 320
 {
-    if(x > 0 && x <= 480 && y > 0 && y <= 320)
+    if(x >= 0 && x <= 480 && y >= 0 && y <= 320)
     {
         x = x * 958/480;
         y = y - 1;
@@ -46,9 +46,9 @@ void setPixelOff(int x, int y)//480 x 320
        std::cout << "err:setpixelOff(x,y): " << x << " " << y << std::endl;
     }
 }
-void setPixelOff(int x)//480 x 320
+void setPixelOff(int x)//480
 {
-    if(x > 0 && x <= 420)
+    if(x >= 0 && x <= 480)
     {
         int y = wave_table_framebuffer[x];
         x = x * 958/480;
@@ -62,14 +62,6 @@ void setPixelOff(int x)//480 x 320
     else
     {
         std::cout << "err:setpixelOff(x): " << x << std::endl;
-    }
-}
-
-void clearScreen()
-{
-    for(size_t i = 0; i < buflen-1; i++) //MAX VAL FOR i = //307199
-    {
-        buffer[i] = 0x00;
     }
 }
 
@@ -170,6 +162,7 @@ void table2Screen(double* wave_table)
         wave_table_framebuffer[i] = x;
     }
 }
+
 void screenTable2Continuous()
 {
     for(size_t i = 0; i<WAVE_TABLE_SIZE-1; i++)
@@ -198,6 +191,15 @@ void screenTable2Continuous()
         }
     }
 }
+
+void clearScreen()
+{
+    for(size_t i = 0; i < buflen-1; i++) //MAX VAL FOR i = //307199
+    {
+        buffer[i] = 0x00;
+    }
+}
+
 void fillScreen()
 {
     for(size_t a = 0;a<480;a++) //EXPERIMENT FOR DEBUGING

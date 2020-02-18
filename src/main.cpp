@@ -19,9 +19,9 @@ int main()
     setupTimer();
     genSin();
     initFramebuffer();
-    initAudio();
+    //initAudio();
     initTouchscreen();
-    initMidi();
+    //initMidi();
 
     initTransformer();
     screenTable2Continuous();
