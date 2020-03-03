@@ -162,7 +162,7 @@ void initMidi()
     if ( nPorts == 0 )
     {
         std::cout << "No ports available!\n";
-        closeMidi();
+        endMidi();
     }
     else
     {
@@ -177,7 +177,7 @@ void initMidi()
     }
 }
 
-void closeMidi()
+void endMidi()
 {
     delete midiin;
 }

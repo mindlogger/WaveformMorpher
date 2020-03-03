@@ -9,4 +9,5 @@ void initFramebuffer();
 void table2Screen(double* wave_table);
 void screenTable2Continuous();
 void fillScreen();
+void endFramebuffer();
 #endif

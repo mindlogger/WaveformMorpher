@@ -6,4 +6,5 @@
 void initTouchscreen();
 void signal_callback_handler(int signum);
 void toScreen(size_t x,size_t y);
+void endTouchscreen();
 #endif
