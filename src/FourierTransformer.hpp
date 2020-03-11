@@ -5,4 +5,5 @@
 void initTransformer();
 double* transForward();
 double* transBackward();
+void endTransformer();
 #endif

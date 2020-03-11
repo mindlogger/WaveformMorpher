@@ -2,5 +2,5 @@
 #ifndef MIDIHANDLING_H
 #define MIDIHANDLING_H
 void initMidi();
-void closeMidi();
+void endMidi();
 #endif

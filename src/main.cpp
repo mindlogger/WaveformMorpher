@@ -9,6 +9,7 @@
 
 #include "GlobalDefinitions.hpp"
 
+#include <signal.h>
 #include <cstring>
 #include <iostream>
 
@@ -19,15 +20,13 @@ int main()
     setupTimer();
     genSin();
     initFramebuffer();
-    //initAudio();
+    initAudio();
     initTouchscreen();
-    //initMidi();
-
+    initMidi();
     initTransformer();
     screenTable2Continuous();
     while(true)
     {
-
         char input;
         std::cout << "Enter f for forward or b for backward: ";
         cin >> input;
@@ -110,6 +109,13 @@ int main()
             default : cout << "\nBad Input. Must be f,b or r" ;
         }
     }
+    endTimer();
+    endFramebuffer();
+    endAudio();
+    endTouchscreen();
+    endMidi();
+    endTransformer();
+    raise(SIGTERM);//TODO SEND SHUTDOWN SIGNAL INSTEAD
     return 0;
 }
 

@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 
+int fd = -1; //File Descriptor for framebuffer
 char *buffer = NULL;
 size_t buflen = 0;
 int wave_table_framebuffer[WAVE_TABLE_SIZE]; // 320 -- 160 -- 0
@@ -70,7 +71,6 @@ void initFramebuffer()
     struct fb_var_screeninfo screen_info;
     struct fb_fix_screeninfo fixed_info;
 
-    int fd = -1;
     //int r = 1;
 
     fd = open("/dev/fb1", O_RDWR);
@@ -133,7 +133,7 @@ void initFramebuffer()
         perror("open");
     }
     if (buffer && buffer != MAP_FAILED)
-        //munmap(buffer, buflen); //THIS LINE DESTROYS BASICALLY EVERYTHING
+        //munmap(buffer, buflen); //TODO INSPECT THIS //THIS LINE DESTROYS BASICALLY EVERYTHING
         if (fd >= 0)
             close(fd);
 
@@ -209,3 +209,9 @@ void fillScreen()
     }
 }
 
+void endFramebuffer()
+{
+    clearScreen();
+    munmap(buffer, buflen);
+    close(fd);
+}

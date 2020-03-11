@@ -59,7 +59,9 @@ double* transBackward()
         //std::cout << "MAG: " << ifft_wave[j] << std::endl; //DEBUG MAGNITUDE
         //std::cout << "OLD: " << old_d[j][0] << " " << old_d[j][1] << std::endl;
         //std::cout << "NEW: " << fft_table_complex[j][0] << " " << fft_table_complex[j][1] << std::endl;
-    }/*
+    }
+    fftw_free(old_d);
+    /*
     for(size_t j = 0;j < (WAVE_TABLE_SIZE/2) +1;j++)
     {
         fft_table[j][0] = 0.0;//CALC REAL
@@ -76,5 +78,10 @@ double* transBackward()
     }*/
     return ifft_out;
 }
-//fft_table = fftw_alloc_complex(WAVE_TABLE_SIZE*2);
-//fftw_destroy_plan(p);
+
+void endTransformer()
+{
+    fftw_destroy_plan(fftForward);
+    fftw_destroy_plan(fftBackward);
+    fftw_free(fft_table_complex);
+}
