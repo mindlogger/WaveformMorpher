@@ -16532,17 +16532,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <junction x="58.42" y="121.92"/>
 </segment>
 </net>
-<net name="1V/OCT_ADC1" class="0">
-<segment>
-<pinref part="C3" gate="G$1" pin="2"/>
-<wire x1="76.2" y1="121.92" x2="83.82" y2="121.92" width="0.1524" layer="91"/>
-<wire x1="83.82" y1="121.92" x2="83.82" y2="111.76" width="0.1524" layer="91"/>
-<pinref part="R18" gate="G$1" pin="2"/>
-<wire x1="83.82" y1="111.76" x2="76.2" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="83.82" y1="111.76" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
-<junction x="83.82" y="111.76"/>
-</segment>
-</net>
 <net name="N$12" class="0">
 <segment>
 <pinref part="R19" gate="G$1" pin="1"/>
@@ -16558,13 +16547,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <wire x1="58.42" y1="101.6" x2="58.42" y2="111.76" width="0.1524" layer="91"/>
 <junction x="58.42" y="101.6"/>
 <pinref part="IC2" gate="C" pin="-IN"/>
-</segment>
-</net>
-<net name="MORPH_ADC" class="0">
-<segment>
-<pinref part="IC2" gate="C" pin="OUT"/>
-<wire x1="78.74" y1="99.06" x2="88.9" y2="99.06" width="0.1524" layer="91"/>
-<label x="88.9" y="99.06" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="N$14" class="0">
@@ -16729,6 +16711,22 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="R23" gate="G$1" pin="1"/>
 <wire x1="53.34" y1="30.48" x2="58.42" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="30.48" x2="58.42" y2="35.56" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="MORPH_ADC" class="0">
+<segment>
+<pinref part="C3" gate="G$1" pin="2"/>
+<wire x1="76.2" y1="121.92" x2="83.82" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="121.92" x2="83.82" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="R18" gate="G$1" pin="2"/>
+<wire x1="83.82" y1="111.76" x2="76.2" y2="111.76" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="C" pin="OUT"/>
+<wire x1="78.74" y1="99.06" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
+<label x="88.9" y="99.06" size="1.778" layer="95" xref="yes"/>
+<wire x1="83.82" y1="99.06" x2="88.9" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="111.76" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
+<junction x="83.82" y="111.76"/>
+<junction x="83.82" y="99.06"/>
 </segment>
 </net>
 </nets>
