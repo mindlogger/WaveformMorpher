@@ -15783,7 +15783,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="R7" library="rcl" deviceset="R-US_" device="R0603" value="10k"/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
-<part name="IC2" library="gm-ics" deviceset="TL074" device="D"/>
+<part name="IC2" library="gm-ics" deviceset="TL074" device="D" value="MCP6004"/>
 <part name="IC3" library="texas" deviceset="LM4041" device="DBZ" technology="B12"/>
 <part name="R8" library="rcl" deviceset="R-US_" device="R0603" value="1.0k"/>
 <part name="R9" library="rcl" deviceset="R-US_" device="R0603" value="1.0k"/>
@@ -15791,18 +15791,21 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="I/O" library="SparkFun-Aesthetics" deviceset="FRAME-A4L" device="">
 <attribute name="CNAME" value="I/O"/>
+<attribute name="CREVISION" value="0.7"/>
 <attribute name="DESIGNER" value="Kristóf Kónya"/>
-<attribute name="REV" value="1.0"/>
+<attribute name="REV" value="0.7"/>
 </part>
 <part name="FRAME2" library="SparkFun-Aesthetics" deviceset="FRAME-A4L" device="">
 <attribute name="CNAME" value="POWER/DAC/CON"/>
+<attribute name="CREVISION" value="0.7"/>
 <attribute name="DESIGNER" value="Kristóf Kónya"/>
-<attribute name="REV" value="1.0"/>
+<attribute name="REV" value="0.7"/>
 </part>
 <part name="FRAME3" library="SparkFun-Aesthetics" deviceset="FRAME-A4L" device="">
 <attribute name="CNAME" value="SWITCHES/POTS"/>
+<attribute name="CREVISION" value="0.7"/>
 <attribute name="DESIGNER" value="Kristóf Kónya"/>
-<attribute name="REV" value="1.0"/>
+<attribute name="REV" value="0.7"/>
 </part>
 <part name="R1" library="rcl" deviceset="R-US_" device="R0603" value="10k"/>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
@@ -15877,6 +15880,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="GND23" gate="1" x="200.66" y="177.8"/>
 <instance part="FRAME2" gate="G$1" x="-2.54" y="71.12">
 <attribute name="CNAME" x="-2.54" y="71.12" size="1.778" layer="96" display="off"/>
+<attribute name="CREVISION" x="-2.54" y="71.12" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="IC2" gate="A" x="58.42" y="182.88"/>
 <instance part="C8" gate="G$1" x="121.92" y="213.36"/>
@@ -16151,14 +16155,14 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="205.74" y="195.58" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="GATE_ADC" class="0">
+<net name="GATE_GPIO" class="0">
 <segment>
 <pinref part="RASPI" gate="G$1" pin="16"/>
 <wire x1="137.16" y1="134.62" x2="139.7" y2="134.62" width="0.1524" layer="91"/>
 <label x="139.7" y="134.62" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
-<net name="SW7_GPIO" class="0">
+<net name="SW7_ADC" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="AIN5"/>
 <wire x1="81.28" y1="149.86" x2="83.82" y2="149.86" width="0.1524" layer="91"/>
@@ -16246,6 +16250,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="IC2" gate="D" x="86.36" y="33.02" rot="MR180"/>
 <instance part="I/O" gate="G$1" x="-5.08" y="0">
 <attribute name="CNAME" x="-5.08" y="0" size="1.778" layer="96" display="off"/>
+<attribute name="CREVISION" x="-5.08" y="0" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="R10" gate="G$1" x="220.98" y="119.38" rot="R180"/>
 <instance part="T1" gate="G$1" x="233.68" y="119.38"/>
@@ -16414,7 +16419,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <wire x1="226.06" y1="119.38" x2="231.14" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="GATE_ADC" class="0">
+<net name="GATE_GPIO" class="0">
 <segment>
 <pinref part="T1" gate="G$1" pin="C"/>
 <pinref part="R11" gate="G$1" pin="2"/>
@@ -16721,6 +16726,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instances>
 <instance part="FRAME3" gate="G$1" x="-17.78" y="-10.16">
 <attribute name="CNAME" x="-17.78" y="-10.16" size="1.778" layer="96" display="off"/>
+<attribute name="CREVISION" x="-17.78" y="-10.16" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="S1" gate="G$1" x="30.48" y="152.4" rot="MR180"/>
 <instance part="S2" gate="G$1" x="30.48" y="127" rot="MR180"/>
@@ -16953,7 +16959,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="172.72" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="SW7_GPIO" class="0">
+<net name="SW7_ADC" class="0">
 <segment>
 <pinref part="S7" gate="G$1" pin="2"/>
 <wire x1="203.2" y1="60.96" x2="208.28" y2="60.96" width="0.1524" layer="91"/>
