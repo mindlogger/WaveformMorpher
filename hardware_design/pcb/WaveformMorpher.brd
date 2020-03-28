@@ -2012,7 +2012,7 @@ Please make sure your boards conform to these design rules.
 <attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=700-MAX11615EEE" x="66.04" y="39.37" size="1.778" layer="27" display="off"/>
 </element>
 <element name="IC2" library="gm-ics" package="SO14" value="MCP6004" x="29.21" y="16.51" rot="R180"/>
-<element name="IC3" library="texas" package="DBZ_R-PDSO-G3" value="LM4041B12DBZ" x="91.44" y="27.94">
+<element name="IC3" library="texas" package="DBZ_R-PDSO-G3" value="LM4040B10" x="91.44" y="27.94">
 <attribute name="MF" value="" x="91.44" y="27.94" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="LM4041B12IDBZR" x="91.44" y="27.94" size="1.778" layer="27" display="off"/>
 <attribute name="OC_FARNELL" value="1575212" x="91.44" y="27.94" size="1.778" layer="27" display="off"/>

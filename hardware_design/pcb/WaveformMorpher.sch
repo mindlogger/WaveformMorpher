@@ -15784,7 +15784,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="R7" library="rcl" deviceset="R-US_" device="R0603" value="10k"/>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
 <part name="IC2" library="gm-ics" deviceset="TL074" device="D" value="MCP6004"/>
-<part name="IC3" library="texas" deviceset="LM4041" device="DBZ" technology="B12"/>
+<part name="IC3" library="texas" deviceset="LM4041" device="DBZ" technology="B12" value="LM4040B10"/>
 <part name="R8" library="rcl" deviceset="R-US_" device="R0603" value="1.0k"/>
 <part name="R9" library="rcl" deviceset="R-US_" device="R0603" value="1.0k"/>
 <part name="C1" library="rcl" deviceset="C-US" device="C0603" value="100n"/>
