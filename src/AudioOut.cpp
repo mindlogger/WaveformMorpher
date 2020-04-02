@@ -37,7 +37,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
 static paTestData data;
 void initAudio()
 {
-    master_gain = 0;
+    master_gain = 1;//DEBUG CHANGE BACK TO 0
 
     PaStream *stream;
     PaError err;

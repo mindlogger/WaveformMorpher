@@ -17,12 +17,15 @@ using namespace std;
 
 int main()
 {
+    audioOutWavetable = mainWave;//DEBUG
+    currentScreenWavetable = mainWave;
+
     setupTimer();
     genSin();
     initFramebuffer();
     initAudio();
     initTouchscreen();
-    initMidi();
+    //initMidi();
     initTransformer();
     screenTable2Continuous();
     while(true)
@@ -34,6 +37,7 @@ int main()
         {
             case 'f' :
             {
+                currentScreenWavetable = mainFFT;
                 cout << "forward transform" << endl;
                 double* fft_out_prescale = transForward();
                 double fft_out_postscale[WAVE_TABLE_SIZE];
@@ -49,6 +53,7 @@ int main()
             }
             case 'b' :
             {
+                currentScreenWavetable = mainWave;
                 cout << "backwards transform" << endl;
                 double* ifft_out_prescale = transBackward();
                 //table2Screen(ifft_out_prescale);

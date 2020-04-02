@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1583231105 source:/home/pi/WaveformMorpher/src/main.cpp
+1585750481 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"Framebuffer.hpp"
 	"Touchscreen.hpp"
@@ -13,7 +13,7 @@
 	<cstring>
 	<iostream>
 
-1583229035 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1585578992 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	"GlobalDefinitions.hpp"
@@ -45,7 +45,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1583229212 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1585829547 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"Framebuffer.hpp"
 	<iostream>
@@ -59,9 +59,10 @@
 	<fcntl.h>
 	<signal.h>
 	<stdio.h>
+	<bits/stdc++.h>
 	"GlobalDefinitions.hpp"
 
-1582046085 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1585749340 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
@@ -97,9 +98,9 @@
 	<iostream>
 	<sys/time.h>
 
-1582044637 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1585749032 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 
-1583228635 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
+1583231334 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
 	"FourierTransformer.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"
