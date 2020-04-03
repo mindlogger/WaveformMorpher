@@ -12,6 +12,8 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <stdio.h>
+#include <tuple>
+#include <bits/stdc++.h>
 
 #define GLOBALS 1
 #include "GlobalDefinitions.hpp"
@@ -19,8 +21,11 @@
 
 int in = -1;//File Descriptor for touch
 
+std::list<std::tuple<size_t, double>> editedPixels;
+
 void signal_callback_handler(int signum)
 {
+
     input_event ev;
     int flag_x = -1;//these correspond to abs values
     int flag_y = -1;
@@ -62,6 +67,12 @@ void signal_callback_handler(int signum)
                 flag_y = ev.value;
             }
         }
+        else if(ev.type == 1 && ev.value == 0)
+        {
+            std::cout<<"BTN OFF"<<std::endl;
+            processlist();
+            table2Screen(mainWave);
+        }
     }
 }
 
@@ -91,13 +102,14 @@ void toScreen(size_t out_x,size_t out_y)
     //printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
     if(screenstate == Screenstates::A_W) //TODO CASE SWITCH IN THE FUTURE FOR MORPHING
     {
-        int screen_scaling = 5;
+        int screen_scaling = 1;
         for(int i = 0; i < screen_scaling; i++)
         {
             setPixelOff(out_x + i);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
             mainWave[out_x + i] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
+            editedPixels.push_back({out_x +i,convertedVal2});
         }
     }
     else
@@ -134,7 +146,79 @@ void initTouchscreen()
     //raise(SIGUSR1); //FOR DEBUGGIN SENDS SIGNAL TO CURRENT PROCESS
 }
 
+void printTouchscreenList()
+{
+    std::list<std::tuple<size_t, double>>::iterator it = editedPixels.begin();
+	while(it != editedPixels.end())
+	{
+		std::cout<< std::get<0>(*it) <<"  ";
+		std::cout<< std::get<1>(*it) <<"  ";
+		it++;
+	}
+	std::cout<<std::endl;
+}
+void processlist()
+{
+    std::list<std::tuple<size_t, double>>::iterator it2 = editedPixels.begin();
+    std::list<std::tuple<size_t, double>>::iterator it3 = editedPixels.begin();
+    it3++;
+	while(it3 != editedPixels.end() && it2 != editedPixels.end())
+	{
+        if(std::get<0>(*it2) == std::get<0>(*it3))
+        {
+            //std::cout<< "PROC: " << std::get<0>(*it2) <<std::endl;
+            it2 = editedPixels.erase(it2);
+            it3++;
+        }
+        else
+        {
+        it3++;
+		it2++;
+        }
+
+	}
+	//std::cout<<std::endl;
+
+    while(editedPixels.size() > 1)
+    {
+    double x1 = std::get<0>(editedPixels.front());
+    double y1 = std::get<1>(editedPixels.front());
+    editedPixels.pop_front();
+    double x2 = std::get<0>(editedPixels.front());
+    double y2 = std::get<1>(editedPixels.front());
+    //std::cout << "SCALED THE FOLLOWING " << x1 << " " << y1 << " "  << x2 << " "  << y2 << " "  << std::endl;
+    if(x1<x2)
+    {
+    drawLine( x1,  y1,  x2,  y2);
+    }
+    else
+    {
+    drawLine( x2,  y2,  x1,  y1);
+    }
+    }
+
+}
+
+void clearTouchscreenList()
+{
+    editedPixels.clear();
+}
+
+void drawLine(double x1, double y1, double x2, double y2)
+{
+    double m = (y2 - y1) / (x2 - x1);
+    //std::cout << "Steigung: " << m <<std::endl;
+    mainWave[(int)x1] = y1;
+    for(int c = x1+1;c<x2;c++)
+    {
+        mainWave[c] = mainWave[c-1] + m;
+        //std::cout << mainWave[c] << std::endl;
+    }
+}
+
+
 void endTouchscreen()
 {
     close(in);
 }
+

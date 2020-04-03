@@ -32,6 +32,7 @@ int main()
     {
         char input;
         std::cout << "Enter f for forward or b for backward: ";
+        table2Screen(mainWave);
         cin >> input;
         switch(input)
         {
@@ -73,10 +74,12 @@ int main()
             case 'r' :
             {
                 cout << "rounding" << endl;
+
                 for(size_t i = 0; i < WAVE_TABLE_SIZE-1;i++)
                 {
                     mainWave[i] = (mainWave[i] + mainWave[i+1]) / 2.0;
                 }
+                processlist();
                 table2Screen(mainWave);
                 screenTable2Continuous();
                 break;
@@ -117,7 +120,6 @@ int main()
     endTimer();
     endFramebuffer();
     endAudio();
-    endTouchscreen();
     endMidi();
     endTransformer();
     raise(SIGTERM);//TODO SEND SHUTDOWN SIGNAL INSTEAD

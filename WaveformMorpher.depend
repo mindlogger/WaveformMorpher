@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1585750481 source:/home/pi/WaveformMorpher/src/main.cpp
+1585905703 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"Framebuffer.hpp"
 	"Touchscreen.hpp"
@@ -41,11 +41,11 @@
 
 1583228493 /home/pi/WaveformMorpher/src/Framebuffer.hpp
 
-1583228510 /home/pi/WaveformMorpher/src/Touchscreen.hpp
+1585907768 /home/pi/WaveformMorpher/src/Touchscreen.hpp
 	<sys/types.h>
 	<fftw3.h>
 
-1585829547 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1585907741 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"Framebuffer.hpp"
 	<iostream>
@@ -59,6 +59,7 @@
 	<fcntl.h>
 	<signal.h>
 	<stdio.h>
+	<tuple>
 	<bits/stdc++.h>
 	"GlobalDefinitions.hpp"
 
