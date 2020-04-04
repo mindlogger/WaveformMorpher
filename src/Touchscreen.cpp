@@ -67,11 +67,15 @@ void signal_callback_handler(int signum)
                 flag_y = ev.value;
             }
         }
-        else if(ev.type == 1 && ev.value == 0)
+        else if(ev.type == 1 && ev.value == 0)//BTN_TOUCH OFF
         {
-            std::cout<<"BTN OFF"<<std::endl;
             processlist();
+            touch_is_happening_flag = 0;
             table2Screen(mainWave);
+        }
+        else if(ev.type == 1 && ev.value == 1)//BTN_TOUCH ON
+        {
+            touch_is_happening_flag = 1;
         }
     }
 }
@@ -127,6 +131,7 @@ void toScreen(size_t out_x,size_t out_y)
 
 void initTouchscreen()
 {
+    touch_is_happening_flag = 1; //JUST TO NOT TRIGGER THE INT BEFORE TOUCHING THE SCREEN
     screenstate = Screenstates::A_W;
     signal(SIGUSR1, &signal_callback_handler);
     in = open("/dev/input/event7",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
@@ -157,6 +162,7 @@ void printTouchscreenList()
 	}
 	std::cout<<std::endl;
 }
+
 void processlist()
 {
     std::list<std::tuple<size_t, double>>::iterator it2 = editedPixels.begin();

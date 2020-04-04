@@ -11,6 +11,7 @@ enum class ADSRstates {A_D,D_SS,SS_SE,SE_R};
 EXTERN Screenstates screenstate;
 EXTERN ADSRstates adsrstate;
 EXTERN float master_gain; //0 -- 1
+EXTERN int touch_is_happening_flag;
 
 EXTERN double *audioOutWavetable;
 EXTERN double *currentScreenWavetable;
