@@ -1,5 +1,5 @@
 #include "AudioOut.hpp"
-#include "Framebuffer.hpp"
+#include "FbGraphics.hpp"
 #include "Touchscreen.hpp"
 #include "WaveOsc.hpp"
 #include "MidiHandling.hpp"
@@ -21,18 +21,17 @@ int main()
     currentScreenWavetable = mainWave;
 
     setupTimer();
-    genSin();
-    initFramebuffer();
+    genSaw();
+    initFbGraphics();
     initAudio();
     initTouchscreen();
     //initMidi();
     initTransformer();
-    screenTable2Continuous();
+    table2Screen(mainWave);
     while(true)
     {
         char input;
         std::cout << "Enter f for forward or b for backward: ";
-        table2Screen(mainWave);
         cin >> input;
         switch(input)
         {
@@ -118,7 +117,7 @@ int main()
         }
     }
     endTimer();
-    endFramebuffer();
+    endFbGraphics();
     endAudio();
     endMidi();
     endTransformer();

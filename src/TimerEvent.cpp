@@ -18,6 +18,7 @@ static void timer10hz(int signum)
     {
         clearTouchscreenList(); //IF THERE IS NO TOUCH HAPPENING CLEAR LIST
     }
+    void updateScreen();
 }
 
 void setupTimer()
