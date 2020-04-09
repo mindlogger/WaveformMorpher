@@ -1,5 +1,5 @@
 #include "Touchscreen.hpp"
-#include "Framebuffer.hpp"
+#include "FbGraphics.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -131,6 +131,7 @@ void toScreen(size_t out_x,size_t out_y)
 
 void initTouchscreen()
 {
+    system("xinput disable stmpe-ts");
     touch_is_happening_flag = 1; //JUST TO NOT TRIGGER THE INT BEFORE TOUCHING THE SCREEN
     screenstate = Screenstates::A_W;
     signal(SIGUSR1, &signal_callback_handler);

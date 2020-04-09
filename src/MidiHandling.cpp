@@ -131,7 +131,7 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
                     i++;
                     double f = MidiNote2Freq[(int)message->at(i)];
                     setfreq(f);
-                    master_gain = 1.0;
+                    env->gate(true);
                     std::cout << f;
                     i++;
                     unsigned char val1 = (int)message->at(i);
@@ -139,7 +139,7 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
         case 128:{
                     std::cout << "OFF ";
                     i++;
-                    master_gain = 0.0;
+                    env->gate(false);
                     //double f = 440;
                     std::cout << MidiNote2Freq[(int)message->at(i)];
                     i++;

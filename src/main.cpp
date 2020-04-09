@@ -6,6 +6,7 @@
 #include "WaveGenerator.hpp"
 #include "TimerEvent.hpp"
 #include "FourierTransformer.hpp"
+#include "ADSR.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -15,18 +16,39 @@
 
 using namespace std;
 
-int main()
+void main_init()
 {
-    audioOutWavetable = mainWave;//DEBUG
-    currentScreenWavetable = mainWave;
+    env = new ADSR();
+    env->setAttackRate(.1 * SAMPLE_RATE);
+    env->setDecayRate(.3 * SAMPLE_RATE);
+    env->setReleaseRate(5 * SAMPLE_RATE);
+    env->setSustainLevel(.8);
 
-    setupTimer();
     genSaw();
     initFbGraphics();
     initAudio();
     initTouchscreen();
-    //initMidi();
+    initMidi();
     initTransformer();
+    setupTimer();
+}
+
+void main_end()
+{
+    endTimer();
+    endFbGraphics();
+    endAudio();
+    endMidi();
+    endTransformer();
+    raise(SIGTERM);//TODO SEND SHUTDOWN SIGNAL INSTEAD
+}
+
+int main()
+{
+    audioOutWavetable = mainWave;//DEBUG
+    currentScreenWavetable = mainWave;
+    main_init();
+
     table2Screen(mainWave);
     while(true)
     {
@@ -116,12 +138,7 @@ int main()
             default : cout << "\nBad Input. Must be f,b or r" ;
         }
     }
-    endTimer();
-    endFbGraphics();
-    endAudio();
-    endMidi();
-    endTransformer();
-    raise(SIGTERM);//TODO SEND SHUTDOWN SIGNAL INSTEAD
+    main_end();
     return 0;
 }
 

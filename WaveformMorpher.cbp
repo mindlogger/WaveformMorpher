@@ -27,6 +27,8 @@
 			<Add library="/usr/local/lib/libfftw3.a" />
 			<Add library="/usr/local/lib/fbg" />
 		</Linker>
+		<Unit filename="src/ADSR.cpp" />
+		<Unit filename="src/ADSR.hpp" />
 		<Unit filename="src/AudioOut.cpp" />
 		<Unit filename="src/AudioOut.hpp" />
 		<Unit filename="src/FbGraphics.cpp" />

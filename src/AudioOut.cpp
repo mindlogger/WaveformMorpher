@@ -28,7 +28,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase;  /* right */
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-    float x = getWavetableValue() * master_gain;
+    float x = getWavetableValue() * env->process();
     data->left_phase = x;
     data->right_phase = x;
     return 0;
