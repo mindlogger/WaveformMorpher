@@ -80,7 +80,7 @@ void table2Screen(double* wave_table)
 void screenTable2Continuous()
 {
 }
-void RenderScreen()
+void *RenderScreen(void *arg)
 {
     int x = env->getState();
     double inverse_master_gain = 0.0;

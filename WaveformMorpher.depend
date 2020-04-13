@@ -1,9 +1,8 @@
 # depslib dependency file v1.0
-1586760112 source:/home/pi/WaveformMorpher/src/main.cpp
+1586772370 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
-	"WaveOsc.hpp"
 	"MidiHandling.hpp"
 	"WaveGenerator.hpp"
 	"TimerEvent.hpp"
@@ -11,10 +10,8 @@
 	"ADSR.hpp"
 	"GlobalDefinitions.hpp"
 	<signal.h>
-	<cstring>
-	<iostream>
 
-1586518133 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1586763614 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	"GlobalDefinitions.hpp"
@@ -46,7 +43,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1586677770 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1586768636 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"FbGraphics.hpp"
 	<iostream>
@@ -77,7 +74,7 @@
 
 1583229235 /home/pi/WaveformMorpher/src/MidiHandling.hpp
 
-1586431749 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1586769856 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
@@ -92,20 +89,22 @@
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1583230704 /home/pi/WaveformMorpher/src/TimerEvent.hpp
+1586766226 /home/pi/WaveformMorpher/src/TimerEvent.hpp
 
-1586757703 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
+1586771679 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
 	<stdio.h>
 	<signal.h>
 	<iostream>
 	<sys/time.h>
 	<stdlib.h>
 	<unistd.h>
+	<pthread.h>
 	"GlobalDefinitions.hpp"
+	"UI.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
 
-1586760288 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1586763968 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 
 1583231334 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
@@ -120,7 +119,7 @@
 
 1581081047 /home/pi/WaveformMorpher/src/Globals.hpp
 
-1586759963 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1586762555 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"fbgraphics.h"
@@ -140,7 +139,7 @@
 	<iostream>
 	<fstream>
 
-1586675667 /home/pi/WaveformMorpher/src/FbGraphics.hpp
+1586762554 /home/pi/WaveformMorpher/src/FbGraphics.hpp
 
 1581979974 /home/pi/WaveformMorpher/src/fbgraphics.h
 	<linux/fb.h>
@@ -164,4 +163,25 @@
 	"GlobalDefinitions.hpp"
 
 1586430368 /home/pi/WaveformMorpher/src/Envelope.hpp
+
+1586771670 /home/pi/WaveformMorpher/src/UI.hpp
+
+1586771726 source:/home/pi/WaveformMorpher/src/UI.cpp
+	"AudioOut.hpp"
+	"FbGraphics.hpp"
+	"Touchscreen.hpp"
+	"WaveOsc.hpp"
+	"MidiHandling.hpp"
+	"WaveGenerator.hpp"
+	"TimerEvent.hpp"
+	"FourierTransformer.hpp"
+	"ADSR.hpp"
+	"GlobalDefinitions.hpp"
+	<signal.h>
+	<cstring>
+	<iostream>
+	<pthread.h>
+	<chrono>
+	<thread>
+	<climits>
 

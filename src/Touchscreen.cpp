@@ -71,7 +71,7 @@ void signal_callback_handler(int signum)
         {
             processlist();
             touch_is_happening_flag = 0;
-            table2Screen(mainWave);
+            table2Screen(currentEditWavetable);
         }
         else if(ev.type == 1 && ev.value == 1)//BTN_TOUCH ON
         {
@@ -111,7 +111,7 @@ void toScreen(size_t out_x,size_t out_y)
         {
             setPixelOff(out_x + i);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            wave[0][out_x + i] = convertedVal2;//STORE NEW PIXEL
+            currentEditWavetable[out_x + i] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
             editedPixels.push_back({out_x +i,convertedVal2});
         }
@@ -203,7 +203,7 @@ void processlist()
     drawLine( x2,  y2,  x1,  y1);
     }
     }
-
+    clearTouchscreenList();
 }
 
 void clearTouchscreenList()
@@ -215,10 +215,10 @@ void drawLine(double x1, double y1, double x2, double y2)
 {
     double m = (y2 - y1) / (x2 - x1);
     //std::cout << "Steigung: " << m <<std::endl;
-    wave[0][(int)x1] = y1;
+    currentEditWavetable[(int)x1] = y1;
     for(int c = x1+1;c<x2;c++)
     {
-        wave[0][c] = wave[0][c-1] + m;
+        currentEditWavetable[c] = currentEditWavetable[c-1] + m;
         //std::cout << mainWave[c] << std::endl;
     }
 }

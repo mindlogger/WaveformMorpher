@@ -1,7 +1,6 @@
 #include "AudioOut.hpp"
 #include "FbGraphics.hpp"
 #include "Touchscreen.hpp"
-#include "WaveOsc.hpp"
 #include "MidiHandling.hpp"
 #include "WaveGenerator.hpp"
 #include "TimerEvent.hpp"
@@ -11,10 +10,6 @@
 #include "GlobalDefinitions.hpp"
 
 #include <signal.h>
-#include <cstring>
-#include <iostream>
-
-using namespace std;
 
 void main_init()
 {
@@ -23,6 +18,8 @@ void main_init()
     env->setDecayRate(4 * SAMPLE_RATE);
     env->setSustainLevel(0.5);
     env->setReleaseRate(3 * SAMPLE_RATE);
+
+    dynamic_view = 0;//TODO STRUCT WIHT ALL CUR STATES INIT HERE
 
     genSqr(wave[0]);//A
     genSin(wave[1]);//D
@@ -52,99 +49,13 @@ int main()
 {
     audioOutWavetable = wave[3];//DEBUG
     currentScreenWavetable = wave[5];
+    currentEditWavetable = wave[0];
 
     main_init();
+    table2Screen(wave[0]);
 
-    while(true)
-    {
-    //table2Screen(wave[1]);
-        /*
-        char input;
-        std::cout << "Enter f for forward or b for backward: ";
-        cin >> input;
-        switch(input)
-        {
-            case 'f' :
-            {
-                currentScreenWavetable = mainFFT;
-                cout << "forward transform" << endl;
-                double* fft_out_prescale = transForward();
-                double fft_out_postscale[WAVE_TABLE_SIZE];
-                for(size_t i = 0; i < WAVE_TABLE_SIZE;i++)
-                {
-                    fft_out_postscale[i] = (fft_out_prescale[i/2]);//scale without any interpoaltion because FFT is only N/2 in length
-                }
-                table2Screen(fft_out_postscale);
-                memcpy(mainFFT,fft_out_postscale,sizeof(double) * WAVE_TABLE_SIZE); //make globaly available
-                screenTable2Continuous();
-                screenstate = Screenstates::A_F;
-                break ;
-            }
-            case 'b' :
-            {
-                currentScreenWavetable = mainWave;
-                cout << "backwards transform" << endl;
-                double* ifft_out_prescale = transBackward();
-                //table2Screen(ifft_out_prescale);
-                memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
-                //screenTable2Continuous();
-                screenstate = Screenstates::A_W;
+    while(1){}
 
-                for(size_t i = 0; i < WAVE_TABLE_SIZE-1;i++) //THIS SHOULD NOT NEED TO BE HERE
-                {
-                    mainWave[i] = (mainWave[i] + mainWave[i+1]) / 2.0;
-                }
-                table2Screen(mainWave);
-                screenTable2Continuous();
-
-                break;
-            }
-            case 'r' :
-            {
-                cout << "rounding" << endl;
-
-                for(size_t i = 0; i < WAVE_TABLE_SIZE-1;i++)
-                {
-                    mainWave[i] = (mainWave[i] + mainWave[i+1]) / 2.0;
-                }
-                processlist();
-                table2Screen(mainWave);
-                screenTable2Continuous();
-                break;
-            }
-            case 'g' :
-            {
-                cout << (int) screenstate << endl;
-                break;
-            }
-            case 's' :
-            {
-                genSin(mainWave);
-                table2Screen(mainWave);
-                //TODO SET SCREENSTATE TO WAVE
-                cout << (int) screenstate << endl;
-                break;
-            }
-            case 'q' :
-            {
-                genSqr(mainWave);
-                table2Screen(mainWave);
-                screenTable2Continuous();
-                //TODO SET SCREENSTATE TO WAVE
-                cout << (int) screenstate << endl;
-                break;
-            }
-            case 'w' :
-            {
-                genSaw(mainWave);
-                table2Screen(mainWave);
-                //TODO SET SCREENSTATE TO WAVE
-                cout << (int) screenstate << endl;
-                break;
-            }
-            default : cout << "\nBad Input. Must be f,b or r" ;
-        }*/
-    }
     main_end();
     return 0;
 }

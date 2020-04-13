@@ -4,9 +4,11 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <pthread.h>
 
 #include "GlobalDefinitions.hpp"
 
+#include "UI.hpp"
 #include "FbGraphics.hpp"
 #include "Touchscreen.hpp"
 
@@ -16,13 +18,17 @@ static void timer3hz()
 {
     if(!touch_is_happening_flag)
     {
-        clearTouchscreenList(); //IF THERE IS NO TOUCH HAPPENING CLEAR LIST
+        clearTouchscreenList(); //TODO TEST IF THIS IS ACTUALLY NECCEARY SINCE HAPPENS AFTER PROCESSING
     }
 }
 
 static void timer18hz()
 {
-    RenderScreen();
+    if(dynamic_view)
+    {
+    pthread_t th;
+    pthread_create(&th,NULL,RenderScreen,NULL);    }
+
 }
 
 static void timerHandler( int sig, siginfo_t *si, void *uc )
@@ -34,8 +40,8 @@ static void timerHandler( int sig, siginfo_t *si, void *uc )
         timer3hz();
     else if ( *tidp == t2 )
         timer18hz();
-    //else if ( *tidp == t3 )
-        //printf("THREE\n");
+    else if ( *tidp == t3 )
+        handle_input();
     //else if ( *tidp == t4 )
         //printf("FOUR\n");
     //flush(0);
@@ -76,9 +82,9 @@ static int makeTimer( char *name, timer_t *timerID, int expireMS, int intervalMS
 void setupTimer()
 {
     makeTimer("First Timer", &t1, 300, 300);
-    makeTimer("Second Timer", &t2, 55, 55);
+    makeTimer("Second Timer", &t2, 50, 50);
     makeTimer("Third Timer", &t3, 300, 300);
-    makeTimer("Fourth Timer", &t4, 300, 300);
+    //makeTimer("Fourth Timer", &t4, 300, 300);
 }
 
 void endTimer()
