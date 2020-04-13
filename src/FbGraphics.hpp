@@ -6,6 +6,7 @@ void setPixelOff(int x, int y);
 void setPixelOff(int x);
 void clearScreen();
 void updateScreen();
+void RenderScreen();
 void initFbGraphics();
 void table2Screen(double* wave_table);
 void screenTable2Continuous();

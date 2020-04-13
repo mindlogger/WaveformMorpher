@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1586432192 source:/home/pi/WaveformMorpher/src/main.cpp
+1586760112 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -14,7 +14,7 @@
 	<cstring>
 	<iostream>
 
-1586430522 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1586518133 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	"GlobalDefinitions.hpp"
@@ -22,7 +22,7 @@
 	<stdio.h>
 	<iostream>
 
-1582046078 /home/pi/WaveformMorpher/src/WaveOsc.hpp
+1586513778 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
 1583231195 source:/home/pi/WaveformMorpher/src/Framebuffer.cpp
 	"Framebuffer.hpp"
@@ -46,7 +46,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1586432375 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1586677770 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"FbGraphics.hpp"
 	<iostream>
@@ -64,7 +64,7 @@
 	<bits/stdc++.h>
 	"GlobalDefinitions.hpp"
 
-1585749340 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1586758139 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
@@ -85,24 +85,27 @@
 	<cstdlib>
 	"RtMidi.h"
 
-1582046494 /home/pi/WaveformMorpher/src/WaveGenerator.hpp
+1586514604 /home/pi/WaveformMorpher/src/WaveGenerator.hpp
 
-1582046501 source:/home/pi/WaveformMorpher/src/WaveGenerator.cpp
+1586514494 source:/home/pi/WaveformMorpher/src/WaveGenerator.cpp
 	"WaveGenerator.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
 
 1583230704 /home/pi/WaveformMorpher/src/TimerEvent.hpp
 
-1586344339 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
+1586757703 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
 	<stdio.h>
 	<signal.h>
 	<iostream>
 	<sys/time.h>
-	"Touchscreen.hpp"
+	<stdlib.h>
+	<unistd.h>
 	"GlobalDefinitions.hpp"
+	"FbGraphics.hpp"
+	"Touchscreen.hpp"
 
-1586427875 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1586760288 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 
 1583231334 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
@@ -117,7 +120,7 @@
 
 1581081047 /home/pi/WaveformMorpher/src/Globals.hpp
 
-1586344458 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1586759963 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"fbgraphics.h"
@@ -137,7 +140,7 @@
 	<iostream>
 	<fstream>
 
-1586344314 /home/pi/WaveformMorpher/src/FbGraphics.hpp
+1586675667 /home/pi/WaveformMorpher/src/FbGraphics.hpp
 
 1581979974 /home/pi/WaveformMorpher/src/fbgraphics.h
 	<linux/fb.h>

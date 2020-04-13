@@ -2,44 +2,86 @@
 #include <signal.h>
 #include <iostream>
 #include <sys/time.h>
-
-#include "Touchscreen.hpp"
+#include <stdlib.h>
+#include <unistd.h>
 
 #include "GlobalDefinitions.hpp"
 
-static void timer1khz(int signum)
-{
-    //EVERYTHING KINDA PERIODIC LIKE: AMP ADSR, WAVETABLE ADSR, FILTER COEF
-}
+#include "FbGraphics.hpp"
+#include "Touchscreen.hpp"
 
-static void timer10hz(int signum)
+timer_t t1,t2,t3,t4;
+
+static void timer3hz()
 {
     if(!touch_is_happening_flag)
     {
         clearTouchscreenList(); //IF THERE IS NO TOUCH HAPPENING CLEAR LIST
     }
-    void updateScreen();
+}
+
+static void timer18hz()
+{
+    RenderScreen();
+}
+
+static void timerHandler( int sig, siginfo_t *si, void *uc )
+{
+    timer_t *tidp;
+    tidp = (void**) si->si_value.sival_ptr;
+
+    if ( *tidp == t1 )
+        timer3hz();
+    else if ( *tidp == t2 )
+        timer18hz();
+    //else if ( *tidp == t3 )
+        //printf("THREE\n");
+    //else if ( *tidp == t4 )
+        //printf("FOUR\n");
+    //flush(0);
+}
+
+static int makeTimer( char *name, timer_t *timerID, int expireMS, int intervalMS )
+{
+    struct sigevent         te;
+    struct itimerspec       its;
+    struct sigaction        sa;
+    int                     sigNo = SIGRTMIN;
+
+    /* Set up signal handler. */
+    sa.sa_flags = SA_SIGINFO;
+    sa.sa_sigaction = timerHandler;
+    sigemptyset(&sa.sa_mask);
+    if (sigaction(sigNo, &sa, NULL) == -1)
+    {
+        fprintf(stderr, "Failed to setup signal handling for %s.\n",name);
+        return(-1);
+    }
+
+    /* Set and enable alarm */
+    te.sigev_notify = SIGEV_SIGNAL;
+    te.sigev_signo = sigNo;
+    te.sigev_value.sival_ptr = timerID;
+    timer_create(CLOCK_REALTIME, &te, timerID);
+
+    its.it_interval.tv_sec = intervalMS / 1000;
+    its.it_interval.tv_nsec = (intervalMS % 1000)*1000000;
+    its.it_value.tv_sec = expireMS / 1000;
+    its.it_value.tv_nsec = (expireMS % 1000)*1000000;
+    timer_settime(*timerID, 0, &its, NULL);
+
+    return(0);
 }
 
 void setupTimer()
 {
-    itimerval tv;
-    tv.it_interval.tv_sec = 0;  //defines interval
-    tv.it_interval.tv_usec = 300000;  // when timer expires, reset to 100ms
-    tv.it_value.tv_sec = 0;     //defines starting pos (sec till next interrupt)
-    tv.it_value.tv_usec = 300000;   // 100 ms == 100000 us
-    setitimer(ITIMER_REAL, &tv, NULL);
-    signal(SIGALRM,&timer10hz); //attach interrupt
+    makeTimer("First Timer", &t1, 300, 300);
+    makeTimer("Second Timer", &t2, 55, 55);
+    makeTimer("Third Timer", &t3, 300, 300);
+    makeTimer("Fourth Timer", &t4, 300, 300);
 }
 
 void endTimer()
 {
-    itimerval tv;
-    tv.it_interval.tv_sec = 0;  //defines interval
-    tv.it_interval.tv_usec = 0;
-    tv.it_value.tv_sec = 0;     //defines starting pos (sec till next interrupt)
-    tv.it_value.tv_usec = 0;
-    setitimer(ITIMER_REAL, &tv, NULL); //All set to 0 to stop timer
-    signal(SIGALRM,&timer10hz); //attach interrupt
-    //signal(SIGALRM,SIG_IGN); //THIS DISATTACHES THE HANDLER FROM THE SIGNAL TODO MAYBE BETTER TO TURN TIMER OFF
+
 }

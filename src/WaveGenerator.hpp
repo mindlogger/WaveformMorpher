@@ -1,7 +1,7 @@
 //WaveGenerator.h
 #ifndef WAVEGENERATOR_H
 #define WAVEGENERATOR_H
-void genSin();
-void genSaw();
-void genSqr();
+void genSin(double* waveTable);
+void genSaw(double* waveTable);
+void genSqr(double* waveTable);
 #endif

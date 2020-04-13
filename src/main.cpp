@@ -19,12 +19,17 @@ using namespace std;
 void main_init()
 {
     env = new ADSR();
-    env->setAttackRate(.1 * SAMPLE_RATE);
-    env->setDecayRate(.3 * SAMPLE_RATE);
-    env->setReleaseRate(5 * SAMPLE_RATE);
-    env->setSustainLevel(.8);
+    env->setAttackRate(4 * SAMPLE_RATE);
+    env->setDecayRate(4 * SAMPLE_RATE);
+    env->setSustainLevel(0.5);
+    env->setReleaseRate(3 * SAMPLE_RATE);
 
-    genSaw();
+    genSqr(wave[0]);//A
+    genSin(wave[1]);//D
+    genSaw(wave[2]);//S
+    genSin(wave[3]);//R
+    genSaw(wave[4]);//RE
+
     initFbGraphics();
     initAudio();
     initTouchscreen();
@@ -45,13 +50,15 @@ void main_end()
 
 int main()
 {
-    audioOutWavetable = mainWave;//DEBUG
-    currentScreenWavetable = mainWave;
+    audioOutWavetable = wave[3];//DEBUG
+    currentScreenWavetable = wave[5];
+
     main_init();
 
-    table2Screen(mainWave);
     while(true)
     {
+    //table2Screen(wave[1]);
+        /*
         char input;
         std::cout << "Enter f for forward or b for backward: ";
         cin >> input;
@@ -112,7 +119,7 @@ int main()
             }
             case 's' :
             {
-                genSin();
+                genSin(mainWave);
                 table2Screen(mainWave);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
@@ -120,7 +127,7 @@ int main()
             }
             case 'q' :
             {
-                genSqr();
+                genSqr(mainWave);
                 table2Screen(mainWave);
                 screenTable2Continuous();
                 //TODO SET SCREENSTATE TO WAVE
@@ -129,14 +136,14 @@ int main()
             }
             case 'w' :
             {
-                genSaw();
+                genSaw(mainWave);
                 table2Screen(mainWave);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
                 break;
             }
             default : cout << "\nBad Input. Must be f,b or r" ;
-        }
+        }*/
     }
     main_end();
     return 0;

@@ -111,7 +111,7 @@ void toScreen(size_t out_x,size_t out_y)
         {
             setPixelOff(out_x + i);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            mainWave[out_x + i] = convertedVal2;//STORE NEW PIXEL
+            wave[0][out_x + i] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
             editedPixels.push_back({out_x +i,convertedVal2});
         }
@@ -215,10 +215,10 @@ void drawLine(double x1, double y1, double x2, double y2)
 {
     double m = (y2 - y1) / (x2 - x1);
     //std::cout << "Steigung: " << m <<std::endl;
-    mainWave[(int)x1] = y1;
+    wave[0][(int)x1] = y1;
     for(int c = x1+1;c<x2;c++)
     {
-        mainWave[c] = mainWave[c-1] + m;
+        wave[0][c] = wave[0][c-1] + m;
         //std::cout << mainWave[c] << std::endl;
     }
 }
