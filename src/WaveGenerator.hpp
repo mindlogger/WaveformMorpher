@@ -4,4 +4,5 @@
 void genSin(double* waveTable);
 void genSaw(double* waveTable);
 void genSqr(double* waveTable);
+void genSil(double* waveTable);
 #endif

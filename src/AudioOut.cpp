@@ -4,6 +4,10 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <iostream>
+#include <sched.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 typedef struct
 {

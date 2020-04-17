@@ -15,11 +15,11 @@
 
 using namespace std;
 
-void handle_input()
+void *handle_input(void *arg)
 {
-        char input = '1';
+        char input = '2';
         int input_int = 0;
-        input_int = getchar();//cin >> input;
+        input_int = getchar();
         input = (char) input_int;
         if(input_int != -1)
         {
@@ -27,7 +27,7 @@ void handle_input()
         {
             case 'f' :
             {
-                currentScreenWavetable = mainFFT;
+                //currentScreenWavetable = mainFFT;
                 cout << "forward transform" << endl;
                 double* fft_out_prescale = transForward();
                 double fft_out_postscale[WAVE_TABLE_SIZE];
@@ -39,11 +39,11 @@ void handle_input()
                 memcpy(mainFFT,fft_out_postscale,sizeof(double) * WAVE_TABLE_SIZE); //make globaly available
                 screenTable2Continuous();
                 screenstate = Screenstates::A_F;
-                break ;
-            }
+
+            }break;
             case 'b' :
             {
-                currentScreenWavetable = mainWave;
+                //currentScreenWavetable = mainWave;
                 cout << "backwards transform" << endl;
                 double* ifft_out_prescale = transBackward();
                 //table2Screen(ifft_out_prescale);
@@ -58,8 +58,8 @@ void handle_input()
                 table2Screen(mainWave);
                 screenTable2Continuous();
 
-                break;
-            }
+
+            }break;
             case 'r' :
             {
                 cout << "rounding" << endl;
@@ -68,29 +68,30 @@ void handle_input()
             case 'g' :
             {
                 cout << (int) screenstate << endl;
-                break;
-            }
+
+            }break;
             case 'd' :
             {
-                cout << "toggled dynamic mode" << endl;
                 if(dynamic_view)
                 {
+                    cout << "toggled dynamic mode OFF" << endl;
                     dynamic_view = 0;
                 }
                 else
                 {
+                    cout << "toggled dynamic mode ON" << endl;
                     dynamic_view = 1;
                 }
-                break;
-            }
+
+            }break;
             case 's' :
             {
                 genSin(currentEditWavetable);
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
-                break;
-            }
+
+            }break;
             case 'q' :
             {
                 genSqr(currentEditWavetable);
@@ -98,54 +99,55 @@ void handle_input()
                 screenTable2Continuous();
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
-                break;
-            }
+
+            }break;
             case 'w' :
             {
                 genSaw(currentEditWavetable);
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
-                break;
-            }
+
+            }break;
             case '1' :
             {
                 currentEditWavetable = wave[0];
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << "Attack Wave" << endl;
-                break;
-            }
+
+            }break;
             case '2' :
             {
                 currentEditWavetable = wave[1];
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << "Decay Wave" << endl;
-                break;
-            }
+
+            }break;
             case '3' :
             {
                 currentEditWavetable = wave[2];
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << "Sustain Wave" << endl;
-                break;
-            }
+
+            }break;
             case '4' :
             {
                 currentEditWavetable = wave[3];
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << "Release Wave" << endl;
-                break;
-            }
+
+            }break;
             default :
                 {
                 //cout << "\nBad Input: " << input << endl;
                 }
             break;
         }
-    }
+        }
+    return NULL;
 }
 

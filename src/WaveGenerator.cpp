@@ -34,3 +34,11 @@ void genSqr(double* waveTable)
 		}
 	}
 }
+
+void genSil(double* waveTable)
+{
+    for(int i = 0;i < WAVE_TABLE_SIZE;i++)
+	{
+		waveTable[i] = 0.0;
+	}
+}

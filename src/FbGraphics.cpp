@@ -21,8 +21,10 @@ extern "C"
 #include <math.h>
 #include <iostream>
 #include <fstream>
+#include <semaphore.h>
 
 struct _fbg *fbg;
+sem_t semRender;
 
 void setPixel(int x, int y)
 {
@@ -80,33 +82,59 @@ void table2Screen(double* wave_table)
 void screenTable2Continuous()
 {
 }
-void *RenderScreen(void *arg)
+
+void postScreenSem()
+{
+    sem_post(&semRender);
+}
+void renderDynamicView()
 {
     int x = env->getState();
     double inverse_master_gain = 0.0;
+    double dec_gain = (master_gain-0.3)*((-1)/(0.3-1));
+    double inv_dec_gain = (master_gain-0.3)*((1)/(0.3-1))+1;
+    clearScreen();
     for(int i = 0;i < WAVE_TABLE_SIZE;i++)
     {
-    inverse_master_gain = abs(master_gain-1.0);
-    switch (x)
+        inverse_master_gain = abs(master_gain-1.0);
+        switch (x)
+        {
+            case 0:
+                currentScreenWavetable[i] = 0.0;
+            break;
+            case 1://A
+                currentScreenWavetable[i] = (master_gain*wave[1][i] + inverse_master_gain*wave[0][i]);
+            break;
+            case 2://D
+                currentScreenWavetable[i] = (dec_gain*wave[1][i] + inv_dec_gain*wave[2][i]);
+            break;
+            case 3://S
+                currentScreenWavetable[i] = wave[2][i];
+            break;
+            case 4://R
+                currentScreenWavetable[i] = (master_gain*wave[2][i] + inverse_master_gain*wave[3][i]);
+            break;
+        }
+        double x = ((currentScreenWavetable[i]+1) * 159.0);
+        x = -1 * x + 319;
+        x = (int) x;
+        setPixel(i,x);
+    }
+    updateScreen();
+    //table2Screen(currentScreenWavetable);
+}
+void *RenderScreen(void *arg)
+{
+    sem_init(&semRender, 0, 1);
+    while(1)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
     {
-    case 0:
-        currentScreenWavetable[i] = 0.0;
-    break;
-    case 1://A
-        currentScreenWavetable[i] = (master_gain*wave[1][i] + inverse_master_gain*wave[0][i]);
-    break;
-    case 2://D
-        currentScreenWavetable[i] = (master_gain*wave[1][i] + inverse_master_gain*wave[2][i]);
-    break;
-    case 3://S
-        currentScreenWavetable[i] = wave[2][i];
-    break;
-    case 4://R
-        currentScreenWavetable[i] = (master_gain*wave[2][i] + inverse_master_gain*wave[3][i]);
-    break;
+        sem_wait(&semRender);
+        if(dynamic_view)
+        {
+            renderDynamicView();
+        }
     }
-    }
-    table2Screen(currentScreenWavetable);
+    return NULL;
 }
 void fillScreen()
 {

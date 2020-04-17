@@ -20,53 +20,37 @@ float getWavetableValue()
     int x = env->getState();
     double interpol_a = 0;
     double interpol_b = 0;
-    switch (x)
+
+    f_x = wave[x-1][(int)waveOscIndex];
+    steigung = wave[x-1][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[x-1][(int)waveOscIndex];
+    nachkomma_x = (int)waveOscIndex - waveOscIndex;
+
+    interpol_a = f_x + steigung * nachkomma_x;
+
+    f_x = wave[x][(int)waveOscIndex];
+    steigung = wave[x][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[x][(int)waveOscIndex];
+    nachkomma_x = (int)waveOscIndex - waveOscIndex;
+
+    interpol_b = f_x + steigung * nachkomma_x;
+
+    if(x == env_decay)
     {
-    case env_idle:
-         f_x = 0;
-         steigung = 0;
-         nachkomma_x = 0;
-        break;
-    case env_attack:
-             f_x = wave[0][(int)waveOscIndex];
-             steigung = wave[0][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[0][(int)waveOscIndex];
-             nachkomma_x = (int)waveOscIndex - waveOscIndex;
-
-             interpol_a = f_x + steigung * nachkomma_x;
-
-             f_x = wave[1][(int)waveOscIndex];
-             steigung = wave[1][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[1][(int)waveOscIndex];
-             nachkomma_x = (int)waveOscIndex - waveOscIndex;
-
-             interpol_b = f_x + steigung * nachkomma_x;
-
-            interpol = (master_gain*interpol_b + interpol_a*abs(master_gain-1));
-
-        break;
-    case env_decay:
-             f_x = wave[1][(int)waveOscIndex];
-             steigung = wave[1][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[1][(int)waveOscIndex];
-             nachkomma_x = (int)waveOscIndex - waveOscIndex;
-                 interpol = f_x + steigung * nachkomma_x;
-        break;
-    case env_sustain:
-             f_x = wave[2][(int)waveOscIndex];
-             steigung = wave[2][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[2][(int)waveOscIndex];
-             nachkomma_x = (int)waveOscIndex - waveOscIndex;
-                 interpol = f_x + steigung * nachkomma_x;
-        break;
-    case env_release:
-             f_x = wave[3][(int)waveOscIndex];
-             steigung = wave[3][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[3][(int)waveOscIndex];
-             nachkomma_x = (int)waveOscIndex - waveOscIndex;
-                 interpol = f_x + steigung * nachkomma_x;
-        break;
+    double dec_gain = (master_gain-0.3)*((-1)/(0.3-1));
+    double inv_dec_gain = (master_gain-0.3)*((1)/(0.3-1))+1;
+    interpol = (dec_gain*interpol_a + interpol_b*inv_dec_gain);
+    }
+    else
+    {
+    if(x == env_sustain)
+    {
+    interpol = (interpol_a);
+    }
+    else
+    {
+    interpol = (master_gain*interpol_b + interpol_a*abs(master_gain-1));
     }
 
-
-    /*double f_x = audioOutWavetable[(int)waveOscIndex];
-    double steigung = audioOutWavetable[((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - audioOutWavetable[(int)waveOscIndex];
-    double nachkomma_x = (int)waveOscIndex - waveOscIndex;*/
+    }
 
     waveOscIndex = waveOscIndex + step_size;
 
