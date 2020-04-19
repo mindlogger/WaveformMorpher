@@ -3,7 +3,9 @@
 #ifndef FOURIERTRANSFORMER_H
 #define FOURIERTRANSFORMER_H
 void initTransformer();
-double* transForward();
-double* transBackward();
+void *Transformer(void *args);
+void postTransformerSem();
+void transForward(int state);
+void transBackward(int state);
 void endTransformer();
 #endif

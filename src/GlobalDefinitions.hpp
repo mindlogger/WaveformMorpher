@@ -6,17 +6,19 @@
 #define EXTERN extern
 #endif
 #include "ADSR.hpp"
-enum class Screenstates {A_W,D_W,SS_W,SE_W,R_W, A_F,D_F,SS_F,SE_F,R_F}; //W = Wave F = Fourier
+enum Screenstates {A,D,SS,SE,R};
+EXTERN int fourier_flag; //0 = wave 1 = spectrum
 EXTERN Screenstates screenstate;
-//MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
+//TODO MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
 EXTERN float master_gain; //0 -- 1
 EXTERN int touch_is_happening_flag;
 EXTERN int dynamic_view;
-EXTERN ADSR *env;
+EXTERN ADSR *envelope;
 
 EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE];
-EXTERN double *audioOutWavetable;
 EXTERN double *currentEditWavetable;
-EXTERN double mainWave[WAVE_TABLE_SIZE]; //-1 -- 0 -- 1
+
 EXTERN double wave[5][WAVE_TABLE_SIZE];
-EXTERN double mainFFT[WAVE_TABLE_SIZE]; //-1 -- 0 -- 1
+EXTERN double fft[5][WAVE_TABLE_SIZE];
+//LEGACY
+EXTERN double mainWave[WAVE_TABLE_SIZE]; //-1 -- 0 -- 1

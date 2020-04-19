@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1587032010 source:/home/pi/WaveformMorpher/src/main.cpp
+1587294377 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -11,13 +11,9 @@
 	"UI.hpp"
 	"GlobalDefinitions.hpp"
 	<signal.h>
-	<sys/types.h>
-	<unistd.h>
-	<sched.h>
-	<stdlib.h>
 	<pthread.h>
 
-1587025305 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1587125351 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	"GlobalDefinitions.hpp"
@@ -53,7 +49,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1586943375 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1587308065 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"FbGraphics.hpp"
 	<iostream>
@@ -71,7 +67,7 @@
 	<bits/stdc++.h>
 	"GlobalDefinitions.hpp"
 
-1587032641 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1587195404 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
@@ -84,7 +80,7 @@
 
 1586772889 /home/pi/WaveformMorpher/src/MidiHandling.hpp
 
-1586772889 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1587195404 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
@@ -101,36 +97,32 @@
 
 1587025310 /home/pi/WaveformMorpher/src/TimerEvent.hpp
 
-1587125134 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
-	<stdio.h>
+1587196157 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
 	<signal.h>
 	<iostream>
 	<sys/time.h>
-	<stdlib.h>
-	<unistd.h>
-	<pthread.h>
-	<semaphore.h>
 	"GlobalDefinitions.hpp"
-	"UI.hpp"
 	"FbGraphics.hpp"
-	"Touchscreen.hpp"
+	"FourierTransformer.hpp"
 
-1587125160 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1587295839 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 
-1586772889 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
+1587308206 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
 	"FourierTransformer.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"
 	<iostream>
 	<cstring>
+	<semaphore.h>
+	<pthread.h>
 
-1586772889 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
+1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
 1581081047 /home/pi/WaveformMorpher/src/Globals.hpp
 
-1587032024 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1587294078 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"fbgraphics.h"
@@ -148,8 +140,8 @@
 	<stdio.h>
 	<math.h>
 	<iostream>
-	<fstream>
 	<semaphore.h>
+	<pthread.h>
 
 1587026858 /home/pi/WaveformMorpher/src/FbGraphics.hpp
 
@@ -178,7 +170,7 @@
 
 1586855299 /home/pi/WaveformMorpher/src/UI.hpp
 
-1586939396 source:/home/pi/WaveformMorpher/src/UI.cpp
+1587307632 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"

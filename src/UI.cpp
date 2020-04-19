@@ -27,39 +27,28 @@ void *handle_input(void *arg)
         {
             case 'f' :
             {
-                //currentScreenWavetable = mainFFT;
-                cout << "forward transform" << endl;
-                double* fft_out_prescale = transForward();
-                double fft_out_postscale[WAVE_TABLE_SIZE];
-                for(size_t i = 0; i < WAVE_TABLE_SIZE;i++)
+                if(!fourier_flag)
                 {
-                    fft_out_postscale[i] = (fft_out_prescale[i/2]);//scale without any interpoaltion because FFT is only N/2 in length
+                cout << "forward transform" << endl;
+                currentEditWavetable = fft[screenstate];
+                transForward(screenstate);
+                table2Screen(currentEditWavetable);
+                fourier_flag = 1;
                 }
-                table2Screen(fft_out_postscale);
-                memcpy(mainFFT,fft_out_postscale,sizeof(double) * WAVE_TABLE_SIZE); //make globaly available
-                screenTable2Continuous();
-                screenstate = Screenstates::A_F;
-
-            }break;
+            }
+            break;
             case 'b' :
             {
-                //currentScreenWavetable = mainWave;
-                cout << "backwards transform" << endl;
-                double* ifft_out_prescale = transBackward();
-                //table2Screen(ifft_out_prescale);
-                memcpy(mainWave,ifft_out_prescale,sizeof(double) * WAVE_TABLE_SIZE);
-                //screenTable2Continuous();
-                screenstate = Screenstates::A_W;
-
-                for(size_t i = 0; i < WAVE_TABLE_SIZE-1;i++) //THIS SHOULD NOT NEED TO BE HERE
+                if(fourier_flag)
                 {
-                    mainWave[i] = (mainWave[i] + mainWave[i+1]) / 2.0;
+                cout << "backwards transform" << endl;
+                currentEditWavetable = wave[screenstate];
+                transBackward(screenstate);
+                table2Screen(currentEditWavetable);
+                fourier_flag = 0;
                 }
-                table2Screen(mainWave);
-                screenTable2Continuous();
-
-
-            }break;
+            }
+            break;
             case 'r' :
             {
                 cout << "rounding" << endl;
@@ -111,35 +100,83 @@ void *handle_input(void *arg)
             }break;
             case '1' :
             {
+                if(fourier_flag)
+                {
+                currentEditWavetable = fft[0];
+                table2Screen(currentEditWavetable);
+                cout << "Attack Spectrum" << endl;
+                }
+                else
+                {
                 currentEditWavetable = wave[0];
                 table2Screen(currentEditWavetable);
-                //TODO SET SCREENSTATE TO WAVE
                 cout << "Attack Wave" << endl;
-
+                }
+                screenstate = A;
             }break;
             case '2' :
             {
+                if(fourier_flag)
+                {
+                currentEditWavetable = fft[1];
+                table2Screen(currentEditWavetable);
+                cout << "Decay Spectrum" << endl;
+                }
+                else
+                {
                 currentEditWavetable = wave[1];
                 table2Screen(currentEditWavetable);
-                //TODO SET SCREENSTATE TO WAVE
                 cout << "Decay Wave" << endl;
-
+                }
+                screenstate = D;
             }break;
             case '3' :
             {
+                if(fourier_flag)
+                {
+                currentEditWavetable = fft[2];
+                table2Screen(currentEditWavetable);
+                cout << "Sustain Spectrum" << endl;
+                }
+                else
+                {
                 currentEditWavetable = wave[2];
                 table2Screen(currentEditWavetable);
-                //TODO SET SCREENSTATE TO WAVE
                 cout << "Sustain Wave" << endl;
-
+                }
+                screenstate = SS;
             }break;
             case '4' :
             {
+                if(fourier_flag)
+                {
+                currentEditWavetable = fft[3];
+                table2Screen(currentEditWavetable);
+                cout << "Release Spectrum" << endl;
+                }
+                else
+                {
                 currentEditWavetable = wave[3];
                 table2Screen(currentEditWavetable);
-                //TODO SET SCREENSTATE TO WAVE
                 cout << "Release Wave" << endl;
-
+                }
+                screenstate = SE;
+            }break;
+            case '5' :
+            {
+                if(fourier_flag)
+                {
+                currentEditWavetable = fft[4];
+                table2Screen(currentEditWavetable);
+                cout << "??? Spectrum" << endl;
+                }
+                else
+                {
+                currentEditWavetable = wave[4];
+                table2Screen(currentEditWavetable);
+                cout << "??? Wave" << endl;
+                }
+                screenstate = R;
             }break;
             default :
                 {

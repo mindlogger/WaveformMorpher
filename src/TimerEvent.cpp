@@ -1,26 +1,17 @@
-#include <stdio.h>
 #include <signal.h>
 #include <iostream>
 #include <sys/time.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <semaphore.h>
 
 #include "GlobalDefinitions.hpp"
 
-#include "UI.hpp"
 #include "FbGraphics.hpp"
-#include "Touchscreen.hpp"
+#include "FourierTransformer.hpp"
 
 timer_t t1,t2,t3,t4;
 
 static void timer3hz()
 {
-    if(!touch_is_happening_flag)
-    {
-        //clearTouchscreenList(); //TODO TEST IF THIS IS ACTUALLY NECCEARY SINCE HAPPENS AFTER PROCESSING
-    }
+    postTransformerSem();
 }
 
 static void timer18hz()

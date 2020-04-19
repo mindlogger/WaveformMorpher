@@ -20,8 +20,8 @@ extern "C"
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
-#include <fstream>
 #include <semaphore.h>
+#include <pthread.h>
 
 struct _fbg *fbg;
 sem_t semRender;
@@ -52,6 +52,8 @@ void initFbGraphics()
     fbg = fbg_setup("/dev/fb1", 0); // you can also directly use fbg_init(); for "/dev/fb0", last argument mean that will not use page flipping mechanism  for double buffering (it is actually slower on some devices!)
     fbg_clear(fbg, 0); // can also be replaced by fbg_fill(fbg, 0, 0, 0);
     fbg_fill(fbg,255,255,255);
+    pthread_t render_t;
+    pthread_create(&render_t,NULL,RenderScreen,NULL);
 }
 void table2Screen(double* wave_table)
 {
@@ -63,18 +65,16 @@ void table2Screen(double* wave_table)
         x = round(x);
         if(x < 0) //ONLY FOR DEBUGING REASONS
         {
-            std::cout << "err:table2Screen:tosmall: " << x << std::endl; //DEBUG
+            std::cout << "err:table2Screen:tosmall: " << x << " at pos " << i << std::endl; //DEBUG
             x = 0;
         }
         if(x > 319) //ONLY FOR DEBUGING REASONS
         {
-            std::cout << "err:table2Screen:tolarge: " << x << std::endl; //DEBUG
+            std::cout << "err:table2Screen:tolarge: " << x << " at pos " << i << std::endl; //DEBUG
             x = 319;
         }
         setPixel(i,x);
-
         //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
-        //wave_table_framebuffer[i] = x;
     }
     updateScreen();
 
@@ -82,14 +82,13 @@ void table2Screen(double* wave_table)
 void screenTable2Continuous()
 {
 }
-
 void postScreenSem()
 {
     sem_post(&semRender);
 }
 void renderDynamicView()
 {
-    int x = env->getState();
+    int x = envelope->getState();
     double inverse_master_gain = 0.0;
     double dec_gain = (master_gain-0.3)*((-1)/(0.3-1));
     double inv_dec_gain = (master_gain-0.3)*((1)/(0.3-1))+1;
@@ -115,13 +114,8 @@ void renderDynamicView()
                 currentScreenWavetable[i] = (master_gain*wave[2][i] + inverse_master_gain*wave[3][i]);
             break;
         }
-        double x = ((currentScreenWavetable[i]+1) * 159.0);
-        x = -1 * x + 319;
-        x = (int) x;
-        setPixel(i,x);
     }
-    updateScreen();
-    //table2Screen(currentScreenWavetable);
+    table2Screen(currentScreenWavetable);
 }
 void *RenderScreen(void *arg)
 {
@@ -129,7 +123,7 @@ void *RenderScreen(void *arg)
     while(1)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
     {
         sem_wait(&semRender);
-        if(dynamic_view)
+        if(dynamic_view && (!fourier_flag))
         {
             renderDynamicView();
         }

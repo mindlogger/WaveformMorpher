@@ -16,8 +16,8 @@ float getWavetableValue()
     double f_x = 0;
     double steigung = 0;
     double nachkomma_x = 0;
-    master_gain = env->process();
-    int x = env->getState();
+    master_gain = envelope->process();
+    int x = envelope->getState();
     double interpol_a = 0;
     double interpol_b = 0;
 

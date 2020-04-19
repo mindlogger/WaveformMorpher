@@ -19,7 +19,7 @@
 #include "GlobalDefinitions.hpp"
 
 
-int in = -1;//File Descriptor for touch
+int fdTouchscreen = -1;//File Descriptor for touch
 
 std::list<std::tuple<size_t, double>> editedPixels;
 
@@ -33,7 +33,7 @@ void signal_callback_handler(int signum)
     {
         ret = read(in,&ev,sizeof(ev));
     }while((ev.type != 1 && ev.code != 330) );*/
-    while(read(in,&ev,sizeof(ev)) > 0)
+    while(read(fdTouchscreen,&ev,sizeof(ev)) > 0)
     {
         if(ev.type == 3 && ev.code == 0)//IS ABS_X -> Y
         {
@@ -104,28 +104,20 @@ void toScreen(size_t out_x,size_t out_y)
     out_x = (24 * (out_x - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
 
     //printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG
-    if(screenstate == Screenstates::A_W) //TODO CASE SWITCH IN THE FUTURE FOR MORPHING
+    if(fourier_flag)
     {
-        int screen_scaling = 1;
-        for(int i = 0; i < screen_scaling; i++)
-        {
-            setPixelOff(out_x + i);//DELETE OLD PIXEL
+            setPixelOff(out_x);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            currentEditWavetable[out_x + i] = convertedVal2;//STORE NEW PIXEL
-            setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
-            editedPixels.push_back({out_x +i,convertedVal2});
-        }
+            currentEditWavetable[out_x] = convertedVal2;//STORE NEW PIXEL
+            setPixel(out_x,out_y);//DISPLAY NEW PIXEL
     }
     else
     {
-        int screen_scaling = 1;
-        for(int i = 0; i < screen_scaling; i++)
-        {
-            setPixelOff(out_x + i);//DELETE OLD PIXEL
+            setPixelOff(out_x);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            mainFFT[out_x + i] = convertedVal2;//STORE NEW PIXEL
-            setPixel(out_x+ i,out_y);//DISPLAY NEW PIXEL
-        }
+            currentEditWavetable[out_x] = convertedVal2;//STORE NEW PIXEL
+            setPixel(out_x,out_y);//DISPLAY NEW PIXEL
+            editedPixels.push_back({out_x,convertedVal2});
     }
 }
 
@@ -133,14 +125,13 @@ void initTouchscreen()
 {
     system("xinput disable stmpe-ts");
     touch_is_happening_flag = 1; //JUST TO NOT TRIGGER THE INT BEFORE TOUCHING THE SCREEN
-    screenstate = Screenstates::A_W;
     signal(SIGUSR1, &signal_callback_handler);
-    in = open("/dev/input/event7",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
-    fcntl(in, F_SETOWN, getpid());
-    int oflags = fcntl(in, F_GETFL);
-    fcntl(in, F_SETFL, oflags | O_ASYNC);
+    fdTouchscreen = open("/dev/input/event7",O_RDWR | O_NONBLOCK); //TODO IT CANT BE GUARANTEED THAT THIS IS EV5 FIX DYNAMICALLY ALLOC
+    fcntl(fdTouchscreen, F_SETOWN, getpid());
+    int oflags = fcntl(fdTouchscreen, F_GETFL);
+    fcntl(fdTouchscreen, F_SETFL, oflags | O_ASYNC);
     int k = 0;
-    fcntl(in,F_SETSIG,SIGUSR1);
+    fcntl(fdTouchscreen,F_SETSIG,SIGUSR1);
     int i = getpid();
 
     printf("My PID: %d\n",i);
@@ -226,6 +217,6 @@ void drawLine(double x1, double y1, double x2, double y2)
 
 void endTouchscreen()
 {
-    close(in);
+    close(fdTouchscreen);
 }
 
