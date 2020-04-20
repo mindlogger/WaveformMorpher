@@ -88,10 +88,21 @@ void postScreenSem()
 }
 void renderDynamicView()
 {
+    double (*working_wavetable)[480];
+    if(fourier_flag)
+    {
+    working_wavetable = fft;
+    }
+    else
+    {
+    working_wavetable = wave;
+    }
     int x = envelope->getState();
     double inverse_master_gain = 0.0;
-    double dec_gain = (master_gain-0.3)*((-1)/(0.3-1));
-    double inv_dec_gain = (master_gain-0.3)*((1)/(0.3-1))+1;
+    double dec_gain = (master_gain-sus_v)*((-1)/(sus_v-1));
+    double inv_dec_gain = (master_gain-sus_v)*((1)/(sus_v-1))+1;
+    double rel_gain = master_gain*(1.0/sus_v);
+    double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
     clearScreen();
     for(int i = 0;i < WAVE_TABLE_SIZE;i++)
     {
@@ -102,16 +113,16 @@ void renderDynamicView()
                 currentScreenWavetable[i] = 0.0;
             break;
             case 1://A
-                currentScreenWavetable[i] = (master_gain*wave[1][i] + inverse_master_gain*wave[0][i]);
+                currentScreenWavetable[i] = (master_gain*working_wavetable[1][i] + inverse_master_gain*working_wavetable[0][i]);
             break;
             case 2://D
-                currentScreenWavetable[i] = (dec_gain*wave[1][i] + inv_dec_gain*wave[2][i]);
+                currentScreenWavetable[i] = (dec_gain*working_wavetable[1][i] + inv_dec_gain*working_wavetable[2][i]);
             break;
             case 3://S
-                currentScreenWavetable[i] = wave[2][i];
+                currentScreenWavetable[i] = working_wavetable[2][i];
             break;
             case 4://R
-                currentScreenWavetable[i] = (master_gain*wave[2][i] + inverse_master_gain*wave[3][i]);
+                currentScreenWavetable[i] = (rel_gain*working_wavetable[2][i] + inv_rel_gain*working_wavetable[3][i]);
             break;
         }
     }
@@ -123,7 +134,7 @@ void *RenderScreen(void *arg)
     while(1)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
     {
         sem_wait(&semRender);
-        if(dynamic_view && (!fourier_flag))
+        if(dynamic_view)
         {
             renderDynamicView();
         }

@@ -33,23 +33,37 @@ float getWavetableValue()
 
     interpol_b = f_x + steigung * nachkomma_x;
 
-    if(x == env_decay)
+    switch (x)
     {
-    double dec_gain = (master_gain-0.3)*((-1)/(0.3-1));
-    double inv_dec_gain = (master_gain-0.3)*((1)/(0.3-1))+1;
-    interpol = (dec_gain*interpol_a + interpol_b*inv_dec_gain);
-    }
-    else
-    {
-    if(x == env_sustain)
-    {
-    interpol = (interpol_a);
-    }
-    else
-    {
-    interpol = (master_gain*interpol_b + interpol_a*abs(master_gain-1));
-    }
+        case 0:
 
+        break;
+        case 1://A
+            interpol = (master_gain*interpol_b + interpol_a*abs(master_gain-1));
+        break;
+        case 2://D
+            {
+            double dec_gain = (master_gain-sus_v)*((-1)/(sus_v-1));
+            double inv_dec_gain = (master_gain-sus_v)*((1)/(sus_v-1))+1;
+            interpol = (dec_gain*interpol_a + interpol_b*inv_dec_gain);
+            }
+        break;
+        case 3://S
+            interpol = (interpol_a);
+        break;
+        case 4://R
+            {
+            f_x = wave[2][(int)waveOscIndex];
+            steigung = wave[2][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[2][(int)waveOscIndex];
+            nachkomma_x = (int)waveOscIndex - waveOscIndex;
+
+            double interpol_c = f_x + steigung * nachkomma_x;
+
+            double rel_gain = master_gain*(1.0/sus_v);
+            double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
+            interpol = (rel_gain*interpol_c + inv_rel_gain*interpol_a);
+            }
+        break;
     }
 
     waveOscIndex = waveOscIndex + step_size;

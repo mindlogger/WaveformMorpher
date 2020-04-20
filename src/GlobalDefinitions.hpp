@@ -12,6 +12,7 @@ EXTERN Screenstates screenstate;
 //TODO MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
 EXTERN float master_gain; //0 -- 1
 EXTERN int touch_is_happening_flag;
+EXTERN int fft_has_been_touched_flag;
 EXTERN int dynamic_view;
 EXTERN ADSR *envelope;
 
@@ -20,5 +21,9 @@ EXTERN double *currentEditWavetable;
 
 EXTERN double wave[5][WAVE_TABLE_SIZE];
 EXTERN double fft[5][WAVE_TABLE_SIZE];
-//LEGACY
-EXTERN double mainWave[WAVE_TABLE_SIZE]; //-1 -- 0 -- 1
+
+EXTERN double att_v;
+EXTERN double dec_v;
+EXTERN double sus_v;
+EXTERN double rel_v;
+EXTERN double loop_v;

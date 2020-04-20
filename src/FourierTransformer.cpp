@@ -36,8 +36,11 @@ void *Transformer(void *args)
     sem_init(&semTranformer, 0, 1);
     while(1)
     {
-    //IF FOURIER FLAG AND SCREEN CHANGED
-    //SCREEN CHANGED = 0;TRANSFORM BACK CURRENT WAVE
+    if(fourier_flag && fft_has_been_touched_flag)
+    {
+    fft_has_been_touched_flag = 0;
+    transBackward(screenstate);
+    }
     }
 }
 void postTransformerSem()

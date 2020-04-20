@@ -31,7 +31,7 @@ ADSR::ADSR(void) {
     setReleaseRate(0);
     setSustainLevel(1.0);
     setTargetRatioA(0.3);
-    setTargetRatioDR(0.0001);
+    setTargetRatioDR(0.001);
 }
 
 ADSR::~ADSR(void) {

@@ -110,14 +110,14 @@ void toScreen(size_t out_x,size_t out_y)
             double convertedVal2 = -(out_y/160.0)+1.0;
             currentEditWavetable[out_x] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x,out_y);//DISPLAY NEW PIXEL
+            fft_has_been_touched_flag = 1;
     }
     else
     {
             setPixelOff(out_x);//DELETE OLD PIXEL
             double convertedVal2 = -(out_y/160.0)+1.0;
-            currentEditWavetable[out_x] = convertedVal2;//STORE NEW PIXEL
             setPixel(out_x,out_y);//DISPLAY NEW PIXEL
-            editedPixels.push_back({out_x,convertedVal2});
+            editedPixels.push_back({out_x,convertedVal2});//STORE PIXEL TO DRAW LATER
     }
 }
 
