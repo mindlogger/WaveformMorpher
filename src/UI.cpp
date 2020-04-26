@@ -7,14 +7,71 @@
 #include "TimerEvent.hpp"
 #include "FourierTransformer.hpp"
 #include "ADSR.hpp"
+#include "UI.hpp"
 
 #include "GlobalDefinitions.hpp"
 
+#include <pigpio.h>
 #include <cstring>
 #include <iostream>
+#include <semaphore.h>
+#include <pthread.h>
 
 using namespace std;
 
+int handle; //Handle for the I2C bridge
+sem_t semUI;
+
+void setupUI()
+{
+        gpioInitialise();
+        handle = i2cOpen(1,0x33,0); //0b0110011
+        char setupbyte = 0b11110110; //SETUP BIT
+        i2cWriteDevice(handle,&setupbyte,1);
+        pthread_t ui_t;
+        pthread_create(&ui_t,NULL,handle_ui,NULL);
+}
+void postUISem()
+{
+    sem_post(&semUI);
+}
+unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
+{
+    if(pin < 8)
+    {
+    char receive[2] = {0b0000000,0b0000000};
+    int t = (pin << 1);
+    char receivewbyte = 0b01100001 | t; //CONFIG BIT
+    i2cWriteDevice(handle,&receivewbyte,1);
+    i2cReadDevice(handle,receive,2);
+    receive[0] = receive[0] ^ 0b11110000;
+    return (int) receive[1] | ((int) receive[0] << 8);
+    }
+    else
+    {
+    return 0;
+    }
+}
+void getADCValues()
+{
+    envelope->setAttackRate(((5*readADC(0)/4096.0) + 0.01) * SAMPLE_RATE);
+    envelope->setDecayRate(((5*readADC(1)/4096.0) + 0.01) * SAMPLE_RATE);
+    sus_v = (readADC(2)/4096.0);
+    envelope->setSustainLevel(sus_v);
+    envelope->setReleaseRate(((5*readADC(3)/4096.0) + 0.01) * SAMPLE_RATE);
+}
+void *handle_ui(void *arg)
+{
+
+    sem_init(&semUI, 0, 1);
+    while(n_shutdown_flag)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
+    {
+        sem_wait(&semUI);
+        getADCValues();
+    }
+    gpioTerminate();
+    return NULL;
+}
 void *handle_input(void *arg)
 {
         char input = '2';
@@ -25,6 +82,11 @@ void *handle_input(void *arg)
         {
         switch(input)
         {
+            case 'e' :
+            {
+            n_shutdown_flag = 0;
+            }
+            break;
             case 'f' :
             {
                 if(!fourier_flag)
@@ -96,7 +158,13 @@ void *handle_input(void *arg)
                 table2Screen(currentEditWavetable);
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
-
+            }break;
+            case '<' :
+            {
+                genSil(currentEditWavetable);
+                table2Screen(currentEditWavetable);
+                //TODO SET SCREENSTATE TO WAVE
+                cout << (int) screenstate << endl;
             }break;
             case '1' :
             {

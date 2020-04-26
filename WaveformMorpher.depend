@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1587369951 source:/home/pi/WaveformMorpher/src/main.cpp
+1587896409 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -12,6 +12,8 @@
 	"GlobalDefinitions.hpp"
 	<signal.h>
 	<pthread.h>
+	<iostream>
+	"pigpio.h"
 
 1587125351 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
@@ -49,7 +51,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1587366920 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1587535222 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"FbGraphics.hpp"
 	<iostream>
@@ -65,9 +67,10 @@
 	<stdio.h>
 	<tuple>
 	<bits/stdc++.h>
+	<string>
 	"GlobalDefinitions.hpp"
 
-1587374350 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1587375283 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
@@ -97,18 +100,21 @@
 
 1587025310 /home/pi/WaveformMorpher/src/TimerEvent.hpp
 
-1587196157 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
+1587895149 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
 	<signal.h>
 	<iostream>
 	<sys/time.h>
+	<stdio.h>
+	<string.h>
 	"GlobalDefinitions.hpp"
 	"FbGraphics.hpp"
 	"FourierTransformer.hpp"
+	"UI.hpp"
 
-1587369948 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1587836179 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 
-1587366779 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
+1587836278 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
 	"FourierTransformer.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"
@@ -122,7 +128,7 @@
 
 1581081047 /home/pi/WaveformMorpher/src/Globals.hpp
 
-1587369966 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1587895417 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"fbgraphics.h"
@@ -158,7 +164,7 @@
 
 1586772889 /home/pi/WaveformMorpher/src/ADSR.hpp
 
-1587369259 source:/home/pi/WaveformMorpher/src/ADSR.cpp
+1587449283 source:/home/pi/WaveformMorpher/src/ADSR.cpp
 	"ADSR.hpp"
 	<math.h>
 
@@ -168,9 +174,9 @@
 
 1586430368 /home/pi/WaveformMorpher/src/Envelope.hpp
 
-1586855299 /home/pi/WaveformMorpher/src/UI.hpp
+1587819995 /home/pi/WaveformMorpher/src/UI.hpp
 
-1587307632 source:/home/pi/WaveformMorpher/src/UI.cpp
+1587896370 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -180,7 +186,11 @@
 	"TimerEvent.hpp"
 	"FourierTransformer.hpp"
 	"ADSR.hpp"
+	"UI.hpp"
 	"GlobalDefinitions.hpp"
+	<pigpio.h>
 	<cstring>
 	<iostream>
+	<semaphore.h>
+	<pthread.h>
 

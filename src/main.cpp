@@ -12,17 +12,21 @@
 
 #include <signal.h>
 #include <pthread.h>
+#include <iostream>
+
+#include "pigpio.h"
 
 void main_init()
 {
+    n_shutdown_flag = 1;
     sus_v = 0.3;
     envelope = new ADSR();
-    setTargetRatioA(0.3);
-    setTargetRatioDR(0.3);
-    envelope->setAttackRate(4 * SAMPLE_RATE);
-    envelope->setDecayRate(4 * SAMPLE_RATE);
+    envelope->setTargetRatioA(0.3);
+    envelope->setTargetRatioDR(0.3);
+    envelope->setAttackRate(0.1 * SAMPLE_RATE);
+    envelope->setDecayRate(0.1 * SAMPLE_RATE);
     envelope->setSustainLevel(sus_v);
-    envelope->setReleaseRate(4 * SAMPLE_RATE);
+    envelope->setReleaseRate(0.1 * SAMPLE_RATE);
 
     screenstate = A;
     dynamic_view = 0;//TODO STRUCT WIHT ALL CUR STATES INIT HERE
@@ -37,6 +41,7 @@ void main_init()
 
     initFbGraphics();
     initAudio();
+    setupUI();
     initTouchscreen();
     initMidi();
     initTransformer();
@@ -50,22 +55,28 @@ void main_end()
     endAudio();
     endMidi();
     endTransformer();
+    gpioTerminate();
     raise(SIGTERM);//TODO SEND SHUTDOWN SIGNAL INSTEAD
 }
-
+void sig_term_handler(int signum)//DEBUGING PURPOSES
+{
+    gpioTerminate();
+}
 int main()
 {
+    signal(SIGINT, sig_term_handler);
+
     currentEditWavetable = wave[0];
 
     main_init();
 
     table2Screen(currentEditWavetable);
 
-    pthread_t ui_t;
-    while(1)//TODO WHILE NOT SHUTDOWN
+    pthread_t uitxt_t;
+    while(n_shutdown_flag)//TODO WHILE NOT SHUTDOWN
     {
-        pthread_create(&ui_t,NULL,handle_input,NULL);
-        pthread_join(ui_t,NULL);
+        pthread_create(&uitxt_t,NULL,handle_input,NULL);
+        pthread_join(uitxt_t,NULL);
     }
     main_end();
     return 0;

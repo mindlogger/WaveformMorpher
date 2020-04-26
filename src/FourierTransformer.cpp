@@ -6,7 +6,7 @@
 #include <semaphore.h>
 #include <pthread.h>
 
-#define FFT_MAG_SCALAR 3.0
+#define FFT_MAG_SCALAR 5.0
 
 fftw_complex *fft_table_complex[5];
 
@@ -34,7 +34,7 @@ void initTransformer()
 void *Transformer(void *args)
 {
     sem_init(&semTranformer, 0, 1);
-    while(1)
+    while(n_shutdown_flag)
     {
     if(fourier_flag && fft_has_been_touched_flag)
     {
@@ -64,7 +64,10 @@ void transForward(int state)
         magTable[state][i] = (1.0/WAVE_TABLE_SIZE) * sqrt((fft_table_complex[state][i][0]*fft_table_complex[state][i][0]) + (fft_table_complex[state][i][1]*fft_table_complex[state][i][1])); //CALCULATING MAGNITUDE
         phaseTable[state][i] = atan2((1.0/WAVE_TABLE_SIZE) * fft_table_complex[state][i][1],(1.0/WAVE_TABLE_SIZE) * fft_table_complex[state][i][0]); //CALCULATING PHASE
         //std::cout << "Nummer " << i << ": " << magTable[state][i] << " " << phaseTable[state][i] << std::endl; //DEBUG COMPLEX POLAR
-        fft[state][i] = (magTable[state][i/2]*FFT_MAG_SCALAR) - 1.0;//SCREEN SCALING
+
+
+        fft[state][i] = (log(magTable[state][i/2]+1.0)*FFT_MAG_SCALAR) - 1.0;//SCREEN SCALING
+        //std::cout << "NUMMER " << i << ": " << fft[state][i] << std::endl;
         //std::cout << "Nummer " << i << ": " << fft[state][i] << std::endl; //DEBUG SCREEN_MAGNITUDE
     }
 }
@@ -83,7 +86,7 @@ void transBackward(int state)
     size_t counter = 0;
     for(size_t i = 0;i < WAVE_TABLE_SIZE;i = i+2)//STEP IN 2 CUS COMPLEX ARRAY IS N/2
     {
-        mainFFT[counter] = (fft[state][i] + 1.0)/FFT_MAG_SCALAR; //BACKSCALING FROM THE SCREEN
+        mainFFT[counter] = (exp((fft[state][i]/FFT_MAG_SCALAR) + (1.0/FFT_MAG_SCALAR)) - 1.0); //BACKSCALING FROM THE SCREEN
         counter++;
     }
 

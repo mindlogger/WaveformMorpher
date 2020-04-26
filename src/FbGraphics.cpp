@@ -131,7 +131,7 @@ void renderDynamicView()
 void *RenderScreen(void *arg)
 {
     sem_init(&semRender, 0, 1);
-    while(1)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
+    while(n_shutdown_flag)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
     {
         sem_wait(&semRender);
         if(dynamic_view)

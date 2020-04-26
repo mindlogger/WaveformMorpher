@@ -22,7 +22,7 @@
 			<Add option="-D__LINUX_ALSA__" />
 		</Compiler>
 		<Linker>
-			<Add option="-lrt -lm -lasound -pthread -lfftw3" />
+			<Add option="-lrt -lm -lasound -pthread -lfftw3 -lpigpio" />
 			<Add library="/usr/local/lib/libportaudio.a" />
 			<Add library="/usr/local/lib/librtmidi.a" />
 			<Add library="/usr/local/lib/libfftw3.a" />

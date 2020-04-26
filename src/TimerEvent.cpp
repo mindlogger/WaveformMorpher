@@ -2,21 +2,29 @@
 #include <iostream>
 #include <sys/time.h>
 
+#include <stdio.h>
+#include <string.h>
+
 #include "GlobalDefinitions.hpp"
 
 #include "FbGraphics.hpp"
 #include "FourierTransformer.hpp"
+#include "UI.hpp"
 
 timer_t t1,t2,t3,t4;
 
-static void timer3hz()
+static void timer3hz()//TODO NAME THESE CORREECTLY
 {
     postTransformerSem();
 }
 
-static void timer18hz()
+static void timer18hz()//TODO NAME THESE CORREECTLY
 {
     postScreenSem();
+}
+static void timer1hz()//TODO NAME THESE CORREECTLY
+{
+    postUISem();
 }
 
 static void timerHandler( int sig, siginfo_t *si, void *uc )
@@ -28,8 +36,8 @@ static void timerHandler( int sig, siginfo_t *si, void *uc )
         timer3hz();
     else if ( *tidp == t2 )
         timer18hz();
-    //else if ( *tidp == t3 )
-        //handle_input();
+    else if ( *tidp == t3 )
+        timer1hz();
     //else if ( *tidp == t4 )
         //printf("FOUR\n");
     //flush(0);
@@ -71,11 +79,11 @@ void setupTimer()
 {
     makeTimer("First Timer", &t1, 300, 300);
     makeTimer("Second Timer", &t2, 200, 200);
-    //makeTimer("Third Timer", &t3, 1000, 1000);
+    makeTimer("Third Timer", &t3, 200, 200);
     //makeTimer("Fourth Timer", &t4, 300, 300);
 }
 
-void endTimer()
+void endTimer()//TODO TURN TIMERS OFF
 {
 
 }

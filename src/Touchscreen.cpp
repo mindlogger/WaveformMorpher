@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <tuple>
 #include <bits/stdc++.h>
+#include <string>
 
 #define GLOBALS 1
 #include "GlobalDefinitions.hpp"
@@ -121,8 +122,25 @@ void toScreen(size_t out_x,size_t out_y)
     }
 }
 
+///FOR DYNAMIC EVENT ALLOC
+/*std::string findEvent()
+{
+    std::string line;
+    std::ifstream myfile;
+    myfile.open ("/proc/bus/input/devices");
+    do
+    {
+      if(line.find("Name="stmpe-ts""))
+      {
+
+      }
+    }while( std::getline(myfile,line) )
+    myfile.close();
+}*/
+
 void initTouchscreen()
 {
+    //findEvent();//FOR DYNAMIC EVENT ALLOC
     system("xinput disable stmpe-ts");
     touch_is_happening_flag = 1; //JUST TO NOT TRIGGER THE INT BEFORE TOUCHING THE SCREEN
     signal(SIGUSR1, &signal_callback_handler);
