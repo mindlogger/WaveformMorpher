@@ -49,7 +49,11 @@ float getWavetableValue()
             }
         break;
         case 3://S
-            interpol = (interpol_a);
+            {
+            double loop_gain = envelope->getLoopVal();
+            double inv_loop_gain = abs(loop_gain-1.0);
+            interpol = (interpol_a*loop_gain)+(interpol_b*inv_loop_gain);
+            }
         break;
         case 4://R
             {

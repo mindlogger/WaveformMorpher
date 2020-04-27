@@ -42,6 +42,7 @@ void *Transformer(void *args)
     transBackward(screenstate);
     }
     }
+    return NULL;
 }
 void postTransformerSem()
 {

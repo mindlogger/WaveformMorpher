@@ -24,6 +24,8 @@ EXTERN double *currentEditWavetable;
 EXTERN double wave[5][WAVE_TABLE_SIZE];
 EXTERN double fft[5][WAVE_TABLE_SIZE];
 
+EXTERN double clipboard[WAVE_TABLE_SIZE];
+
 EXTERN double att_v;
 EXTERN double dec_v;
 EXTERN double sus_v;

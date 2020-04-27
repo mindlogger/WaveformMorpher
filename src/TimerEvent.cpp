@@ -47,7 +47,7 @@ static void timerHandler( int sig, siginfo_t *si, void *uc )
         debugTimer();
 }
 
-static int makeTimer( char *name, timer_t *timerID, int expireMS, int intervalMS )
+static int makeTimer(timer_t *timerID, int expireMS, int intervalMS )
 {
     struct sigevent         te;
     struct itimerspec       its;
@@ -60,7 +60,7 @@ static int makeTimer( char *name, timer_t *timerID, int expireMS, int intervalMS
     sigemptyset(&sa.sa_mask);
     if (sigaction(sigNo, &sa, NULL) == -1)
     {
-        fprintf(stderr, "Failed to setup signal handling for %s.\n",name);
+        fprintf(stderr, "Failed to setup signal handling for a timer.\n");
         return(-1);
     }
 
@@ -81,9 +81,9 @@ static int makeTimer( char *name, timer_t *timerID, int expireMS, int intervalMS
 
 void setupTimer()
 {
-    makeTimer("First Timer", &t1, 300, 300);
-    makeTimer("Second Timer", &t2, 200, 200);
-    makeTimer("Third Timer", &t3, 200, 200);
+    makeTimer(&t1, 300, 300);
+    makeTimer(&t2, 200, 200);
+    makeTimer(&t3, 200, 200);
     //makeTimer("Fourth Timer", &t4, 100, 100);
 }
 

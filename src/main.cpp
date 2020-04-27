@@ -25,7 +25,7 @@ void main_init()
     envelope->setTargetRatioDR(0.3);
     envelope->setAttackRate(0.1 * SAMPLE_RATE);
     envelope->setDecayRate(0.1 * SAMPLE_RATE);
-    envelope->setLoopRate(2 * SAMPLE_RATE);
+    envelope->setLoopRate(0.3 * SAMPLE_RATE);
     envelope->setPingPong(1);
     envelope->setSustainLevel(sus_v);
     envelope->setReleaseRate(0.1 * SAMPLE_RATE);
@@ -40,6 +40,8 @@ void main_init()
     genSqr(wave[2]);//SS
     genSaw(wave[3]);//SE
     genSin(wave[4]);//RE
+
+    genSil(clipboard);
 
     initFbGraphics();
     initAudio();

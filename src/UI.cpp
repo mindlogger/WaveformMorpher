@@ -80,7 +80,18 @@ void callbackSW4(int gpio, int level, uint32_t tick)
 }
 void callbackSW5(int gpio, int level, uint32_t tick)
 {
-   printf("SW5 became %d\n", level);
+    if(level)
+    {
+        if(shift_flag)//PASTE
+        {
+            memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
+            table2Screen(currentEditWavetable);
+        }
+        else//COPY
+        {
+            memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
+        }
+    }
 }
 void callbackSW6(int gpio, int level, uint32_t tick)
 {
@@ -172,6 +183,7 @@ void getADCValues()//TODO MAYBE SOME NICER SCALING HERE?
     envelope->setSustainLevel(sus_v);
     envelope->setReleaseRate(((5*readADC(3)/4096.0) + 0.01) * SAMPLE_RATE);
     //envelope->setLoopRate(((5*readADC(X)/4096.0) + 0.01) * SAMPLE_RATE);
+    //if(readADC(X) == 0) SET LOOP OFF
 }
 void *handle_ui(void *arg)
 {
@@ -239,6 +251,7 @@ void *handle_input(void *arg)
                 if(dynamic_view)
                 {
                     cout << "toggled dynamic mode OFF" << endl;
+                    table2Screen(currentEditWavetable);
                     dynamic_view = 0;
                 }
                 else

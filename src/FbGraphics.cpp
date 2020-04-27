@@ -49,7 +49,8 @@ void updateScreen()
 }
 void initFbGraphics()
 {
-    fbg = fbg_setup("/dev/fb1", 0); // you can also directly use fbg_init(); for "/dev/fb0", last argument mean that will not use page flipping mechanism  for double buffering (it is actually slower on some devices!)
+    char *path = strdup("/dev/fb1"); //THIS IS HERE TO AVOID WARNINGS
+    fbg = fbg_setup(path, 0); // you can also directly use fbg_init(); for "/dev/fb0", last argument mean that will not use page flipping mechanism  for double buffering (it is actually slower on some devices!)
     fbg_clear(fbg, 0); // can also be replaced by fbg_fill(fbg, 0, 0, 0);
     fbg_fill(fbg,255,255,255);
     pthread_t render_t;
@@ -88,13 +89,16 @@ void postScreenSem()
 }
 void renderDynamicView()
 {
+    double idle = 0.0;
     double (*working_wavetable)[480];
     if(fourier_flag)
     {
+    idle = -1.0;
     working_wavetable = fft;
     }
     else
     {
+    idle = 0.0;
     working_wavetable = wave;
     }
     int x = envelope->getState();
@@ -112,7 +116,7 @@ void renderDynamicView()
         switch (x)
         {
             case 0:
-                currentScreenWavetable[i] = 0.0;
+                currentScreenWavetable[i] = idle;
             break;
             case 1://A
                 currentScreenWavetable[i] = (master_gain*working_wavetable[1][i] + inverse_master_gain*working_wavetable[0][i]);
