@@ -23,6 +23,7 @@
 #ifndef ADRS_h
 #define ADRS_h
 
+#include <math.h>
 
 class ADSR {
 public:
@@ -30,14 +31,18 @@ public:
 	~ADSR(void);
 	double process(void);
     double getOutput(void);
+    double getLoopVal(void);
+
     int getState(void);
 	void gate(int on);
     void setAttackRate(double rate);
     void setDecayRate(double rate);
+    void setLoopRate(double rate);
     void setReleaseRate(double rate);
 	void setSustainLevel(double level);
     void setTargetRatioA(double targetRatio);
     void setTargetRatioDR(double targetRatio);
+    void setPingPong(int mode);
     void reset(void);
 
     enum envState {
@@ -63,7 +68,12 @@ protected:
     double attackBase;
     double decayBase;
     double releaseBase;
-
+    double sus_gain;
+    double LoopRate;
+    double LoopCoef;
+    double LoopBase;
+    int ping_pong_flag;
+    int loop_direction; //0 = FORWARD 1 = BACKWARD
     double calcCoef(double rate, double targetRatio);
 };
 
@@ -79,6 +89,8 @@ inline double ADSR::process() {
             }
             break;
         case env_decay:
+            sus_gain = 0.0;
+            loop_direction = 0;//SET TO FORWARD
             output = decayBase + output * decayCoef;
             if (output <= sustainLevel) {
                 output = sustainLevel;
@@ -86,6 +98,32 @@ inline double ADSR::process() {
             }
             break;
         case env_sustain:
+            if(ping_pong_flag)
+            {
+                if(loop_direction)//BACKWARD
+                {
+                sus_gain = sus_gain - LoopBase / LoopCoef;
+                if (sus_gain <= 0.0) {
+                    loop_direction = 0;
+                    sus_gain = 0.0;
+                }
+                }
+                else//FORWARD
+                {
+                sus_gain = LoopBase + sus_gain * LoopCoef;
+                if (sus_gain >= 1.0) {
+                    loop_direction = 1;
+                    sus_gain = 1.0;
+                }
+                }
+            }
+            else
+            {
+                sus_gain = LoopBase + sus_gain * LoopCoef;
+                if (sus_gain >= 1.0) {
+                    sus_gain = 0.0;
+                }
+            }
             break;
         case env_release:
             output = releaseBase + output * releaseCoef;
@@ -111,6 +149,7 @@ inline int ADSR::getState() {
 inline void ADSR::reset() {
     state = env_idle;
     output = 0.0;
+    sus_gain = 0.0;
 }
 
 inline double ADSR::getOutput() {

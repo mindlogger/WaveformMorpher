@@ -101,7 +101,7 @@ void toScreen(size_t out_x,size_t out_y)
         out_x = 3860;
     }
     out_y = (16 * (out_y - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
-    out_y = abs(out_y - 320);
+    out_y = abs((int) out_y - 320);
     out_x = (24 * (out_x - 160)/185 );//SOME SMART SCALING BUT QUIET CONSERVATIVE
 
     //printf("IN Y : %d OUT Y %d || IN X: %d OUT X: %d\n",ev1.value,out_y,ev2.value,out_x);//DEBUG

@@ -25,6 +25,8 @@ void main_init()
     envelope->setTargetRatioDR(0.3);
     envelope->setAttackRate(0.1 * SAMPLE_RATE);
     envelope->setDecayRate(0.1 * SAMPLE_RATE);
+    envelope->setLoopRate(2 * SAMPLE_RATE);
+    envelope->setPingPong(1);
     envelope->setSustainLevel(sus_v);
     envelope->setReleaseRate(0.1 * SAMPLE_RATE);
 
@@ -33,11 +35,11 @@ void main_init()
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
 
-    genSin(wave[0]);//A
+    genSqr(wave[0]);//A
     genSaw(wave[1]);//D
-    genSqr(wave[2]);//S
-    genSin(wave[3]);//R
-    genSil(wave[4]);//RE
+    genSqr(wave[2]);//SS
+    genSaw(wave[3]);//SE
+    genSin(wave[4]);//RE
 
     initFbGraphics();
     initAudio();
@@ -61,6 +63,7 @@ void main_end()
 void sig_term_handler(int signum)//DEBUGING PURPOSES
 {
     gpioTerminate();
+    n_shutdown_flag = 0;
 }
 int main()
 {

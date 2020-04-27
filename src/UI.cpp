@@ -12,6 +12,7 @@
 #include "GlobalDefinitions.hpp"
 
 #include <pigpio.h>
+#include <stdlib.h>
 #include <cstring>
 #include <iostream>
 #include <semaphore.h>
@@ -22,12 +23,123 @@ using namespace std;
 int handle; //Handle for the I2C bridge
 sem_t semUI;
 
+void callbackSW1(int gpio, int level, uint32_t tick)
+{
+   printf("SW1 became %d\n", level);
+}
+int preset_wave_step = 0;
+void callbackSW2(int gpio, int level, uint32_t tick)
+{
+    if(level)
+    {
+        if(shift_flag)
+        {
+            preset_wave_step = (preset_wave_step + 1) % 4;
+            switch(preset_wave_step)
+            {
+            case 0:
+            genSil(currentEditWavetable);
+            break;
+            case 1:
+            genSqr(currentEditWavetable);
+            break;
+            case 2:
+            genSaw(currentEditWavetable);
+            break;
+            case 3:
+            genSin(currentEditWavetable);
+            break;
+            }
+            table2Screen(currentEditWavetable);
+        }
+        else
+        {
+            screenstate = (Screenstates) (((int)screenstate + 1) % 5);
+            if(fourier_flag)
+            {
+            currentEditWavetable = fft[screenstate];
+            table2Screen(currentEditWavetable);
+            cout << screenstate + 1 << " Spectrum" << endl;
+            }
+            else
+            {
+            currentEditWavetable = wave[screenstate];
+            table2Screen(currentEditWavetable);
+            cout << screenstate + 1 << " Wave" << endl;
+            }
+        }
+    }
+}
+void callbackSW3(int gpio, int level, uint32_t tick)
+{
+   printf("SW3 became %d\n", level);
+}
+void callbackSW4(int gpio, int level, uint32_t tick)
+{
+    shift_flag = level;
+}
+void callbackSW5(int gpio, int level, uint32_t tick)
+{
+   printf("SW5 became %d\n", level);
+}
+void callbackSW6(int gpio, int level, uint32_t tick)
+{
+    if(level)
+    {
+        if(shift_flag)
+        {
+        //PRESETWAVE
+        }
+        else
+        {
+            if(fourier_flag)
+            {
+            cout << "backwards transform" << endl;
+            currentEditWavetable = wave[screenstate];
+            transBackward(screenstate);
+            table2Screen(currentEditWavetable);
+            fourier_flag = 0;
+            }
+            else
+            {
+            cout << "forward transform" << endl;
+            currentEditWavetable = fft[screenstate];
+            transForward(screenstate);
+            table2Screen(currentEditWavetable);
+            fourier_flag = 1;
+            }
+        }
+    }
+}
+/*
+SW1 GPIO 4 LOAD/STOR
+SW2 GPIO 17 W/N
+SW3 GPIO 27 PS/GS
+SW4 GPIO 22 SHIFT
+SW5 GPIO 14 CP/PS
+SW6 GPIO 15 FFT/PRESETWAVE
+*/
+#define GLITCH_THRSHLD 200
 void setupUI()
 {
         gpioInitialise();
         handle = i2cOpen(1,0x33,0); //0b0110011
         char setupbyte = 0b11110110; //SETUP BIT
         i2cWriteDevice(handle,&setupbyte,1);
+
+        gpioGlitchFilter(4, GLITCH_THRSHLD);
+        gpioGlitchFilter(17,GLITCH_THRSHLD);
+        gpioGlitchFilter(27,GLITCH_THRSHLD);
+        gpioGlitchFilter(22,GLITCH_THRSHLD);
+        gpioGlitchFilter(14,GLITCH_THRSHLD);
+        gpioGlitchFilter(15,GLITCH_THRSHLD);
+        gpioSetAlertFunc(4,  callbackSW1);
+        gpioSetAlertFunc(17, callbackSW2);
+        gpioSetAlertFunc(27, callbackSW3);
+        gpioSetAlertFunc(22, callbackSW4);
+        gpioSetAlertFunc(14, callbackSW5);
+        gpioSetAlertFunc(15, callbackSW6);
+
         pthread_t ui_t;
         pthread_create(&ui_t,NULL,handle_ui,NULL);
 }
@@ -52,13 +164,14 @@ unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
     return 0;
     }
 }
-void getADCValues()
+void getADCValues()//TODO MAYBE SOME NICER SCALING HERE?
 {
     envelope->setAttackRate(((5*readADC(0)/4096.0) + 0.01) * SAMPLE_RATE);
     envelope->setDecayRate(((5*readADC(1)/4096.0) + 0.01) * SAMPLE_RATE);
     sus_v = (readADC(2)/4096.0);
     envelope->setSustainLevel(sus_v);
     envelope->setReleaseRate(((5*readADC(3)/4096.0) + 0.01) * SAMPLE_RATE);
+    //envelope->setLoopRate(((5*readADC(X)/4096.0) + 0.01) * SAMPLE_RATE);
 }
 void *handle_ui(void *arg)
 {
@@ -204,13 +317,13 @@ void *handle_input(void *arg)
                 {
                 currentEditWavetable = fft[2];
                 table2Screen(currentEditWavetable);
-                cout << "Sustain Spectrum" << endl;
+                cout << "Sustain Start Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[2];
                 table2Screen(currentEditWavetable);
-                cout << "Sustain Wave" << endl;
+                cout << "Sustain Start Wave" << endl;
                 }
                 screenstate = SS;
             }break;
@@ -220,13 +333,13 @@ void *handle_input(void *arg)
                 {
                 currentEditWavetable = fft[3];
                 table2Screen(currentEditWavetable);
-                cout << "Release Spectrum" << endl;
+                cout << "Sustain End Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[3];
                 table2Screen(currentEditWavetable);
-                cout << "Release Wave" << endl;
+                cout << "Sustain End Wave" << endl;
                 }
                 screenstate = SE;
             }break;
@@ -236,13 +349,13 @@ void *handle_input(void *arg)
                 {
                 currentEditWavetable = fft[4];
                 table2Screen(currentEditWavetable);
-                cout << "??? Spectrum" << endl;
+                cout << "Release Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[4];
                 table2Screen(currentEditWavetable);
-                cout << "??? Wave" << endl;
+                cout << "Release Wave" << endl;
                 }
                 screenstate = R;
             }break;

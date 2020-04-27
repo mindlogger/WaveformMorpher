@@ -2,35 +2,51 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src/FbGraphics.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/WaveGenerator.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="186" topLine="0" />
+			<Cursor1 position="79" topLine="0" />
 		</Cursor>
-	</File>
-	<File name="src/main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1682" topLine="43" />
-		</Cursor>
-	</File>
-	<File name="src/ADSR.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="939" topLine="41" />
-		</Cursor>
+		<Folding>
+			<Collapse line="5" />
+			<Collapse line="7" />
+			<Collapse line="13" />
+			<Collapse line="16" />
+			<Collapse line="22" />
+			<Collapse line="25" />
+			<Collapse line="27" />
+			<Collapse line="31" />
+			<Collapse line="38" />
+			<Collapse line="40" />
+		</Folding>
 	</File>
 	<File name="src/WaveGenerator.hpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="162" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/UI.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/UI.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="119" topLine="0" />
+			<Cursor1 position="928" topLine="33" />
 		</Cursor>
+		<Folding>
+			<Collapse line="316" />
+			<Collapse line="322" />
+			<Collapse line="332" />
+			<Collapse line="338" />
+			<Collapse line="348" />
+			<Collapse line="354" />
+		</Folding>
 	</File>
-	<File name="src/UI.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/ADSR.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1521" topLine="148" />
+			<Cursor1 position="1919" topLine="44" />
 		</Cursor>
+		<Folding>
+			<Collapse line="37" />
+			<Collapse line="73" />
+			<Collapse line="77" />
+			<Collapse line="90" />
+		</Folding>
 	</File>
 	<File name="src/WaveOsc.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -40,31 +56,10 @@
 			<Collapse line="5" />
 		</Folding>
 	</File>
-	<File name="src/FourierTransformer.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/MidiHandling.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1014" topLine="23" />
+			<Cursor1 position="81" topLine="0" />
 		</Cursor>
-	</File>
-	<File name="src/ADSR.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1186" topLine="23" />
-		</Cursor>
-		<Folding>
-			<Collapse line="75" />
-			<Collapse line="82" />
-			<Collapse line="91" />
-			<Collapse line="99" />
-			<Collapse line="110" />
-			<Collapse line="115" />
-		</Folding>
-	</File>
-	<File name="src/WaveOsc.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1878" topLine="25" />
-		</Cursor>
-		<Folding>
-			<Collapse line="83" />
-		</Folding>
 	</File>
 	<File name="src/MidiHandling.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -80,34 +75,9 @@
 			<Collapse line="180" />
 		</Folding>
 	</File>
-	<File name="src/Touchscreen.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/GlobalDefinitions.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="365" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/TimerEvent.hpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="65" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/AudioOut.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1407" topLine="42" />
-		</Cursor>
-	</File>
-	<File name="src/WaveGenerator.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="79" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/FourierTransformer.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="125" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/AudioOut.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="90" topLine="0" />
+			<Cursor1 position="160" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src/RtMidi.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -158,29 +128,147 @@
 			<Collapse line="590" />
 		</Folding>
 	</File>
-	<File name="src/Touchscreen.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/TimerEvent.hpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3664" topLine="199" />
+			<Cursor1 position="65" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/MidiHandling.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/AudioOut.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="81" topLine="0" />
+			<Cursor1 position="1407" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="src/FbGraphics.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="186" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Touchscreen.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="643" topLine="25" />
+		</Cursor>
+		<Folding>
+			<Collapse line="37" />
+			<Collapse line="39" />
+			<Collapse line="42" />
+			<Collapse line="50" />
+			<Collapse line="56" />
+			<Collapse line="59" />
+			<Collapse line="66" />
+			<Collapse line="71" />
+			<Collapse line="77" />
+			<Collapse line="84" />
+			<Collapse line="87" />
+			<Collapse line="91" />
+			<Collapse line="95" />
+			<Collapse line="99" />
+			<Collapse line="108" />
+			<Collapse line="116" />
+			<Collapse line="125" />
+			<Collapse line="141" />
+			<Collapse line="164" />
+			<Collapse line="167" />
+			<Collapse line="176" />
+			<Collapse line="181" />
+			<Collapse line="183" />
+			<Collapse line="189" />
+			<Collapse line="198" />
+			<Collapse line="206" />
+			<Collapse line="210" />
+			<Collapse line="218" />
+			<Collapse line="223" />
+			<Collapse line="228" />
+			<Collapse line="236" />
+		</Folding>
+	</File>
+	<File name="src/FourierTransformer.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="125" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/ADSR.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2881" topLine="87" />
+		</Cursor>
+		<Folding>
+			<Collapse line="47" />
+			<Collapse line="144" />
+		</Folding>
+	</File>
+	<File name="src/Touchscreen.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="365" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src/FbGraphics.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3578" topLine="109" />
+			<Cursor1 position="347" topLine="112" />
 		</Cursor>
 	</File>
-	<File name="src/GlobalDefinitions.hpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/FourierTransformer.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="486" topLine="0" />
+			<Cursor1 position="1014" topLine="0" />
 		</Cursor>
+		<Folding>
+			<Collapse line="23" />
+			<Collapse line="25" />
+			<Collapse line="34" />
+			<Collapse line="37" />
+			<Collapse line="39" />
+			<Collapse line="46" />
+			<Collapse line="50" />
+			<Collapse line="52" />
+			<Collapse line="59" />
+			<Collapse line="62" />
+			<Collapse line="74" />
+			<Collapse line="78" />
+			<Collapse line="87" />
+			<Collapse line="93" />
+			<Collapse line="96" />
+			<Collapse line="107" />
+		</Folding>
+	</File>
+	<File name="src/main.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1089" topLine="20" />
+		</Cursor>
+		<Folding>
+			<Collapse line="53" />
+			<Collapse line="63" />
+			<Collapse line="68" />
+			<Collapse line="79" />
+		</Folding>
+	</File>
+	<File name="src/AudioOut.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="90" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/UI.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="119" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/WaveOsc.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1020" topLine="40" />
+		</Cursor>
+		<Folding>
+			<Collapse line="71" />
+			<Collapse line="74" />
+		</Folding>
 	</File>
 	<File name="src/TimerEvent.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2018" topLine="48" />
+			<Cursor1 position="817" topLine="29" />
 		</Cursor>
+		<Folding>
+			<Collapse line="16" />
+			<Collapse line="21" />
+			<Collapse line="26" />
+			<Collapse line="31" />
+			<Collapse line="35" />
+			<Collapse line="82" />
+		</Folding>
 	</File>
 </CodeBlocks_layout_file>

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1587896409 source:/home/pi/WaveformMorpher/src/main.cpp
+1587977644 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -51,7 +51,7 @@
 	<sys/types.h>
 	<fftw3.h>
 
-1587535222 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
+1587976948 source:/home/pi/WaveformMorpher/src/Touchscreen.cpp
 	"Touchscreen.hpp"
 	"FbGraphics.hpp"
 	<iostream>
@@ -70,7 +70,7 @@
 	<string>
 	"GlobalDefinitions.hpp"
 
-1587375283 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1587975080 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
@@ -100,7 +100,7 @@
 
 1587025310 /home/pi/WaveformMorpher/src/TimerEvent.hpp
 
-1587895149 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
+1587975100 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
 	<signal.h>
 	<iostream>
 	<sys/time.h>
@@ -111,7 +111,7 @@
 	"FourierTransformer.hpp"
 	"UI.hpp"
 
-1587836179 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1587903268 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 
 1587836278 source:/home/pi/WaveformMorpher/src/FourierTransformer.cpp
@@ -128,7 +128,7 @@
 
 1581081047 /home/pi/WaveformMorpher/src/Globals.hpp
 
-1587895417 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1587975940 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"fbgraphics.h"
@@ -162,9 +162,10 @@
 	"liblfds711.h"
 	"liblfds720.h"
 
-1586772889 /home/pi/WaveformMorpher/src/ADSR.hpp
+1587977489 /home/pi/WaveformMorpher/src/ADSR.hpp
+	<math.h>
 
-1587449283 source:/home/pi/WaveformMorpher/src/ADSR.cpp
+1587976988 source:/home/pi/WaveformMorpher/src/ADSR.cpp
 	"ADSR.hpp"
 	<math.h>
 
@@ -176,7 +177,7 @@
 
 1587819995 /home/pi/WaveformMorpher/src/UI.hpp
 
-1587896370 source:/home/pi/WaveformMorpher/src/UI.cpp
+1587978319 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"

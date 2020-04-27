@@ -15,6 +15,7 @@ EXTERN int touch_is_happening_flag;
 EXTERN int fft_has_been_touched_flag;
 EXTERN int dynamic_view;
 EXTERN int n_shutdown_flag;
+EXTERN int shift_flag;
 EXTERN ADSR *envelope;
 
 EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE];

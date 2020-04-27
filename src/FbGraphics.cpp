@@ -98,15 +98,17 @@ void renderDynamicView()
     working_wavetable = wave;
     }
     int x = envelope->getState();
-    double inverse_master_gain = 0.0;
+    double inverse_master_gain = abs(master_gain-1.0);
     double dec_gain = (master_gain-sus_v)*((-1)/(sus_v-1));
     double inv_dec_gain = (master_gain-sus_v)*((1)/(sus_v-1))+1;
     double rel_gain = master_gain*(1.0/sus_v);
     double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
+    double loop_gain = envelope->getLoopVal();
+    double inv_loop_gain = abs(loop_gain-1.0);
     clearScreen();
     for(int i = 0;i < WAVE_TABLE_SIZE;i++)
     {
-        inverse_master_gain = abs(master_gain-1.0);
+
         switch (x)
         {
             case 0:
@@ -119,10 +121,10 @@ void renderDynamicView()
                 currentScreenWavetable[i] = (dec_gain*working_wavetable[1][i] + inv_dec_gain*working_wavetable[2][i]);
             break;
             case 3://S
-                currentScreenWavetable[i] = working_wavetable[2][i];
+                currentScreenWavetable[i] = loop_gain * working_wavetable[2][i] + inv_loop_gain * working_wavetable[3][i];
             break;
             case 4://R
-                currentScreenWavetable[i] = (rel_gain*working_wavetable[2][i] + inv_rel_gain*working_wavetable[3][i]);
+                currentScreenWavetable[i] = (rel_gain*working_wavetable[3][i] + inv_rel_gain*working_wavetable[4][i]);
             break;
         }
     }

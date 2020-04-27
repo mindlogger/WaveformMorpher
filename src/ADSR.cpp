@@ -32,6 +32,7 @@ ADSR::ADSR(void) {
     setSustainLevel(1.0);
     setTargetRatioA(0.3);
     setTargetRatioDR(0.0001);
+    ping_pong_flag = 1;
 }
 
 ADSR::~ADSR(void) {
@@ -49,10 +50,25 @@ void ADSR::setDecayRate(double rate) {
     decayBase = (sustainLevel - targetRatioDR) * (1.0 - decayCoef);
 }
 
+void ADSR::setLoopRate(double rate) {
+    LoopRate = rate;
+    LoopCoef = calcCoef(rate, targetRatioA);
+    LoopBase = (1.0 + targetRatioA) * (1.0 - LoopCoef);
+}
+
 void ADSR::setReleaseRate(double rate) {
     releaseRate = rate;
     releaseCoef = calcCoef(rate, targetRatioDR);
     releaseBase = -targetRatioDR * (1.0 - releaseCoef);
+}
+
+void ADSR::setPingPong(int mode)
+{
+    ping_pong_flag = mode;
+}
+double ADSR::getLoopVal(void)
+{
+    return sus_gain;
 }
 
 double ADSR::calcCoef(double rate, double targetRatio) {

@@ -22,9 +22,14 @@ static void timer18hz()//TODO NAME THESE CORREECTLY
 {
     postScreenSem();
 }
+
 static void timer1hz()//TODO NAME THESE CORREECTLY
 {
     postUISem();
+}
+
+static void debugTimer()
+{
 }
 
 static void timerHandler( int sig, siginfo_t *si, void *uc )
@@ -38,9 +43,8 @@ static void timerHandler( int sig, siginfo_t *si, void *uc )
         timer18hz();
     else if ( *tidp == t3 )
         timer1hz();
-    //else if ( *tidp == t4 )
-        //printf("FOUR\n");
-    //flush(0);
+    else if ( *tidp == t4 )
+        debugTimer();
 }
 
 static int makeTimer( char *name, timer_t *timerID, int expireMS, int intervalMS )
@@ -80,7 +84,7 @@ void setupTimer()
     makeTimer("First Timer", &t1, 300, 300);
     makeTimer("Second Timer", &t2, 200, 200);
     makeTimer("Third Timer", &t3, 200, 200);
-    //makeTimer("Fourth Timer", &t4, 300, 300);
+    //makeTimer("Fourth Timer", &t4, 100, 100);
 }
 
 void endTimer()//TODO TURN TIMERS OFF
