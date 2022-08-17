@@ -66,7 +66,7 @@ double MidiNote2Freq[120] = {16.35,
 369.99,
 392.00,
 415.30,
-440.00,
+439.60,
 466.16,
 493.88,
 523.25,
@@ -119,6 +119,7 @@ double MidiNote2Freq[120] = {16.35,
 7902.13
 };
 
+int numb_pressed = 0; //THIS HELPS WITH PLAYING SMOOTHLY BUT CANT BE USED WITH SUSTAIN PEDAL
 void midiCallback( double deltatime, std::vector< unsigned char > *message, void *userData )
 {
     unsigned int nBytes = message->size();
@@ -132,26 +133,31 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
                     double f = MidiNote2Freq[(int)message->at(i)];
                     setfreq(f);
                     envelope->gate(true);
-                    std::cout << f;
+                    numb_pressed++;
+                    //std::cout << f;
                     i++;
                     //unsigned char val1 = (int)message->at(i);
                     }break;
         case 128:{
-                    std::cout << "OFF ";
+                    std::cout << "OFF : " << numb_pressed;
                     i++;
-                    envelope->gate(false);
+                    numb_pressed--;
+                    if(numb_pressed == 0)
+                    {
+                        envelope->gate(false);
+                    }
                     //double f = 440;
-                    std::cout << MidiNote2Freq[(int)message->at(i)];
+                    //std::cout << MidiNote2Freq[(int)message->at(i)];
                     i++;
                     //unsigned char val2 = (int)message->at(i);
                     }break;
-        default: std::cout << "UNKOWN MESSAGE ";
+        default: //std::cout << "UNKOWN MESSAGE "//;
             break;
         }
     }
         //std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
-    if ( nBytes > 0 )
-        std::cout << " stamp = " << deltatime << std::endl;
+    /*if ( nBytes > 0 )
+        std::cout << " stamp = " << deltatime << std::endl;*/
 }
 
 void initMidi()
@@ -159,7 +165,7 @@ void initMidi()
     midiin = new RtMidiIn();
     // Check available ports.
     unsigned int nPorts = midiin->getPortCount();
-    if ( nPorts == 0 )
+    if ( nPorts < 2 )
     {
         std::cout << "No ports available!\n";
         endMidi();

@@ -16,6 +16,10 @@
 
 #include "pigpio.h"
 
+#include <unistd.h>
+#include <linux/reboot.h>
+#include <sys/reboot.h>
+
 void main_init()
 {
     n_shutdown_flag = 1;
@@ -23,15 +27,15 @@ void main_init()
     envelope = new ADSR();
     envelope->setTargetRatioA(0.3);
     envelope->setTargetRatioDR(0.3);
-    envelope->setAttackRate(0.1 * SAMPLE_RATE);
-    envelope->setDecayRate(0.1 * SAMPLE_RATE);
-    envelope->setLoopRate(0.3 * SAMPLE_RATE);
-    envelope->setPingPong(1);
+    envelope->setAttackRate(1.1 * SAMPLE_RATE);
+    envelope->setDecayRate(1.1 * SAMPLE_RATE);
+    envelope->setLoopRate(0.0 * SAMPLE_RATE);
+    envelope->setPingPong(0);
     envelope->setSustainLevel(sus_v);
     envelope->setReleaseRate(0.1 * SAMPLE_RATE);
 
     screenstate = A;
-    dynamic_view = 0;//TODO STRUCT WIHT ALL CUR STATES INIT HERE
+    dynamic_view = 0;//TODO STRUCT WITH ALL CUR STATES INIT HERE
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
 
@@ -43,9 +47,9 @@ void main_init()
 
     genSil(clipboard);
 
-    initFbGraphics();
     initAudio();
     setupUI();
+    initFbGraphics();
     initTouchscreen();
     initMidi();
     initTransformer();
@@ -54,18 +58,18 @@ void main_init()
 
 void main_end()
 {
+    n_shutdown_flag = 0; //TODO IS THIS RLY NECECERY
     endTimer();
     endFbGraphics();
     endAudio();
     endMidi();
     endTransformer();
     gpioTerminate();
-    raise(SIGTERM);//TODO SEND SHUTDOWN SIGNAL INSTEAD
+    //reboot(RB_POWER_OFF);
 }
 void sig_term_handler(int signum)//DEBUGING PURPOSES
 {
     gpioTerminate();
-    n_shutdown_flag = 0;
 }
 int main()
 {

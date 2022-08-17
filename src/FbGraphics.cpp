@@ -24,6 +24,9 @@ extern "C"
 #include <pthread.h>
 
 struct _fbg *fbg;
+struct _fbg_img *bb_font_img;
+struct _fbg_font *bbfont;
+
 sem_t semRender;
 
 void setPixel(int x, int y)
@@ -53,32 +56,80 @@ void initFbGraphics()
     fbg = fbg_setup(path, 0); // you can also directly use fbg_init(); for "/dev/fb0", last argument mean that will not use page flipping mechanism  for double buffering (it is actually slower on some devices!)
     fbg_clear(fbg, 0); // can also be replaced by fbg_fill(fbg, 0, 0, 0);
     fbg_fill(fbg,255,255,255);
+    bb_font_img = fbg_loadImage(fbg, "img/16px_roboto_mono_bitmap_font.png");
+    bbfont = fbg_createFont(fbg, bb_font_img, 16, 16, 33);
     pthread_t render_t;
     pthread_create(&render_t,NULL,RenderScreen,NULL);
 }
 void table2Screen(double* wave_table)
 {
     clearScreen();
-    for(int i = 0; i<WAVE_TABLE_SIZE; i++)
+    if(settingstate == PS || settingstate == GS)
     {
-        double x = ((wave_table[i]+1) * 159.0);
-        x = -1 * x + 319;
-        x = round(x);
-        if(x < 0) //ONLY FOR DEBUGING REASONS
+        switch(settingstate)
         {
-            std::cout << "err:table2Screen:tosmall: " << x << " at pos " << i << std::endl; //DEBUG
-            x = 0;
+        case PS:
+        fbg_write(fbg, "Patch Settings", 140, 15);
+        updateScreen();
+        return;
+        break;
+        case GS:
+        fbg_write(fbg, "Global Settings", 140, 15);
+        updateScreen();
+        return;
+        break;
         }
-        if(x > 319) //ONLY FOR DEBUGING REASONS
+    }
+    else
+    {
+        switch(screenstate)
         {
-            std::cout << "err:table2Screen:tolarge: " << x << " at pos " << i << std::endl; //DEBUG
-            x = 319;
+        case A:
+        fbg_write(fbg, "A", 4, 2);
+        break;
+        case D:
+        fbg_write(fbg, "D", 4, 2);
+        break;
+        case SS:
+        fbg_write(fbg, "SS", 4, 2);
+        break;
+        case SE:
+        fbg_write(fbg, "SE", 4, 2);
+        break;
+        case R:
+        fbg_write(fbg, "R", 4, 2);
+        break;
         }
-        setPixel(i,x);
-        //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
+
+        if(fourier_flag == 0)
+        {
+            fbg_write(fbg, "W", 460, 260);
+        }
+        else
+        {
+            fbg_write(fbg, "S", 460, 260);
+        }
+
+        for(int i = 0; i<WAVE_TABLE_SIZE; i++)
+        {
+            double x = ((wave_table[i]+1) * 159.0);
+            x = -1 * x + 319;
+            x = round(x);
+            if(x < 0) //ONLY FOR DEBUGING REASONS
+            {
+                //std::cout << "err:table2Screen:tosmall: " << x << " at pos " << i << std::endl; //DEBUG
+                x = 0;
+            }
+            if(x > 319) //ONLY FOR DEBUGING REASONS
+            {
+                //std::cout << "err:table2Screen:tolarge: " << x << " at pos " << i << std::endl; //DEBUG
+                x = 319;
+            }
+            setPixel(i,x);
+            //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
+        }
     }
     updateScreen();
-
 }
 void screenTable2Continuous()
 {
@@ -109,7 +160,7 @@ void renderDynamicView()
     double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
     double loop_gain = envelope->getLoopVal();
     double inv_loop_gain = abs(loop_gain-1.0);
-    clearScreen();
+
     for(int i = 0;i < WAVE_TABLE_SIZE;i++)
     {
 
@@ -137,12 +188,26 @@ void renderDynamicView()
 void *RenderScreen(void *arg)
 {
     sem_init(&semRender, 0, 1);
-    while(n_shutdown_flag)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
+    while(n_shutdown_flag)
     {
         sem_wait(&semRender);
         if(dynamic_view)
         {
             renderDynamicView();
+        }
+        else
+        {
+        /*
+        char xa[4];
+        xa[0] = 'X';
+        xa[1] = '1';
+        xa[2] = 'B';
+        xa[3] = '\0';
+        sprintf(xa, "%d", (int) screenstate);
+        fbg_write(fbg, xa , 25, 25);
+        //std::cout << xa[1] << std::endl;
+        fbg_draw(fbg);
+        fbg_flip(fbg);*/
         }
     }
     return NULL;
@@ -152,5 +217,7 @@ void fillScreen()
 }
 void endFbGraphics()
 {
+    fbg_freeImage(bb_font_img);
+    fbg_freeFont(bbfont);
     fbg_close(fbg);
 }

@@ -81,9 +81,9 @@ static int makeTimer(timer_t *timerID, int expireMS, int intervalMS )
 
 void setupTimer()
 {
-    makeTimer(&t1, 300, 300);
-    makeTimer(&t2, 200, 200);
-    makeTimer(&t3, 200, 200);
+    makeTimer(&t1, 500, 500);//Transformer Timer
+    makeTimer(&t2, 200, 200);//Screen Timer
+    makeTimer(&t3, 100, 100);//UI Timer
     //makeTimer("Fourth Timer", &t4, 100, 100);
 }
 

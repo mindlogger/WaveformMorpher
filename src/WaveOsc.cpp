@@ -84,6 +84,7 @@ float getWavetableValue()
     return interpol * master_gain;
 }
 
+
 void setfreq(double f)
 {
     freq = f;

@@ -36,10 +36,17 @@ void *Transformer(void *args)
     sem_init(&semTranformer, 0, 1);
     while(n_shutdown_flag)
     {
-    if(fourier_flag && fft_has_been_touched_flag)
+    if(fourier_flag)
     {
-    fft_has_been_touched_flag = 0;
-    transBackward(screenstate);
+        if(fft_has_been_touched_flag)
+        {
+        fft_has_been_touched_flag = 0;
+        transBackward(screenstate);
+        }
+    }
+    else
+    {
+        transForward(screenstate);
     }
     }
     return NULL;
@@ -54,7 +61,7 @@ void endTransformer()
     {
     fftw_destroy_plan(fftForward[i]);
     fftw_destroy_plan(fftBackward[i]);
-    fftw_free(fft_table_complex[i]);
+    //fftw_free(fft_table_complex[i]);//CANT FREE THE CUR WAVE IF IT ALREADY HAS BEEN TRANSFORMED DOES NOT DEPEND ON WHICH THREAD DOES IT
     }
 }
 void transForward(int state)

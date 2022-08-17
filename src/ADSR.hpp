@@ -110,18 +110,11 @@ inline double ADSR::process() {
                 }
                 else//FORWARD
                 {
-                sus_gain = LoopBase + sus_gain * LoopCoef;
+                sus_gain = sus_gain + LoopBase * LoopCoef;
                 if (sus_gain >= 1.0) {
                     loop_direction = 1;
                     sus_gain = 1.0;
                 }
-                }
-            }
-            else
-            {
-                sus_gain = LoopBase + sus_gain * LoopCoef;
-                if (sus_gain >= 1.0) {
-                    sus_gain = 0.0;
                 }
             }
             break;

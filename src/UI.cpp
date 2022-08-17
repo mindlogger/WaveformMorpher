@@ -23,34 +23,34 @@ using namespace std;
 int handle; //Handle for the I2C bridge
 sem_t semUI;
 
-void callbackSW1(int gpio, int level, uint32_t tick)
+void callbackSW1(int gpio, int level, uint32_t tick) //L/S
 {
    printf("SW1 became %d\n", level);
 }
 int preset_wave_step = 0;
-void callbackSW2(int gpio, int level, uint32_t tick)
+void callbackSW2(int gpio, int level, uint32_t tick) //w/N
 {
     if(level)
     {
         if(shift_flag)
         {
             preset_wave_step = (preset_wave_step + 1) % 4;
+            std::cout << preset_wave_step << std::endl;
             switch(preset_wave_step)
             {
             case 0:
-            genSil(currentEditWavetable);
+                genSil(currentEditWavetable);
             break;
             case 1:
-            genSqr(currentEditWavetable);
+                genSqr(currentEditWavetable);
             break;
             case 2:
-            genSaw(currentEditWavetable);
+                genSaw(currentEditWavetable);
             break;
             case 3:
-            genSin(currentEditWavetable);
+                genSin(currentEditWavetable);
             break;
             }
-            table2Screen(currentEditWavetable);
         }
         else
         {
@@ -58,42 +58,69 @@ void callbackSW2(int gpio, int level, uint32_t tick)
             if(fourier_flag)
             {
             currentEditWavetable = fft[screenstate];
-            table2Screen(currentEditWavetable);
             cout << screenstate + 1 << " Spectrum" << endl;
             }
             else
             {
             currentEditWavetable = wave[screenstate];
-            table2Screen(currentEditWavetable);
             cout << screenstate + 1 << " Wave" << endl;
             }
         }
+        table2Screen(currentEditWavetable);
     }
 }
-void callbackSW3(int gpio, int level, uint32_t tick)
+void callbackSW3(int gpio, int level, uint32_t tick) // S
 {
-   printf("SW3 became %d\n", level);
+    if(level)
+    {
+        if(settingstate == GS || settingstate == PS)
+        {
+            //TODO SAVE???
+            settingstate = N;
+        }
+        else
+        if(shift_flag)
+        {
+            settingstate = GS;
+        }
+        else
+        {
+            settingstate = PS;
+        }
+        table2Screen(currentEditWavetable);
+    }
 }
-void callbackSW4(int gpio, int level, uint32_t tick)
+void callbackSW4(int gpio, int level, uint32_t tick) //?
 {
-    shift_flag = level;
+    if(level)
+    {
+    if(shift_flag)
+    {
+    }
+    else
+    {
+
+    }
+    }
 }
-void callbackSW5(int gpio, int level, uint32_t tick)
+void callbackSW5(int gpio, int level, uint32_t tick) //C/P
 {
     if(level)
     {
         if(shift_flag)//PASTE
         {
+            std::cout << "WAVE PASTE" << std::endl;
             memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
             table2Screen(currentEditWavetable);
         }
         else//COPY
         {
+            std::cout << "WAVE COPY" << std::endl;
             memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
         }
     }
 }
-void callbackSW6(int gpio, int level, uint32_t tick)
+void callbackSW6(int gpio, int level, uint32_t tick) //F/I
 {
     if(level)
     {
@@ -108,16 +135,16 @@ void callbackSW6(int gpio, int level, uint32_t tick)
             cout << "backwards transform" << endl;
             currentEditWavetable = wave[screenstate];
             transBackward(screenstate);
-            table2Screen(currentEditWavetable);
             fourier_flag = 0;
+            table2Screen(currentEditWavetable);
             }
             else
             {
             cout << "forward transform" << endl;
             currentEditWavetable = fft[screenstate];
             transForward(screenstate);
-            table2Screen(currentEditWavetable);
             fourier_flag = 1;
+            table2Screen(currentEditWavetable);
             }
         }
     }
@@ -134,6 +161,8 @@ SW6 GPIO 15 FFT/PRESETWAVE
 void setupUI()
 {
         gpioInitialise();
+        //gpioSetPullUpDown(0,PI_PUD_UP);
+        //gpioSetPullUpDown(1,PI_PUD_UP);
         handle = i2cOpen(1,0x33,0); //0b0110011
         char setupbyte = 0b11110110; //SETUP BIT
         i2cWriteDevice(handle,&setupbyte,1);
@@ -177,17 +206,54 @@ unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
 }
 void getADCValues()//TODO MAYBE SOME NICER SCALING HERE?
 {
+
     envelope->setAttackRate(((5*readADC(0)/4096.0) + 0.01) * SAMPLE_RATE);
     envelope->setDecayRate(((5*readADC(1)/4096.0) + 0.01) * SAMPLE_RATE);
     sus_v = (readADC(2)/4096.0);
     envelope->setSustainLevel(sus_v);
     envelope->setReleaseRate(((5*readADC(3)/4096.0) + 0.01) * SAMPLE_RATE);
+    double adc_7 = readADC(7);
+    if(adc_7 > 3700)
+    {
+        envelope->setPingPong(0);
+    }
+    else
+    {
+        envelope->setPingPong(1);
+        envelope->setLoopRate(((5*(adc_7+0.0001)/4095.0) + 0.05) * SAMPLE_RATE);
+    }
+    if(readADC(5) > 1028)
+    {
+        shift_flag = 1;
+    }
+    else
+    {
+        shift_flag = 0;
+    }
+    if(gpioRead(23))
+    {
+    //envelope->gate(false);
+    }
+    else
+    {
+    //envelope->gate(true);
+    }
+    /*double inbetwiener = readADC(4);
+    double v_offset = -0.000003;
+    double par1 = 9.0092307623 - (0.002024291498+v_offset) * inbetwiener;
+    double par2 = 65.406391325149 * pow(2,par1);
+    setfreq(par2);*/
+    /*std::cout << "Ports:" << std::endl;
+    std::cout << readADC(4) << std::endl;
+    std::cout << readADC(5) << std::endl;
+    std::cout << readADC(6) << std::endl;
+    std::cout << readADC(7) << std::endl << std::endl;*/
+
     //envelope->setLoopRate(((5*readADC(X)/4096.0) + 0.01) * SAMPLE_RATE);
     //if(readADC(X) == 0) SET LOOP OFF
 }
 void *handle_ui(void *arg)
 {
-
     sem_init(&semUI, 0, 1);
     while(n_shutdown_flag)//TODO MAYBE SOMETHING MORE LIKE IF NOT SHUTDOWN
     {
@@ -199,7 +265,7 @@ void *handle_ui(void *arg)
 }
 void *handle_input(void *arg)
 {
-        char input = '2';
+        char input = '0';
         int input_int = 0;
         input_int = getchar();
         input = (char) input_int;
