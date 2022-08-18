@@ -35,6 +35,8 @@
 		<Unit filename="src/ADSR.hpp" />
 		<Unit filename="src/AudioOut.cpp" />
 		<Unit filename="src/AudioOut.hpp" />
+		<Unit filename="src/ButtonActions.cpp" />
+		<Unit filename="src/ButtonActions.hpp" />
 		<Unit filename="src/FbGraphics.cpp" />
 		<Unit filename="src/FbGraphics.hpp" />
 		<Unit filename="src/FourierTransformer.cpp" />

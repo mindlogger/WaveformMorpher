@@ -22,12 +22,46 @@ extern "C"
 #include <iostream>
 #include <semaphore.h>
 #include <pthread.h>
+#include <string>
 
 struct _fbg *fbg;
 struct _fbg_img *bb_font_img;
 struct _fbg_font *bbfont;
 
 sem_t semRender;
+
+void textTimerHandler(union sigval timer_data)
+{
+    clearScreen();
+    updateScreen();
+}
+
+void addText(std::string text, int x, int y, int timeout)
+{
+    clearScreen();
+    fbg_write(fbg, &text[0], x, y);
+    updateScreen();
+
+    struct sigevent timer_signal_event;
+    timer_t timer;
+
+    struct itimerspec timer_period;
+
+    timer_signal_event.sigev_notify = SIGEV_THREAD;
+    timer_signal_event.sigev_notify_function = textTimerHandler;       // This function will be called when timer expires
+    timer_signal_event.sigev_notify_attributes = NULL;
+    timer_create(CLOCK_MONOTONIC, &timer_signal_event, &timer);
+
+    timer_period.it_value.tv_sec = timeout;                                   // 1 second timer
+    timer_period.it_value.tv_nsec = 0;                                  // no nano-seconds
+    timer_period.it_interval.tv_sec = 0;                                // non-repeating timer
+    timer_period.it_interval.tv_nsec = 0;
+
+    timer_settime(timer, 0, &timer_period, NULL);
+}
+
+void addRedrawTimeout(int timeout)
+{}
 
 void setPixel(int x, int y)
 {
@@ -45,11 +79,23 @@ void clearScreen()
 {
     fbg_clear(fbg, 0);
 }
-void updateScreen()
+void commitScreenBuffer()
 {
     fbg_flip(fbg);
     fbg_draw(fbg);
 }
+
+void updateScreen()
+{
+    table2Screen(currentEditWavetable);
+}
+
+void renderScreen()
+{
+    clearScreen();
+    table2Screen(currentEditWavetable);}
+
+
 void initFbGraphics()
 {
     char *path = strdup("/dev/fb1"); //THIS IS HERE TO AVOID WARNINGS
@@ -61,21 +107,21 @@ void initFbGraphics()
     pthread_t render_t;
     pthread_create(&render_t,NULL,RenderScreen,NULL);
 }
+
 void table2Screen(double* wave_table)
 {
-    clearScreen();
     if(settingstate == PS || settingstate == GS)
     {
         switch(settingstate)
         {
         case PS:
         fbg_write(fbg, "Patch Settings", 140, 15);
-        updateScreen();
+        commitScreenBuffer();
         return;
         break;
         case GS:
         fbg_write(fbg, "Global Settings", 140, 15);
-        updateScreen();
+        commitScreenBuffer();
         return;
         break;
         }
@@ -84,30 +130,21 @@ void table2Screen(double* wave_table)
     {
         switch(screenstate)
         {
-        case A:
-        fbg_write(fbg, "A", 4, 2);
-        break;
-        case D:
-        fbg_write(fbg, "D", 4, 2);
-        break;
-        case SS:
-        fbg_write(fbg, "SS", 4, 2);
-        break;
-        case SE:
-        fbg_write(fbg, "SE", 4, 2);
-        break;
-        case R:
-        fbg_write(fbg, "R", 4, 2);
-        break;
-        }
-
-        if(fourier_flag == 0)
-        {
-            fbg_write(fbg, "W", 460, 260);
-        }
-        else
-        {
-            fbg_write(fbg, "S", 460, 260);
+            case A:
+            fbg_write(fbg, "A", 4, 2);
+            break;
+            case D:
+            fbg_write(fbg, "D", 4, 2);
+            break;
+            case SS:
+            fbg_write(fbg, "SS", 4, 2);
+            break;
+            case SE:
+            fbg_write(fbg, "SE", 4, 2);
+            break;
+            case R:
+            fbg_write(fbg, "R", 4, 2);
+            break;
         }
 
         for(int i = 0; i<WAVE_TABLE_SIZE; i++)
@@ -129,7 +166,7 @@ void table2Screen(double* wave_table)
             //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
         }
     }
-    updateScreen();
+    commitScreenBuffer();
 }
 void screenTable2Continuous()
 {

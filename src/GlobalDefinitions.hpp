@@ -24,6 +24,8 @@ EXTERN void (*SW5Event)(uint32_t);
 EXTERN void (*SW5ShiftEvent)(uint32_t);
 EXTERN void (*SW6Event)(uint32_t);
 EXTERN void (*SW6ShiftEvent)(uint32_t);
+//EXTERN void (*ScreenUIDrawer)(void);
+EXTERN int NTables;
 //TODO MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
 EXTERN float master_gain; //0 -- 1
 EXTERN int touch_is_happening_flag;

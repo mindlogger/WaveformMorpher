@@ -8,6 +8,7 @@
 #include "FourierTransformer.hpp"
 #include "ADSR.hpp"
 #include "UI.hpp"
+#include "ButtonActions.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -36,7 +37,6 @@ void callbackSW1(int gpio, int level, uint32_t tick) //L/S
             SW1Event(tick);
         }    }
 }
-
 void callbackSW2(int gpio, int level, uint32_t tick) //w/N
 {
     if(level)
@@ -116,142 +116,9 @@ SW5 GPIO 14 CP/PS
 SW6 GPIO 15 FFT/PRESETWAVE
 */
 #define GLITCH_THRSHLD 200
-void actionLoad(uint32_t tick)
-{
-    std::cout << "Load got triggerd" << std::endl;
-}
-void actionStore(uint32_t tick)
-{
-    std::cout << "Store got triggerd" << std::endl;
-}
-
-int preset_wave_step = 0; //TOIDO MOVE THIS SOMEWHERE MORE SENSIBLE
-void actionWaveStep(uint32_t tick)
-{
-    screenstate = (Screenstates) (((int)screenstate + 1) % 5);
-    if(fourier_flag)
-    {
-    currentEditWavetable = fft[screenstate];
-    cout << screenstate + 1 << " Spectrum" << endl;
-    }
-    else
-    {
-    currentEditWavetable = wave[screenstate];
-    cout << screenstate + 1 << " Wave" << endl;
-    }
-
-    table2Screen(currentEditWavetable);
-}
-void actionWaveN(uint32_t tick) //TODO CHANGE THIS TO THE CORRECT FUNCTION
-{
-    preset_wave_step = (preset_wave_step + 1) % 4;
-    std::cout << preset_wave_step << std::endl;
-    switch(preset_wave_step)
-    {
-    case 0:
-        genSil(currentEditWavetable);
-    break;
-    case 1:
-        genSqr(currentEditWavetable);
-    break;
-    case 2:
-        genSaw(currentEditWavetable);
-    break;
-    case 3:
-        genSin(currentEditWavetable);
-    break;
-    }
-
-    table2Screen(currentEditWavetable);
-}
-void actionExit(uint32_t tick);
-void actionOpenPatchSettings(uint32_t tick)
-{
-    settingstate = PS;
-    table2Screen(currentEditWavetable);
-    SW3Event = &actionExit;
-    SW3ShiftEvent = &actionExit;
-}
-void actionOpenGlobalSettings(uint32_t tick)
-{
-    settingstate = GS;
-    table2Screen(currentEditWavetable);
-    SW3Event = &actionExit;
-    SW3ShiftEvent = &actionExit;
-}
-void actionExit(uint32_t tick)
-{
-    settingstate = N;
-    table2Screen(currentEditWavetable);
-    SW3Event = &actionOpenPatchSettings;
-    SW3ShiftEvent = &actionOpenGlobalSettings;
-}
-
-void actionQuestion(uint32_t tick)
-{
-    std::cout << "Question got triggerd" << std::endl;
-}
-void actionQuestionS(uint32_t tick)
-{
-    std::cout << "QuestionS got triggerd" << std::endl;
-}
-
-void actionCopy(uint32_t tick)
-{
-    std::cout << "WAVE COPY" << std::endl;
-    memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
-}
-void actionPaste(uint32_t tick)
-{
-    std::cout << "WAVE PASTE" << std::endl;
-    memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
-    table2Screen(currentEditWavetable);
-}
-
-void actionFourier(uint32_t tick)
-{
-    if(fourier_flag)
-    {
-        cout << "backwards transform" << endl;
-        currentEditWavetable = wave[screenstate];
-        transBackward(screenstate);
-        fourier_flag = 0;
-        table2Screen(currentEditWavetable);
-    }
-    else
-    {
-        cout << "forward transform" << endl;
-        currentEditWavetable = fft[screenstate];
-        transForward(screenstate);
-        fourier_flag = 1;
-        table2Screen(currentEditWavetable);
-    }
-}
-void actionInverse(uint32_t tick)
-{
-    std::cout << "Inverse got triggerd" << std::endl;
-}
-
 void setupUI()
 {
-        SW1Event = &actionLoad;
-        SW1ShiftEvent = &actionStore;
-
-        SW2Event = &actionWaveStep;
-        SW2ShiftEvent = &actionWaveN;
-
-        SW3Event = &actionOpenPatchSettings;
-        SW3ShiftEvent = &actionOpenGlobalSettings;
-
-        SW4Event = &actionQuestion;
-        SW4ShiftEvent = &actionQuestionS;
-
-        SW5Event = &actionCopy;
-        SW5ShiftEvent = &actionPaste;
-
-        SW6Event = &actionFourier;
-        SW6ShiftEvent = &actionInverse;
-
+        assignMainActions();
         gpioInitialise();
         //gpioSetPullUpDown(0,PI_PUD_UP);
         //gpioSetPullUpDown(1,PI_PUD_UP);
@@ -312,7 +179,7 @@ void getADCValues()//TODO MAYBE SOME NICER SCALING HERE?
     else
     {
         envelope->setPingPong(1);
-        envelope->setLoopRate(((5*(adc_7+0.0001)/4095.0) + 0.05) * SAMPLE_RATE);
+        envelope->setLoopRate(/*((5*(adc_7+0.0001)/4095.0) + 0.05)*/ 3 * SAMPLE_RATE); //DEBUG SHIT FOR NOW
     }
     if(readADC(5) > 1028)
     {
@@ -377,7 +244,7 @@ void *handle_input(void *arg)
                 cout << "forward transform" << endl;
                 currentEditWavetable = fft[screenstate];
                 transForward(screenstate);
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 fourier_flag = 1;
                 }
             }
@@ -389,7 +256,7 @@ void *handle_input(void *arg)
                 cout << "backwards transform" << endl;
                 currentEditWavetable = wave[screenstate];
                 transBackward(screenstate);
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 fourier_flag = 0;
                 }
             }
@@ -409,7 +276,7 @@ void *handle_input(void *arg)
                 if(dynamic_view)
                 {
                     cout << "toggled dynamic mode OFF" << endl;
-                    table2Screen(currentEditWavetable);
+                    renderScreen();
                     dynamic_view = 0;
                 }
                 else
@@ -422,7 +289,7 @@ void *handle_input(void *arg)
             case 's' :
             {
                 genSin(currentEditWavetable);
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
 
@@ -430,7 +297,7 @@ void *handle_input(void *arg)
             case 'q' :
             {
                 genSqr(currentEditWavetable);
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 screenTable2Continuous();
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
@@ -439,14 +306,14 @@ void *handle_input(void *arg)
             case 'w' :
             {
                 genSaw(currentEditWavetable);
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
             }break;
             case '<' :
             {
                 genSil(currentEditWavetable);
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
             }break;
@@ -455,13 +322,13 @@ void *handle_input(void *arg)
                 if(fourier_flag)
                 {
                 currentEditWavetable = fft[0];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Attack Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[0];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Attack Wave" << endl;
                 }
                 screenstate = A;
@@ -471,13 +338,13 @@ void *handle_input(void *arg)
                 if(fourier_flag)
                 {
                 currentEditWavetable = fft[1];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Decay Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[1];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Decay Wave" << endl;
                 }
                 screenstate = D;
@@ -487,13 +354,13 @@ void *handle_input(void *arg)
                 if(fourier_flag)
                 {
                 currentEditWavetable = fft[2];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Sustain Start Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[2];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Sustain Start Wave" << endl;
                 }
                 screenstate = SS;
@@ -503,13 +370,13 @@ void *handle_input(void *arg)
                 if(fourier_flag)
                 {
                 currentEditWavetable = fft[3];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Sustain End Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[3];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Sustain End Wave" << endl;
                 }
                 screenstate = SE;
@@ -519,13 +386,13 @@ void *handle_input(void *arg)
                 if(fourier_flag)
                 {
                 currentEditWavetable = fft[4];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Release Spectrum" << endl;
                 }
                 else
                 {
                 currentEditWavetable = wave[4];
-                table2Screen(currentEditWavetable);
+                renderScreen();
                 cout << "Release Wave" << endl;
                 }
                 screenstate = R;

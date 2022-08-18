@@ -38,6 +38,7 @@ void main_init()
     dynamic_view = 0;//TODO STRUCT WITH ALL CUR STATES INIT HERE
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
+    NTables = 5;
 
     genSqr(wave[0]);//A
     genSaw(wave[1]);//D
