@@ -20,8 +20,9 @@
 
 1587028615 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1660764032 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1660826607 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
+	<stdint.h>
 
 1660765327 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
@@ -229,4 +230,18 @@
 
 1660821192 /usr/local/include/json-c/linkhash.h
 	"json_object.h"
+
+1660825708 source:/home/pi/WaveformMorpher/src/Loader.cpp
+	"AudioOut.hpp"
+	"FbGraphics.hpp"
+	"Touchscreen.hpp"
+	"WaveOsc.hpp"
+	"MidiHandling.hpp"
+	"WaveGenerator.hpp"
+	"TimerEvent.hpp"
+	"FourierTransformer.hpp"
+	"ADSR.hpp"
+	"UI.hpp"
+	"GlobalDefinitions.hpp"
+	<json.h>
 

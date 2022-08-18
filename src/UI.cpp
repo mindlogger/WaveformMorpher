@@ -25,98 +25,71 @@ sem_t semUI;
 
 void callbackSW1(int gpio, int level, uint32_t tick) //L/S
 {
-   printf("SW1 became %d\n", level);
+    if(level)
+    {
+        if(shift_flag)
+        {
+            SW1ShiftEvent(tick);
+        }
+        else
+        {
+            SW1Event(tick);
+        }    }
 }
-int preset_wave_step = 0;
+
 void callbackSW2(int gpio, int level, uint32_t tick) //w/N
 {
     if(level)
     {
         if(shift_flag)
         {
-            preset_wave_step = (preset_wave_step + 1) % 4;
-            std::cout << preset_wave_step << std::endl;
-            switch(preset_wave_step)
-            {
-            case 0:
-                genSil(currentEditWavetable);
-            break;
-            case 1:
-                genSqr(currentEditWavetable);
-            break;
-            case 2:
-                genSaw(currentEditWavetable);
-            break;
-            case 3:
-                genSin(currentEditWavetable);
-            break;
-            }
+            SW2ShiftEvent(tick);
         }
         else
         {
-            screenstate = (Screenstates) (((int)screenstate + 1) % 5);
-            if(fourier_flag)
-            {
-            currentEditWavetable = fft[screenstate];
-            cout << screenstate + 1 << " Spectrum" << endl;
-            }
-            else
-            {
-            currentEditWavetable = wave[screenstate];
-            cout << screenstate + 1 << " Wave" << endl;
-            }
+            SW2Event(tick);
         }
-        table2Screen(currentEditWavetable);
     }
 }
 void callbackSW3(int gpio, int level, uint32_t tick) // S
 {
     if(level)
     {
-        if(settingstate == GS || settingstate == PS)
-        {
-            //TODO SAVE???
-            settingstate = N;
-        }
-        else
         if(shift_flag)
         {
-            settingstate = GS;
+            SW3ShiftEvent(tick);
         }
         else
         {
-            settingstate = PS;
+            SW3Event(tick);
         }
-        table2Screen(currentEditWavetable);
     }
 }
 void callbackSW4(int gpio, int level, uint32_t tick) //?
 {
     if(level)
     {
-    if(shift_flag)
-    {
-    }
-    else
-    {
-
-    }
+        if(shift_flag)
+        {
+            SW4ShiftEvent(tick);
+        }
+        else
+        {
+            SW4Event(tick);
+        }
     }
 }
 void callbackSW5(int gpio, int level, uint32_t tick) //C/P
 {
     if(level)
     {
-        if(shift_flag)//PASTE
+        if(shift_flag)
         {
-            std::cout << "WAVE PASTE" << std::endl;
-            memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
-            table2Screen(currentEditWavetable);
+            SW5ShiftEvent(tick);
         }
-        else//COPY
+        else
         {
-            std::cout << "WAVE COPY" << std::endl;
-            memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
+            SW5Event(tick);
         }
     }
 }
@@ -126,26 +99,11 @@ void callbackSW6(int gpio, int level, uint32_t tick) //F/I
     {
         if(shift_flag)
         {
-        //PRESETWAVE
+            SW6ShiftEvent(tick);
         }
         else
         {
-            if(fourier_flag)
-            {
-            cout << "backwards transform" << endl;
-            currentEditWavetable = wave[screenstate];
-            transBackward(screenstate);
-            fourier_flag = 0;
-            table2Screen(currentEditWavetable);
-            }
-            else
-            {
-            cout << "forward transform" << endl;
-            currentEditWavetable = fft[screenstate];
-            transForward(screenstate);
-            fourier_flag = 1;
-            table2Screen(currentEditWavetable);
-            }
+            SW6Event(tick);
         }
     }
 }
@@ -158,8 +116,142 @@ SW5 GPIO 14 CP/PS
 SW6 GPIO 15 FFT/PRESETWAVE
 */
 #define GLITCH_THRSHLD 200
+void actionLoad(uint32_t tick)
+{
+    std::cout << "Load got triggerd" << std::endl;
+}
+void actionStore(uint32_t tick)
+{
+    std::cout << "Store got triggerd" << std::endl;
+}
+
+int preset_wave_step = 0; //TOIDO MOVE THIS SOMEWHERE MORE SENSIBLE
+void actionWaveStep(uint32_t tick)
+{
+    screenstate = (Screenstates) (((int)screenstate + 1) % 5);
+    if(fourier_flag)
+    {
+    currentEditWavetable = fft[screenstate];
+    cout << screenstate + 1 << " Spectrum" << endl;
+    }
+    else
+    {
+    currentEditWavetable = wave[screenstate];
+    cout << screenstate + 1 << " Wave" << endl;
+    }
+
+    table2Screen(currentEditWavetable);
+}
+void actionWaveN(uint32_t tick) //TODO CHANGE THIS TO THE CORRECT FUNCTION
+{
+    preset_wave_step = (preset_wave_step + 1) % 4;
+    std::cout << preset_wave_step << std::endl;
+    switch(preset_wave_step)
+    {
+    case 0:
+        genSil(currentEditWavetable);
+    break;
+    case 1:
+        genSqr(currentEditWavetable);
+    break;
+    case 2:
+        genSaw(currentEditWavetable);
+    break;
+    case 3:
+        genSin(currentEditWavetable);
+    break;
+    }
+
+    table2Screen(currentEditWavetable);
+}
+void actionExit(uint32_t tick);
+void actionOpenPatchSettings(uint32_t tick)
+{
+    settingstate = PS;
+    table2Screen(currentEditWavetable);
+    SW3Event = &actionExit;
+    SW3ShiftEvent = &actionExit;
+}
+void actionOpenGlobalSettings(uint32_t tick)
+{
+    settingstate = GS;
+    table2Screen(currentEditWavetable);
+    SW3Event = &actionExit;
+    SW3ShiftEvent = &actionExit;
+}
+void actionExit(uint32_t tick)
+{
+    settingstate = N;
+    table2Screen(currentEditWavetable);
+    SW3Event = &actionOpenPatchSettings;
+    SW3ShiftEvent = &actionOpenGlobalSettings;
+}
+
+void actionQuestion(uint32_t tick)
+{
+    std::cout << "Question got triggerd" << std::endl;
+}
+void actionQuestionS(uint32_t tick)
+{
+    std::cout << "QuestionS got triggerd" << std::endl;
+}
+
+void actionCopy(uint32_t tick)
+{
+    std::cout << "WAVE COPY" << std::endl;
+    memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
+}
+void actionPaste(uint32_t tick)
+{
+    std::cout << "WAVE PASTE" << std::endl;
+    memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
+    table2Screen(currentEditWavetable);
+}
+
+void actionFourier(uint32_t tick)
+{
+    if(fourier_flag)
+    {
+        cout << "backwards transform" << endl;
+        currentEditWavetable = wave[screenstate];
+        transBackward(screenstate);
+        fourier_flag = 0;
+        table2Screen(currentEditWavetable);
+    }
+    else
+    {
+        cout << "forward transform" << endl;
+        currentEditWavetable = fft[screenstate];
+        transForward(screenstate);
+        fourier_flag = 1;
+        table2Screen(currentEditWavetable);
+    }
+}
+void actionInverse(uint32_t tick)
+{
+    std::cout << "Inverse got triggerd" << std::endl;
+}
+
 void setupUI()
 {
+        SW1Event = &actionLoad;
+        SW1ShiftEvent = &actionStore;
+
+        SW2Event = &actionWaveStep;
+        SW2ShiftEvent = &actionWaveN;
+
+        SW3Event = &actionOpenPatchSettings;
+        SW3ShiftEvent = &actionOpenGlobalSettings;
+
+        SW4Event = &actionQuestion;
+        SW4ShiftEvent = &actionQuestionS;
+
+        SW5Event = &actionCopy;
+        SW5ShiftEvent = &actionPaste;
+
+        SW6Event = &actionFourier;
+        SW6ShiftEvent = &actionInverse;
+
         gpioInitialise();
         //gpioSetPullUpDown(0,PI_PUD_UP);
         //gpioSetPullUpDown(1,PI_PUD_UP);
