@@ -20,13 +20,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-D__LINUX_ALSA__" />
+			<Add directory="/usr/local/include/json-c" />
 		</Compiler>
 		<Linker>
-			<Add option="-lrt -lm -lasound -pthread -lfftw3 -lfftw3_threads -lpigpio" />
+			<Add option="-lrt -lm -ljson-c -lasound -pthread -lfftw3 -lfftw3_threads -lpigpio" />
 			<Add library="/usr/local/lib/libportaudio.a" />
-			<Add library="/usr/local/lib/librtmidi.a" />
-			<Add library="/usr/local/lib/libfftw3.a" />
+			<Add library="/usr/local/lib/libjson-c.a" />
 			<Add library="/usr/local/lib/fbg" />
+			<Add library="/usr/local/lib/libfftw3.a" />
+			<Add library="/usr/local/lib/librtmidi.a" />
+			<Add directory="/usr/local/lib" />
 		</Linker>
 		<Unit filename="src/ADSR.cpp" />
 		<Unit filename="src/ADSR.hpp" />
@@ -37,6 +40,8 @@
 		<Unit filename="src/FourierTransformer.cpp" />
 		<Unit filename="src/FourierTransformer.hpp" />
 		<Unit filename="src/GlobalDefinitions.hpp" />
+		<Unit filename="src/Loader.cpp" />
+		<Unit filename="src/Loader.hpp" />
 		<Unit filename="src/MidiHandling.cpp" />
 		<Unit filename="src/MidiHandling.hpp" />
 		<Unit filename="src/RtMidi.h" />
