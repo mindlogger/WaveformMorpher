@@ -12,6 +12,9 @@
 #endif
 #include "ADSR.hpp"
 #include <stdint.h>
+#include <vector>
+#include <string>
+
 enum Screenstates {A,D,SS,SE,R}; //PS: Patch Settings //GS: Global Settings
 enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, HiddenMode};
 EXTERN int fourier_flag; //0 = wave 1 = spectrum
@@ -37,6 +40,9 @@ EXTERN struct _fbg_font *bbfont;
 EXTERN char fileSaveCharacters[12];
 EXTERN int patchNameIndex;
 EXTERN char* patchName;
+EXTERN uint8_t fileSelectionIndex;
+
+EXTERN std::vector<std::string> filesInDirectory;
 
 //EXTERN void (*ScreenUIDrawer)(void);
 EXTERN int NTables;

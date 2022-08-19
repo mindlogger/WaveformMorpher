@@ -55,6 +55,18 @@ void renderLoad()
 {
     clearScreen();
 
+    //SHOW 9 FILES
+
+
+    for (int i = 0; i < filesInDirectory.size(); i++)
+    {
+        if(fileSelectionIndex == i)
+        {
+            fbg_write(fbg, "o", 110, 50 + (i*30));
+        }
+        fbg_write(fbg, &filesInDirectory[i][0], 140, 50 + (i*30));
+    }
+
     fbg_write(fbg, "Load Patch", 140, 15);
     commitScreenBuffer();
 }
@@ -77,6 +89,7 @@ void renderStore()
     if(patchNameIndex == 0)
     {
         patchName = (char*)malloc(MAX_PATCH_NAME_LENGTH);
+        cout << patchName << endl;
         //DO INIT SHIT
         for(int i = 0; i < 12; i++)
         {

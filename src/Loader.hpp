@@ -2,10 +2,10 @@
 #define LOADER_H
 
 #include <string>
-#include <vector>
 
 void setupLoader();
-std::vector<std::string> getFilesInDirectory();
+void getFilesInDirectory();
+void loadFile(std::string name);
 void loadFilePreset();
 void loadFileGlobal();
 void saveFile(std::string name);

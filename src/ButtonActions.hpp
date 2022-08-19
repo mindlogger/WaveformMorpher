@@ -16,6 +16,10 @@ void actionRerollCharacters(uint32_t tick, uint8_t id);
 void actionSavePatch(uint32_t tick, uint8_t id);
 
 void actionLoad(uint32_t tick, uint8_t id);
+void actionLoadPatch(uint32_t tick, uint8_t id);
+void actionBrowseUp(uint32_t tick, uint8_t id);
+void actionBrowseDown(uint32_t tick, uint8_t id);
+
 void actionStore(uint32_t tick, uint8_t id);
 
 void actionWaveStep(uint32_t tick, uint8_t id);

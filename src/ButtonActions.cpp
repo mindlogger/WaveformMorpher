@@ -51,6 +51,12 @@ void assignLoadActions()
 
     SW3Event = &actionExit;
     SW3ShiftEvent = &actionExit;
+
+    SW4Event = &actionLoadPatch;
+
+    SW5Event = &actionBrowseUp;
+
+    SW6Event = &actionBrowseDown;
 }
 
 void assignStoreActions()
@@ -140,15 +146,35 @@ void dummyAction(uint32_t tick, uint8_t id)
 
 void actionLoad(uint32_t tick, uint8_t id)
 {
-    vector<std::string> s = getFilesInDirectory(); //DEBUG
+    getFilesInDirectory();
 
-    for (vector<std::string>::const_iterator i = s.begin(); i != s.end(); ++i)
+    for (vector<std::string>::const_iterator i = filesInDirectory.begin(); i != filesInDirectory.end(); ++i)
     std::cout << *i << endl;
 
     uiState = Load;
     assignLoadActions();
     renderScreen();
 }
+
+void actionLoadPatch(uint32_t tick, uint8_t id)
+{
+    loadFile(filesInDirectory[fileSelectionIndex]);
+}
+
+void actionBrowseUp(uint32_t tick, uint8_t id)
+{
+    if(fileSelectionIndex > 0)
+        fileSelectionIndex--;
+    renderScreen();
+}
+
+void actionBrowseDown(uint32_t tick, uint8_t id)
+{
+    if(filesInDirectory.size() -1 > fileSelectionIndex)
+        fileSelectionIndex++;
+    renderScreen();
+}
+
 void actionStore(uint32_t tick, uint8_t id)
 {
     uiState = Store;

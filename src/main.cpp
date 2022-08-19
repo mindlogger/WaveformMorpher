@@ -47,6 +47,7 @@ void main_init()
 
 
     patchNameIndex = 0;
+    fileSelectionIndex = 0;
 
     srand((unsigned int)time(NULL));   // Initialization, should only be called once.
 

@@ -40,39 +40,51 @@ void setupLoader()
     //SETUP THE FILE LOADER
 }
 
-vector<std::string> getFilesInDirectory()
+void getFilesInDirectory()
 {
-    cout << "Files in directory:" << endl;
     DIR *d;
     struct dirent *dir;
 
-    vector<std::string> patchFiles;
+    filesInDirectory.clear();
 
     d = opendir("/home/pi/WaveformMorpherPatches/");
     if (d)
     {
         while ((dir = readdir(d)) != NULL)
         {
-            patchFiles.push_back(string(dir->d_name));
+            filesInDirectory.push_back(string(dir->d_name));
         }
         closedir(d);
     }
-
-    return patchFiles;
 }
 
-void loadFile()
+void loadFile(std::string name)
 {
- //LOAD THE
+    cout << "LOADING: " << name << endl;
+    std::string path = "/home/pi/WaveformMorpherPatches/" + name; // + ".wmp"
+    FILE *fp;
+    char buff[255];
+
+    fp = fopen(&path[0], "r");
+
+    fgets(buff, 5, (FILE*)fp);
+
+    cout << "TILL"<< endl;
+
+    fclose(fp);
+
+    cout << "CONTENT: " << buff << endl;
+    //JSON PARSING
 }
 
 void saveFile(std::string name)
 {
     FILE *fp;
     std::string path = "/home/pi/WaveformMorpherPatches/" + name + ".wmp";
-    char fn[50];
-    char str[] = "Guru99 Rocks\n";
-    fp  = fopen (&path[0], "w");
+
+    char str[] = "DUMMY CONTENT\n";
+
+    fp  = fopen(&path[0], "w");
     int i;
 
     for (i = 0; str[i] != '\n'; i++)
