@@ -45,7 +45,7 @@ void main_init()
     fft_has_been_touched_flag = 0;
     NTables = 5;
 
-    saveFile("FirstPatch"); //DEBUG
+
     patchNameIndex = 0;
 
     srand((unsigned int)time(NULL));   // Initialization, should only be called once.

@@ -24,7 +24,7 @@
 	"ADSR.hpp"
 	<stdint.h>
 
-1660898742 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1660906524 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -73,7 +73,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1660904009 source:/home/pi/WaveformMorpher/src/main.cpp
+1660906997 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -237,7 +237,7 @@
 1660821192 /usr/local/include/json-c/linkhash.h
 	"json_object.h"
 
-1660900120 source:/home/pi/WaveformMorpher/src/Loader.cpp
+1660908048 source:/home/pi/WaveformMorpher/src/Loader.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -251,8 +251,11 @@
 	"GlobalDefinitions.hpp"
 	<json.h>
 	<stdio.h>
+	<iostream>
+	<vector>
+	<dirent.h>
 
-1660905941 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1660907604 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -286,5 +289,7 @@
 	<iostream>
 	"fbgraphics.h"
 
-1660900006 /home/pi/WaveformMorpher/src/Loader.hpp
+1660908061 /home/pi/WaveformMorpher/src/Loader.hpp
+	<string>
+	<vector>
 

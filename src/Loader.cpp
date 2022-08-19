@@ -13,6 +13,9 @@
 
 #include <json.h>
 #include <stdio.h>
+#include <iostream>
+#include <vector>
+#include <dirent.h>
 
 using namespace std;
 
@@ -35,6 +38,27 @@ void setupLoader()
 	jobj = json_tokener_parse(str);
 	printf("jobj from str:\n---\n%s\n---\n", json_object_to_json_string_ext(jobj, JSON_C_TO_STRING_SPACED | JSON_C_TO_STRING_PRETTY));
     //SETUP THE FILE LOADER
+}
+
+vector<std::string> getFilesInDirectory()
+{
+    cout << "Files in directory:" << endl;
+    DIR *d;
+    struct dirent *dir;
+
+    vector<std::string> patchFiles;
+
+    d = opendir("/home/pi/WaveformMorpherPatches/");
+    if (d)
+    {
+        while ((dir = readdir(d)) != NULL)
+        {
+            patchFiles.push_back(string(dir->d_name));
+        }
+        closedir(d);
+    }
+
+    return patchFiles;
 }
 
 void loadFile()

@@ -20,6 +20,7 @@
 #include <semaphore.h>
 #include <pthread.h>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -139,6 +140,11 @@ void dummyAction(uint32_t tick, uint8_t id)
 
 void actionLoad(uint32_t tick, uint8_t id)
 {
+    vector<std::string> s = getFilesInDirectory(); //DEBUG
+
+    for (vector<std::string>::const_iterator i = s.begin(); i != s.end(); ++i)
+    std::cout << *i << endl;
+
     uiState = Load;
     assignLoadActions();
     renderScreen();
