@@ -1,5 +1,10 @@
 #define SAMPLE_RATE (48000)
 #define WAVE_TABLE_SIZE (480)
+#define SCREEN_SW1_3_POSX 4
+#define SCREEN_SW4_5_POSX 427
+#define SCREEN_SW1_4_POSY 31
+#define SCREEN_SW2_5_POSY 148
+#define SCREEN_SW3_6_POSY 260
 #ifdef GLOBALS
 #define EXTERN
 #else
@@ -8,28 +13,30 @@
 #include "ADSR.hpp"
 #include <stdint.h>
 enum Screenstates {A,D,SS,SE,R}; //PS: Patch Settings //GS: Global Settings
-enum SettingStates {N,PS,GS}; //PS: Patch Settings //GS: Global Settings
 enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, HiddenMode};
 EXTERN int fourier_flag; //0 = wave 1 = spectrum
 EXTERN Screenstates screenstate;
-EXTERN SettingStates settingstate;
 EXTERN UIStates uiState;
-EXTERN void (*SW1Event)(uint32_t);
-EXTERN void (*SW1ShiftEvent)(uint32_t);
-EXTERN void (*SW2Event)(uint32_t);
-EXTERN void (*SW2ShiftEvent)(uint32_t);
-EXTERN void (*SW3Event)(uint32_t);
-EXTERN void (*SW3ShiftEvent)(uint32_t);
-EXTERN void (*SW4Event)(uint32_t);
-EXTERN void (*SW4ShiftEvent)(uint32_t);
-EXTERN void (*SW5Event)(uint32_t);
-EXTERN void (*SW5ShiftEvent)(uint32_t);
-EXTERN void (*SW6Event)(uint32_t);
-EXTERN void (*SW6ShiftEvent)(uint32_t);
+EXTERN void (*SW1Event)(uint32_t tick, uint8_t id);
+EXTERN void (*SW1ShiftEvent)(uint32_t tick, uint8_t id);
+EXTERN void (*SW2Event)(uint32_t tick, uint8_t id);
+EXTERN void (*SW2ShiftEvent)(uint32_t tick, uint8_t id);
+EXTERN void (*SW3Event)(uint32_t tick, uint8_t id);
+EXTERN void (*SW3ShiftEvent)(uint32_t tick, uint8_t id);
+EXTERN void (*SW4Event)(uint32_t tick, uint8_t id);
+EXTERN void (*SW4ShiftEvent)(uint32_t tick, uint8_t id);
+EXTERN void (*SW5Event)(uint32_t tick, uint8_t id);
+EXTERN void (*SW5ShiftEvent)(uint32_t tick, uint8_t id);
+EXTERN void (*SW6Event)(uint32_t tick, uint8_t id);
+EXTERN void (*SW6ShiftEvent)(uint32_t tick, uint8_t id);
 
 EXTERN struct _fbg *fbg;
 EXTERN struct _fbg_img *bb_font_img;
 EXTERN struct _fbg_font *bbfont;
+
+EXTERN char fileSaveCharacters[12];
+EXTERN int patchNameIndex;
+EXTERN char* patchName;
 
 //EXTERN void (*ScreenUIDrawer)(void);
 EXTERN int NTables;

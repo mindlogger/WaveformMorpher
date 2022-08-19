@@ -116,8 +116,7 @@ void renderScreen()
         case HiddenMode:
             renderHiddenMode();
         break;
-    }
-}
+    }}
 
 
 void initFbGraphics()

@@ -30,11 +30,11 @@ void callbackSW1(int gpio, int level, uint32_t tick) //L/S
     {
         if(shift_flag)
         {
-            SW1ShiftEvent(tick);
+            SW1ShiftEvent(tick, 7);
         }
         else
         {
-            SW1Event(tick);
+            SW1Event(tick, 1);
         }    }
 }
 void callbackSW2(int gpio, int level, uint32_t tick) //w/N
@@ -43,11 +43,11 @@ void callbackSW2(int gpio, int level, uint32_t tick) //w/N
     {
         if(shift_flag)
         {
-            SW2ShiftEvent(tick);
+            SW2ShiftEvent(tick, 8);
         }
         else
         {
-            SW2Event(tick);
+            SW2Event(tick, 2);
         }
     }
 }
@@ -57,11 +57,11 @@ void callbackSW3(int gpio, int level, uint32_t tick) // S
     {
         if(shift_flag)
         {
-            SW3ShiftEvent(tick);
+            SW3ShiftEvent(tick, 9);
         }
         else
         {
-            SW3Event(tick);
+            SW3Event(tick, 3);
         }
     }
 }
@@ -71,11 +71,11 @@ void callbackSW4(int gpio, int level, uint32_t tick) //?
     {
         if(shift_flag)
         {
-            SW4ShiftEvent(tick);
+            SW4ShiftEvent(tick, 10);
         }
         else
         {
-            SW4Event(tick);
+            SW4Event(tick, 4);
         }
     }
 }
@@ -85,11 +85,11 @@ void callbackSW5(int gpio, int level, uint32_t tick) //C/P
     {
         if(shift_flag)
         {
-            SW5ShiftEvent(tick);
+            SW5ShiftEvent(tick, 11);
         }
         else
         {
-            SW5Event(tick);
+            SW5Event(tick, 5);
         }
     }
 }
@@ -99,11 +99,11 @@ void callbackSW6(int gpio, int level, uint32_t tick) //F/I
     {
         if(shift_flag)
         {
-            SW6ShiftEvent(tick);
+            SW6ShiftEvent(tick, 12);
         }
         else
         {
-            SW6Event(tick);
+            SW6Event(tick, 6);
         }
     }
 }

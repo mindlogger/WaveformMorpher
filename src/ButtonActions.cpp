@@ -9,6 +9,7 @@
 #include "ADSR.hpp"
 #include "UI.hpp"
 #include "ButtonActions.hpp"
+#include "Loader.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -18,6 +19,7 @@
 #include <iostream>
 #include <semaphore.h>
 #include <pthread.h>
+#include <string>
 
 using namespace std;
 
@@ -45,6 +47,7 @@ void assignMainActions()
 void assignLoadActions()
 {
     clearAllActions();
+
     SW3Event = &actionExit;
     SW3ShiftEvent = &actionExit;
 }
@@ -52,8 +55,24 @@ void assignLoadActions()
 void assignStoreActions()
 {
     clearAllActions();
+
+    SW1Event = &actionCharacterClick;
+    SW1ShiftEvent = &actionCharacterClick;
+
+    SW2Event = &actionCharacterClick;
+    SW2ShiftEvent = &actionCharacterClick;
+
     SW3Event = &actionExit;
-    SW3ShiftEvent = &actionExit;
+    SW3ShiftEvent = &actionCharacterClick;
+
+    SW4Event = &actionRerollCharacters;
+    SW4ShiftEvent = &actionSavePatch;
+
+    SW5Event = &actionCharacterClick;
+    SW5ShiftEvent = &actionCharacterClick;
+
+    SW6Event = &actionCharacterClick;
+    SW6ShiftEvent = &actionCharacterClick;
 }
 
 void assignPatchSettingActions()
@@ -91,71 +110,119 @@ void clearAllActions()
     SW6ShiftEvent = &dummyAction;
 }
 
-void dummyAction(uint32_t tick)
+void actionCharacterClick(uint32_t tick, uint8_t id)
+{
+    patchName[patchNameIndex] = fileSaveCharacters[id-1];
+    patchNameIndex++;
+    renderScreen();
+}
+
+void actionRerollCharacters(uint32_t tick, uint8_t id)
+{
+    renderScreen();
+}
+
+void actionSavePatch(uint32_t tick, uint8_t id)
+{
+    saveFile(string(patchName));
+    patchNameIndex = 0;
+    free(patchName);
+
+    uiState = EditView;
+    assignMainActions();
+    renderScreen();
+}
+
+void dummyAction(uint32_t tick, uint8_t id)
 {
 }
 
-void actionLoad(uint32_t tick)
+void actionLoad(uint32_t tick, uint8_t id)
 {
     uiState = Load;
-    renderScreen();
     assignLoadActions();
+    renderScreen();
 }
-void actionStore(uint32_t tick)
+void actionStore(uint32_t tick, uint8_t id)
 {
     uiState = Store;
-    renderScreen();
     assignStoreActions();
+    renderScreen();
 }
 
 int preset_wave_step = 0; //TOIDO MOVE THIS SOMEWHERE MORE SENSIBLE
-void actionWaveStep(uint32_t tick)
+void actionWaveStep(uint32_t tick, uint8_t id)
 {
     screenstate = (Screenstates) (((int)screenstate + 1) % 5);
     if(fourier_flag)
     {
-    currentEditWavetable = fft[screenstate];
-    cout << screenstate + 1 << " Spectrum" << endl;
+        currentEditWavetable = fft[screenstate];
+        cout << screenstate + 1 << " Spectrum" << endl;
     }
     else
     {
-    currentEditWavetable = wave[screenstate];
-    cout << screenstate + 1 << " Wave" << endl;
+        currentEditWavetable = wave[screenstate];
+        cout << screenstate + 1 << " Wave" << endl;
     }
     renderScreen();
 }
-void actionWaveN(uint32_t tick) //TODO CHANGE THIS TO THE CORRECT FUNCTION
+void actionWaveN(uint32_t tick, uint8_t id) //TODO CHANGE THIS TO THE CORRECT FUNCTION
 {
     NTables += 1;
     NTables = NTables % 6;
     addText(std::to_string(NTables),2,80,1);
 }
 
-void actionOpenPatchSettings(uint32_t tick)
+void actionOpenPatchSettings(uint32_t tick, uint8_t id)
 {
     uiState = PatchSettings;
     renderScreen();
     assignPatchSettingActions();
 }
-void actionOpenGlobalSettings(uint32_t tick)
+void actionOpenGlobalSettings(uint32_t tick, uint8_t id)
 {
     uiState = GlobalSettings;
     renderScreen();
     assignGlobalSettingActions();
 }
-void actionExit(uint32_t tick)
+
+void actionExit(uint32_t tick, uint8_t id)
 {
+    switch(uiState)
+    {
+        case EditView:
+        break;
+        case DynamicView:
+        break;
+        case PatchSettings:
+            //SAVE SETTINGS?
+        break;
+        case GlobalSettings:
+            //SAVE SETTINGS?
+        break;
+        case Load:
+        break;
+        case Store:
+            patchNameIndex = 0;
+            free(patchName);
+        break;
+        case InsertWave:
+        break;
+        case HiddenMode:
+        break;
+    }
+
     uiState = EditView;
     renderScreen();
     assignMainActions();
 }
 
-void actionQuestion(uint32_t tick)
+void actionQuestion(uint32_t tick, uint8_t id)
 {
     std::cout << "Question got triggerd" << std::endl;
     dynamic_view = 1;
 }
-void actionQuestionS(uint32_t tick)
+void actionQuestionS(uint32_t tick, uint8_t id)
 {
     std::cout << "QuestionS got triggerd" << std::endl;
     renderScreen();
@@ -163,19 +230,19 @@ void actionQuestionS(uint32_t tick)
 
 }
 
-void actionCopy(uint32_t tick)
+void actionCopy(uint32_t tick, uint8_t id)
 {
     std::cout << "WAVE COPY" << std::endl;
     memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
 }
-void actionPaste(uint32_t tick)
+void actionPaste(uint32_t tick, uint8_t id)
 {
     std::cout << "WAVE PASTE" << std::endl;
     memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
     renderScreen();
 }
 
-void actionFourier(uint32_t tick)
+void actionFourier(uint32_t tick, uint8_t id)
 {
     if(fourier_flag)
     {
@@ -196,7 +263,7 @@ void actionFourier(uint32_t tick)
         addText("S", 460, 260,1);
     }
 }
-void actionInverse(uint32_t tick)
+void actionInverse(uint32_t tick, uint8_t id)
 {
     preset_wave_step = (preset_wave_step + 1) % 4;
     std::cout << preset_wave_step << std::endl;

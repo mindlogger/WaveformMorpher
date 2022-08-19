@@ -2,51 +2,25 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src/WaveGenerator.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/FbGraphics.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="79" topLine="0" />
+			<Cursor1 position="78" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/ButtonActions.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4357" topLine="117" />
 		</Cursor>
 		<Folding>
-			<Collapse line="5" />
-			<Collapse line="7" />
-			<Collapse line="13" />
-			<Collapse line="16" />
-			<Collapse line="22" />
-			<Collapse line="25" />
-			<Collapse line="27" />
-			<Collapse line="31" />
-			<Collapse line="38" />
-			<Collapse line="40" />
+			<Collapse line="26" />
+			<Collapse line="154" />
+			<Collapse line="169" />
+			<Collapse line="176" />
+			<Collapse line="182" />
+			<Collapse line="245" />
+			<Collapse line="247" />
+			<Collapse line="256" />
 		</Folding>
-	</File>
-	<File name="src/Loader.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1355" topLine="5" />
-		</Cursor>
-		<Folding>
-			<Collapse line="19" />
-			<Collapse line="40" />
-		</Folding>
-	</File>
-	<File name="src/MidiHandling.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2472" topLine="54" />
-		</Cursor>
-		<Folding>
-			<Collapse line="126" />
-			<Collapse line="128" />
-			<Collapse line="129" />
-			<Collapse line="140" />
-			<Collapse line="145" />
-			<Collapse line="163" />
-			<Collapse line="168" />
-			<Collapse line="173" />
-		</Folding>
-	</File>
-	<File name="src/Touchscreen.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="365" topLine="0" />
-		</Cursor>
 	</File>
 	<File name="src/Touchscreen.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -76,62 +50,18 @@
 			<Collapse line="237" />
 		</Folding>
 	</File>
-	<File name="src/UI.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/RtMidi.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5270" topLine="150" />
+			<Cursor1 position="15937" topLine="355" />
 		</Cursor>
 		<Folding>
-			<Collapse line="101" />
-			<Collapse line="120" />
-			<Collapse line="180" />
-			<Collapse line="185" />
-			<Collapse line="189" />
-			<Collapse line="193" />
-			<Collapse line="197" />
-			<Collapse line="200" />
-			<Collapse line="205" />
-			<Collapse line="218" />
-			<Collapse line="241" />
-			<Collapse line="243" />
-			<Collapse line="253" />
-			<Collapse line="255" />
-			<Collapse line="275" />
-			<Collapse line="277" />
-			<Collapse line="283" />
-			<Collapse line="290" />
-			<Collapse line="298" />
-			<Collapse line="307" />
-			<Collapse line="314" />
-			<Collapse line="321" />
-			<Collapse line="323" />
-			<Collapse line="329" />
-			<Collapse line="337" />
-			<Collapse line="339" />
-			<Collapse line="345" />
-			<Collapse line="353" />
-			<Collapse line="355" />
-			<Collapse line="361" />
-			<Collapse line="369" />
-			<Collapse line="371" />
-			<Collapse line="377" />
-			<Collapse line="385" />
-			<Collapse line="387" />
-			<Collapse line="393" />
+			<Collapse line="272" />
+			<Collapse line="402" />
 		</Folding>
 	</File>
-	<File name="src/UIRenderer.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/TimerEvent.hpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="225" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/ButtonActions.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="97" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/GlobalDefinitions.hpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="385" topLine="7" />
+			<Cursor1 position="65" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src/MidiHandling.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -139,17 +69,34 @@
 			<Cursor1 position="81" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/FourierTransformer.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/WaveOsc.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="196" topLine="0" />
+			<Cursor1 position="1192" topLine="6" />
 		</Cursor>
 		<Folding>
-			<Collapse line="34" />
-			<Collapse line="37" />
-			<Collapse line="39" />
-			<Collapse line="41" />
-			<Collapse line="47" />
+			<Collapse line="75" />
+			<Collapse line="78" />
 		</Folding>
+	</File>
+	<File name="src/MidiHandling.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2472" topLine="54" />
+		</Cursor>
+		<Folding>
+			<Collapse line="126" />
+			<Collapse line="128" />
+			<Collapse line="129" />
+			<Collapse line="140" />
+			<Collapse line="145" />
+			<Collapse line="163" />
+			<Collapse line="168" />
+			<Collapse line="173" />
+		</Folding>
+	</File>
+	<File name="src/FourierTransformer.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="125" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="src/ADSR.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -164,57 +111,113 @@
 			<Collapse line="90" />
 		</Folding>
 	</File>
-	<File name="src/AudioOut.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/UIRenderer.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="222" topLine="0" />
+			<Cursor1 position="1421" topLine="25" />
 		</Cursor>
-	</File>
-	<File name="src/FourierTransformer.hpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="125" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/FbGraphics.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="78" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/WaveGenerator.hpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="162" topLine="0" />
-		</Cursor>
+		<Folding>
+			<Collapse line="10" />
+			<Collapse line="15" />
+			<Collapse line="19" />
+			<Collapse line="40" />
+			<Collapse line="47" />
+			<Collapse line="54" />
+		</Folding>
 	</File>
 	<File name="src/AudioOut.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="53" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/ButtonActions.cpp" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/ButtonActions.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="914" topLine="35" />
+			<Cursor1 position="322" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Touchscreen.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="365" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/FourierTransformer.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="196" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="112" />
-			<Collapse line="115" />
-			<Collapse line="120" />
-			<Collapse line="127" />
-			<Collapse line="153" />
-			<Collapse line="158" />
-			<Collapse line="166" />
-			<Collapse line="171" />
-			<Collapse line="199" />
-			<Collapse line="203" />
+			<Collapse line="34" />
+			<Collapse line="37" />
+			<Collapse line="39" />
+			<Collapse line="41" />
+			<Collapse line="47" />
 		</Folding>
 	</File>
-	<File name="src/UIRenderer.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/fbgraphics.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="938" topLine="29" />
+			<Cursor1 position="32294" topLine="283" />
 		</Cursor>
-	</File>
-	<File name="src/main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1060" topLine="17" />
-		</Cursor>
+		<Folding>
+			<Collapse line="0" />
+			<Collapse line="74" />
+			<Collapse line="83" />
+			<Collapse line="91" />
+			<Collapse line="103" />
+			<Collapse line="123" />
+			<Collapse line="255" />
+			<Collapse line="264" />
+			<Collapse line="305" />
+			<Collapse line="314" />
+			<Collapse line="328" />
+			<Collapse line="335" />
+			<Collapse line="345" />
+			<Collapse line="357" />
+			<Collapse line="366" />
+			<Collapse line="374" />
+			<Collapse line="382" />
+			<Collapse line="390" />
+			<Collapse line="400" />
+			<Collapse line="409" />
+			<Collapse line="421" />
+			<Collapse line="434" />
+			<Collapse line="443" />
+			<Collapse line="452" />
+			<Collapse line="466" />
+			<Collapse line="481" />
+			<Collapse line="492" />
+			<Collapse line="505" />
+			<Collapse line="518" />
+			<Collapse line="532" />
+			<Collapse line="543" />
+			<Collapse line="553" />
+			<Collapse line="563" />
+			<Collapse line="574" />
+			<Collapse line="582" />
+			<Collapse line="589" />
+			<Collapse line="595" />
+			<Collapse line="605" />
+			<Collapse line="616" />
+			<Collapse line="627" />
+			<Collapse line="636" />
+			<Collapse line="646" />
+			<Collapse line="659" />
+			<Collapse line="673" />
+			<Collapse line="680" />
+			<Collapse line="696" />
+			<Collapse line="703" />
+			<Collapse line="715" />
+			<Collapse line="723" />
+			<Collapse line="733" />
+			<Collapse line="744" />
+			<Collapse line="752" />
+			<Collapse line="766" />
+			<Collapse line="773" />
+			<Collapse line="786" />
+			<Collapse line="794" />
+			<Collapse line="801" />
+			<Collapse line="810" />
+			<Collapse line="822" />
+			<Collapse line="828" />
+			<Collapse line="846" />
+		</Folding>
 	</File>
 	<File name="src/WaveOsc.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -224,41 +227,109 @@
 			<Collapse line="5" />
 		</Folding>
 	</File>
-	<File name="src/fbgraphics.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/WaveGenerator.hpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="32282" topLine="283" />
-		</Cursor>
-		<Folding>
-			<Collapse line="836" />
-		</Folding>
-	</File>
-	<File name="src/TimerEvent.hpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="65" topLine="0" />
+			<Cursor1 position="162" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/WaveOsc.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/FbGraphics.cpp" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1192" topLine="6" />
+			<Cursor1 position="2005" topLine="70" />
 		</Cursor>
 		<Folding>
-			<Collapse line="75" />
-			<Collapse line="78" />
+			<Collapse line="31" />
+			<Collapse line="61" />
+			<Collapse line="65" />
+			<Collapse line="77" />
+			<Collapse line="81" />
+			<Collapse line="87" />
+			<Collapse line="212" />
+			<Collapse line="215" />
+			<Collapse line="218" />
+			<Collapse line="222" />
+			<Collapse line="223" />
+			<Collapse line="239" />
 		</Folding>
+	</File>
+	<File name="src/main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1091" topLine="24" />
+		</Cursor>
+		<Folding>
+			<Collapse line="70" />
+			<Collapse line="81" />
+			<Collapse line="85" />
+			<Collapse line="96" />
+		</Folding>
+	</File>
+	<File name="src/ADSR.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3199" topLine="16" />
+		</Cursor>
+		<Folding>
+			<Collapse line="27" />
+			<Collapse line="47" />
+			<Collapse line="137" />
+		</Folding>
+	</File>
+	<File name="src/UIRenderer.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="225" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Loader.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="105" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="src/UI.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="119" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/RtMidi.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/UI.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="15937" topLine="355" />
+			<Cursor1 position="1851" topLine="81" />
 		</Cursor>
 		<Folding>
-			<Collapse line="272" />
-			<Collapse line="402" />
+			<Collapse line="110" />
+			<Collapse line="146" />
+			<Collapse line="150" />
+			<Collapse line="152" />
+			<Collapse line="162" />
+			<Collapse line="176" />
+			<Collapse line="236" />
+			<Collapse line="265" />
+			<Collapse line="270" />
+			<Collapse line="401" />
 		</Folding>
+	</File>
+	<File name="src/Loader.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1355" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="src/WaveGenerator.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="79" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="5" />
+			<Collapse line="7" />
+			<Collapse line="13" />
+			<Collapse line="16" />
+			<Collapse line="22" />
+			<Collapse line="25" />
+			<Collapse line="27" />
+			<Collapse line="31" />
+			<Collapse line="38" />
+			<Collapse line="40" />
+		</Folding>
+	</File>
+	<File name="src/AudioOut.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="222" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="src/TimerEvent.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -275,37 +346,9 @@
 			<Collapse line="82" />
 		</Folding>
 	</File>
-	<File name="src/Loader.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/GlobalDefinitions.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="140" topLine="0" />
+			<Cursor1 position="459" topLine="12" />
 		</Cursor>
-	</File>
-	<File name="src/ADSR.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3199" topLine="16" />
-		</Cursor>
-		<Folding>
-			<Collapse line="27" />
-			<Collapse line="47" />
-			<Collapse line="137" />
-		</Folding>
-	</File>
-	<File name="src/FbGraphics.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="690" topLine="24" />
-		</Cursor>
-		<Folding>
-			<Collapse line="31" />
-			<Collapse line="61" />
-			<Collapse line="65" />
-			<Collapse line="77" />
-			<Collapse line="81" />
-			<Collapse line="213" />
-			<Collapse line="216" />
-			<Collapse line="219" />
-			<Collapse line="223" />
-			<Collapse line="224" />
-			<Collapse line="240" />
-		</Folding>
 	</File>
 </CodeBlocks_layout_file>

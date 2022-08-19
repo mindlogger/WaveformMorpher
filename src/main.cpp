@@ -21,6 +21,9 @@
 #include <linux/reboot.h>
 #include <sys/reboot.h>
 
+#include <time.h>
+#include <stdlib.h>
+
 void main_init()
 {
     n_shutdown_flag = 1;
@@ -42,7 +45,10 @@ void main_init()
     fft_has_been_touched_flag = 0;
     NTables = 5;
 
-    saveFile("FirstPatch");
+    saveFile("FirstPatch"); //DEBUG
+    patchNameIndex = 0;
+
+    srand((unsigned int)time(NULL));   // Initialization, should only be called once.
 
     genSqr(wave[0]);//A
     genSaw(wave[1]);//D
