@@ -1,10 +1,12 @@
 #include "FbGraphics.hpp"
 #include "GlobalDefinitions.hpp"
+#include "UIRenderer.hpp"
 
 extern "C"
 {
 #include "fbgraphics.h"
 }
+
 #include <sys/stat.h>
 #include <signal.h>
 #include <string.h>
@@ -23,10 +25,6 @@ extern "C"
 #include <semaphore.h>
 #include <pthread.h>
 #include <string>
-
-struct _fbg *fbg;
-struct _fbg_img *bb_font_img;
-struct _fbg_font *bbfont;
 
 sem_t semRender;
 
@@ -92,8 +90,34 @@ void updateScreen()
 
 void renderScreen()
 {
-    clearScreen();
-    table2Screen(currentEditWavetable);}
+    switch(uiState)
+    {
+        case EditView:
+            renderEditView();
+        break;
+        case DynamicView:
+            renderPatchSettings();
+        break;
+        case PatchSettings:
+            renderPatchSettings();
+        break;
+        case GlobalSettings:
+            renderGlobalSettings();
+        break;
+        case Load:
+            renderLoad();
+        break;
+        case Store:
+            renderStore();
+        break;
+        case InsertWave:
+            renderInsertWave();
+        break;
+        case HiddenMode:
+            renderHiddenMode();
+        break;
+    }
+}
 
 
 void initFbGraphics()
@@ -110,61 +134,23 @@ void initFbGraphics()
 
 void table2Screen(double* wave_table)
 {
-    if(settingstate == PS || settingstate == GS)
+    for(int i = 0; i<WAVE_TABLE_SIZE; i++)
     {
-        switch(settingstate)
+        double x = ((wave_table[i]+1) * 159.0);
+        x = -1 * x + 319;
+        x = round(x);
+        if(x < 0) //ONLY FOR DEBUGING REASONS
         {
-        case PS:
-        fbg_write(fbg, "Patch Settings", 140, 15);
-        commitScreenBuffer();
-        return;
-        break;
-        case GS:
-        fbg_write(fbg, "Global Settings", 140, 15);
-        commitScreenBuffer();
-        return;
-        break;
+            //std::cout << "err:table2Screen:tosmall: " << x << " at pos " << i << std::endl; //DEBUG
+            x = 0;
         }
-    }
-    else
-    {
-        switch(screenstate)
+        if(x > 319) //ONLY FOR DEBUGING REASONS
         {
-            case A:
-            fbg_write(fbg, "A", 4, 2);
-            break;
-            case D:
-            fbg_write(fbg, "D", 4, 2);
-            break;
-            case SS:
-            fbg_write(fbg, "SS", 4, 2);
-            break;
-            case SE:
-            fbg_write(fbg, "SE", 4, 2);
-            break;
-            case R:
-            fbg_write(fbg, "R", 4, 2);
-            break;
+            //std::cout << "err:table2Screen:tolarge: " << x << " at pos " << i << std::endl; //DEBUG
+            x = 319;
         }
-
-        for(int i = 0; i<WAVE_TABLE_SIZE; i++)
-        {
-            double x = ((wave_table[i]+1) * 159.0);
-            x = -1 * x + 319;
-            x = round(x);
-            if(x < 0) //ONLY FOR DEBUGING REASONS
-            {
-                //std::cout << "err:table2Screen:tosmall: " << x << " at pos " << i << std::endl; //DEBUG
-                x = 0;
-            }
-            if(x > 319) //ONLY FOR DEBUGING REASONS
-            {
-                //std::cout << "err:table2Screen:tolarge: " << x << " at pos " << i << std::endl; //DEBUG
-                x = 319;
-            }
-            setPixel(i,x);
-            //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
-        }
+        setPixel(i,x);
+        //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
     }
     commitScreenBuffer();
 }

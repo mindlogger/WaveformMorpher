@@ -53,6 +53,8 @@
 		<Unit filename="src/Touchscreen.hpp" />
 		<Unit filename="src/UI.cpp" />
 		<Unit filename="src/UI.hpp" />
+		<Unit filename="src/UIRenderer.cpp" />
+		<Unit filename="src/UIRenderer.hpp" />
 		<Unit filename="src/WaveGenerator.cpp" />
 		<Unit filename="src/WaveGenerator.hpp" />
 		<Unit filename="src/WaveOsc.cpp" />

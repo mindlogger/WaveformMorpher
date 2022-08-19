@@ -42,7 +42,14 @@ void assignMainActions()
     SW6ShiftEvent = &actionInverse;
 }
 
-void assingFileLoadingActions()
+void assignLoadActions()
+{
+    clearAllActions();
+    SW3Event = &actionExit;
+    SW3ShiftEvent = &actionExit;
+}
+
+void assignStoreActions()
 {
     clearAllActions();
     SW3Event = &actionExit;
@@ -90,11 +97,15 @@ void dummyAction(uint32_t tick)
 
 void actionLoad(uint32_t tick)
 {
-    std::cout << "Load got triggerd" << std::endl;
+    uiState = Load;
+    renderScreen();
+    assignLoadActions();
 }
 void actionStore(uint32_t tick)
 {
-    std::cout << "Store got triggerd" << std::endl;
+    uiState = Store;
+    renderScreen();
+    assignStoreActions();
 }
 
 int preset_wave_step = 0; //TOIDO MOVE THIS SOMEWHERE MORE SENSIBLE
@@ -122,20 +133,19 @@ void actionWaveN(uint32_t tick) //TODO CHANGE THIS TO THE CORRECT FUNCTION
 
 void actionOpenPatchSettings(uint32_t tick)
 {
-    settingstate = PS;
+    uiState = PatchSettings;
     renderScreen();
     assignPatchSettingActions();
 }
 void actionOpenGlobalSettings(uint32_t tick)
 {
-    settingstate = GS;
+    uiState = GlobalSettings;
     renderScreen();
     assignGlobalSettingActions();
 }
 void actionExit(uint32_t tick)
 {
-    std::cout << "EXIT CALLED" << std::endl;
-    settingstate = N;
+    uiState = EditView;
     renderScreen();
     assignMainActions();
 }

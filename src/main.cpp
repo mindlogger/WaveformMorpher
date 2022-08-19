@@ -7,6 +7,7 @@
 #include "FourierTransformer.hpp"
 #include "ADSR.hpp"
 #include "UI.hpp"
+#include "Loader.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -35,10 +36,13 @@ void main_init()
     envelope->setReleaseRate(0.1 * SAMPLE_RATE);
 
     screenstate = A;
+    uiState = EditView;
     dynamic_view = 0;//TODO STRUCT WITH ALL CUR STATES INIT HERE
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
     NTables = 5;
+
+    saveFile("FirstPatch");
 
     genSqr(wave[0]);//A
     genSaw(wave[1]);//D

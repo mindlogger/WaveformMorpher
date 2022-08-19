@@ -12,6 +12,7 @@
 #include "GlobalDefinitions.hpp"
 
 #include <json.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -41,6 +42,18 @@ void loadFile()
  //LOAD THE
 }
 
-void saveFile()
+void saveFile(std::string name)
 {
-}
+    FILE *fp;
+    std::string path = "/home/pi/WaveformMorpherPatches/" + name + ".wmp";
+    char fn[50];
+    char str[] = "Guru99 Rocks\n";
+    fp  = fopen (&path[0], "w");
+    int i;
+
+    for (i = 0; str[i] != '\n'; i++)
+    {
+        fputc(str[i], fp);
+    }
+
+    fclose(fp);}

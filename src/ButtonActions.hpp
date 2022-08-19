@@ -2,9 +2,11 @@
 #define ButtonActions_H
 
 void assignMainActions();
-void assingFileLoadingActions();
+void assignLoadActions();
+void assignStoreActions();
 void assignPatchSettingActions();
 void assignGlobalSettingActions();
+
 void clearAllActions();
 
 void dummyAction(uint32_t tick);

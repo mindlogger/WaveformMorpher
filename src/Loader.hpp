@@ -3,4 +3,5 @@
 void setupLoader();
 void loadFilePreset();
 void loadFileGlobal();
+void saveFile(std::string name);
 #endif

@@ -9,9 +9,11 @@
 #include <stdint.h>
 enum Screenstates {A,D,SS,SE,R}; //PS: Patch Settings //GS: Global Settings
 enum SettingStates {N,PS,GS}; //PS: Patch Settings //GS: Global Settings
+enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, HiddenMode};
 EXTERN int fourier_flag; //0 = wave 1 = spectrum
 EXTERN Screenstates screenstate;
 EXTERN SettingStates settingstate;
+EXTERN UIStates uiState;
 EXTERN void (*SW1Event)(uint32_t);
 EXTERN void (*SW1ShiftEvent)(uint32_t);
 EXTERN void (*SW2Event)(uint32_t);
@@ -24,6 +26,11 @@ EXTERN void (*SW5Event)(uint32_t);
 EXTERN void (*SW5ShiftEvent)(uint32_t);
 EXTERN void (*SW6Event)(uint32_t);
 EXTERN void (*SW6ShiftEvent)(uint32_t);
+
+EXTERN struct _fbg *fbg;
+EXTERN struct _fbg_img *bb_font_img;
+EXTERN struct _fbg_font *bbfont;
+
 //EXTERN void (*ScreenUIDrawer)(void);
 EXTERN int NTables;
 //TODO MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
