@@ -19,13 +19,13 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-D__LINUX_ALSA__" />
 			<Add directory="/usr/local/include/json-c" />
 		</Compiler>
 		<Linker>
-			<Add option="-lrt -lm -ljson-c -lasound -pthread -lfftw3 -lfftw3_threads -lpigpio" />
+			<Add option="-lrt -lm -lasound -pthread -lfftw3 -lfftw3_threads -lpigpio" />
 			<Add library="/usr/local/lib/libportaudio.a" />
-			<Add library="/usr/local/lib/libjson-c.a" />
 			<Add library="/usr/local/lib/fbg" />
 			<Add library="/usr/local/lib/libfftw3.a" />
 			<Add library="/usr/local/lib/librtmidi.a" />
@@ -60,6 +60,7 @@
 		<Unit filename="src/WaveOsc.cpp" />
 		<Unit filename="src/WaveOsc.hpp" />
 		<Unit filename="src/fbgraphics.h" />
+		<Unit filename="src/json.hpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions />
 	</Project>

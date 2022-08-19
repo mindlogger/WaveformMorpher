@@ -20,7 +20,7 @@
 
 1587028615 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1660919507 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1660930735 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
@@ -75,7 +75,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1660920032 source:/home/pi/WaveformMorpher/src/main.cpp
+1660930741 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -239,7 +239,7 @@
 1660821192 /usr/local/include/json-c/linkhash.h
 	"json_object.h"
 
-1660920636 source:/home/pi/WaveformMorpher/src/Loader.cpp
+1660929684 source:/home/pi/WaveformMorpher/src/Loader.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -251,13 +251,14 @@
 	"ADSR.hpp"
 	"UI.hpp"
 	"GlobalDefinitions.hpp"
-	<json.h>
+	"json.hpp"
 	<stdio.h>
 	<iostream>
+	<fstream>
 	<vector>
 	<dirent.h>
 
-1660920328 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1660931094 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -284,7 +285,7 @@
 
 1660898826 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1660919590 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1660930796 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"
@@ -294,4 +295,196 @@
 
 1660920377 /home/pi/WaveformMorpher/src/Loader.hpp
 	<string>
+
+1660309567 /home/pi/WaveformMorpher/src/json.hpp
+	<algorithm>
+	<cstddef>
+	<functional>
+	<initializer_list>
+	<iosfwd>
+	<iterator>
+	<memory>
+	<numeric>
+	<string>
+	<utility>
+	<vector>
+	<utility>
+	<algorithm>
+	<array>
+	<forward_list>
+	<iterator>
+	<map>
+	<string>
+	<tuple>
+	<type_traits>
+	<unordered_map>
+	<utility>
+	<valarray>
+	<cstddef>
+	<exception>
+	<stdexcept>
+	<string>
+	<vector>
+	<array>
+	<cstddef>
+	<cstdint>
+	<string>
+	<utility>
+	<type_traits>
+	<stdint.h>
+	<stdint.h>
+	<version>
+	<cstdlib>
+	<cassert>
+	<compare>
+	<cstddef>
+	<array>
+	<cstddef>
+	<type_traits>
+	<utility>
+	<limits>
+	<type_traits>
+	<utility>
+	<tuple>
+	<iterator>
+	<cstdint>
+	<map>
+	<memory>
+	<string>
+	<vector>
+	<cstring>
+	<string>
+	<utility>
+	<experimental/filesystem>
+	<filesystem>
+	<algorithm>
+	<iterator>
+	<string>
+	<tuple>
+	<type_traits>
+	<utility>
+	<valarray>
+	<vector>
+	<cstddef>
+	<iterator>
+	<string>
+	<tuple>
+	<utility>
+	<ranges>
+	<cstdint>
+	<tuple>
+	<utility>
+	<cstdint>
+	<cstddef>
+	<functional>
+	<algorithm>
+	<array>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<cstring>
+	<iterator>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<cstddef>
+	<cstring>
+	<iterator>
+	<memory>
+	<numeric>
+	<string>
+	<type_traits>
+	<utility>
+	<cstdio>
+	<istream>
+	<cstddef>
+	<string>
+	<utility>
+	<vector>
+	<array>
+	<clocale>
+	<cstddef>
+	<cstdio>
+	<cstdlib>
+	<initializer_list>
+	<string>
+	<utility>
+	<vector>
+	<cstdint>
+	<utility>
+	<string>
+	<cmath>
+	<cstdint>
+	<functional>
+	<string>
+	<utility>
+	<vector>
+	<cstddef>
+	<limits>
+	<iterator>
+	<type_traits>
+	<cstddef>
+	<iterator>
+	<utility>
+	<algorithm>
+	<cctype>
+	<cerrno>
+	<cstdlib>
+	<iosfwd>
+	<limits>
+	<numeric>
+	<string>
+	<utility>
+	<vector>
+	<initializer_list>
+	<utility>
+	<algorithm>
+	<array>
+	<map>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<string>
+	<utility>
+	<vector>
+	<algorithm>
+	<cstddef>
+	<iterator>
+	<memory>
+	<string>
+	<vector>
+	<ios>
+	<ostream>
+	<algorithm>
+	<array>
+	<clocale>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdio>
+	<limits>
+	<string>
+	<iomanip>
+	<type_traits>
+	<utility>
+	<array>
+	<cmath>
+	<cstdint>
+	<cstring>
+	<limits>
+	<type_traits>
+	<functional>
+	<initializer_list>
+	<iterator>
+	<memory>
+	<stdexcept>
+	<type_traits>
+	<utility>
+	<vector>
+	<any>
+	<string_view>
 

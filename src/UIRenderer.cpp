@@ -51,20 +51,18 @@ void renderGlobalSettings()
     fbg_write(fbg, "Global Settings", 140, 15);
     commitScreenBuffer();
 }
+
 void renderLoad()
 {
     clearScreen();
 
-    //SHOW 9 FILES
-
-
-    for (int i = 0; i < filesInDirectory.size(); i++)
+    for(int i = 0; i < 9 && i < filesInDirectory.size(); i++)
     {
-        if(fileSelectionIndex == i)
+        if(fileSelectionIndex == i + browsingWindowOffset)
         {
             fbg_write(fbg, "o", 110, 50 + (i*30));
         }
-        fbg_write(fbg, &filesInDirectory[i][0], 140, 50 + (i*30));
+        fbg_write(fbg, &filesInDirectory[i + browsingWindowOffset][0], 140, 50 + (i*30));
     }
 
     fbg_write(fbg, "Load Patch", 140, 15);

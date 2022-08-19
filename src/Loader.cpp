@@ -10,33 +10,21 @@
 #include "UI.hpp"
 
 #include "GlobalDefinitions.hpp"
+#include "json.hpp"
 
-#include <json.h>
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <dirent.h>
+
+using json = nlohmann::json;
+
 
 using namespace std;
 
 void setupLoader()
 {
-	struct json_object *jobj;
-	char *str = "{ \"msg-type\": [ \"0xdeadbeef\", \"irc log\" ], \
-		\"msg-from\": { \"class\": \"soldier\", \"name\": \"Wixilav\" }, \
-		\"msg-to\": { \"class\": \"supreme-commander\", \"name\": \"[Redacted]\" }, \
-		\"msg-log\": [ \
-			\"soldier: Boss there is a slight problem with the piece offering to humans\", \
-			\"supreme-commander: Explain yourself soldier!\", \
-			\"soldier: Well they don't seem to move anymore...\", \
-			\"supreme-commander: Oh snap, I came here to see them twerk!\" \
-			] \
-		}";
-
-	printf("str:\n---\n%s\n---\n\n", str);
-
-	jobj = json_tokener_parse(str);
-	printf("jobj from str:\n---\n%s\n---\n", json_object_to_json_string_ext(jobj, JSON_C_TO_STRING_SPACED | JSON_C_TO_STRING_PRETTY));
     //SETUP THE FILE LOADER
 }
 
@@ -60,36 +48,54 @@ void getFilesInDirectory()
 
 void loadFile(std::string name)
 {
-    cout << "LOADING: " << name << endl;
-    std::string path = "/home/pi/WaveformMorpherPatches/" + name; // + ".wmp"
-    FILE *fp;
-    char buff[255];
+    std::ifstream inputFile("/home/pi/WaveformMorpherPatches/" + name /* + ".wmp"*/);
+    json incomingJSON;
+    inputFile >> incomingJSON;
 
-    fp = fopen(&path[0], "r");
+    NTables = (int) incomingJSON["NTables"];
 
-    fgets(buff, 5, (FILE*)fp);
+    for(int j = 0; j < 5; j++)
+    {
+        for(int i = 0; i < WAVE_TABLE_SIZE; i++)
+        {
+            wave[j][i] = incomingJSON["wave"][j][i];
+            fft[j][i] = incomingJSON["fft"][j][i];
+        }
+    }
 
-    cout << "TILL"<< endl;
+    for(int i = 0; i < WAVE_TABLE_SIZE; i++)
+    {
+        clipboard[i] = incomingJSON["clipboard"][i];
+    }
 
-    fclose(fp);
+    att_v = (double) incomingJSON["att_v"];
+    dec_v = (double) incomingJSON["dec_v"];
+    sus_v = (double) incomingJSON["sus_v"];
+    rel_v = (double) incomingJSON["rel_v"];
+    loop_v= (double) incomingJSON["loop_v"];
 
-    cout << "CONTENT: " << buff << endl;
-    //JSON PARSING
+    screenstate = A;
+    uiState = EditView;
+    dynamic_view = 0;
+    fourier_flag = 0;
+    fft_has_been_touched_flag = 0;
+
+    currentEditWavetable = wave[0];
 }
 
 void saveFile(std::string name)
 {
-    FILE *fp;
-    std::string path = "/home/pi/WaveformMorpherPatches/" + name + ".wmp";
+    json outgoingJSON = {
+        {"NTables", NTables},
+        {"wave", wave},
+        {"fft", fft},
+        {"clipboard", clipboard},
+        {"att_v", att_v},
+        {"dec_v", dec_v},
+        {"sus_v", sus_v},
+        {"rel_v", rel_v},
+        {"loop_v", loop_v},
+    };
 
-    char str[] = "DUMMY CONTENT\n";
-
-    fp  = fopen(&path[0], "w");
-    int i;
-
-    for (i = 0; str[i] != '\n'; i++)
-    {
-        fputc(str[i], fp);
-    }
-
-    fclose(fp);}
+    std::ofstream outputFile("/home/pi/WaveformMorpherPatches/" + name + ".wmp");
+    outputFile << std::setw(4) << outgoingJSON << std::endl; //THE SETW MAKES IT PRETTY}

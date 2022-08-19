@@ -148,9 +148,6 @@ void actionLoad(uint32_t tick, uint8_t id)
 {
     getFilesInDirectory();
 
-    for (vector<std::string>::const_iterator i = filesInDirectory.begin(); i != filesInDirectory.end(); ++i)
-    std::cout << *i << endl;
-
     uiState = Load;
     assignLoadActions();
     renderScreen();
@@ -159,12 +156,18 @@ void actionLoad(uint32_t tick, uint8_t id)
 void actionLoadPatch(uint32_t tick, uint8_t id)
 {
     loadFile(filesInDirectory[fileSelectionIndex]);
+
+    uiState = EditView;
+    assignMainActions();
+    renderScreen();
 }
 
 void actionBrowseUp(uint32_t tick, uint8_t id)
 {
     if(fileSelectionIndex > 0)
         fileSelectionIndex--;
+    if(fileSelectionIndex - browsingWindowOffset < 3 && browsingWindowOffset != 0)
+        browsingWindowOffset--;
     renderScreen();
 }
 
@@ -172,6 +175,8 @@ void actionBrowseDown(uint32_t tick, uint8_t id)
 {
     if(filesInDirectory.size() -1 > fileSelectionIndex)
         fileSelectionIndex++;
+    if(fileSelectionIndex - browsingWindowOffset > 6 && browsingWindowOffset + 9 < filesInDirectory.size())
+        browsingWindowOffset++;
     renderScreen();
 }
 

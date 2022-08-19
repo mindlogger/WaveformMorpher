@@ -46,6 +46,7 @@ EXTERN std::vector<std::string> filesInDirectory;
 
 //EXTERN void (*ScreenUIDrawer)(void);
 EXTERN int NTables;
+EXTERN uint8_t browsingWindowOffset;
 //TODO MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
 EXTERN float master_gain; //0 -- 1
 EXTERN int touch_is_happening_flag;
