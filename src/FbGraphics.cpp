@@ -30,13 +30,12 @@ sem_t semRender;
 
 void textTimerHandler(union sigval timer_data)
 {
-    clearScreen();
-    updateScreen();
+    renderScreen();
 }
 
 void addText(std::string text, int x, int y, int timeout)
 {
-    clearScreen();
+    //clearScreen();
     fbg_write(fbg, &text[0], x, y);
     updateScreen();
 

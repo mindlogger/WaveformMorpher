@@ -17,44 +17,92 @@ void insertCurrentTableName()
 {
     if(dynamic_view)
     {
-        switch(screenstate)
+        if(fourier_flag)
         {
-            case A:
-            fbg_write(fbg, "A.", 4, 2);
-            break;
-            case D:
-            fbg_write(fbg, "D.", 4, 2);
-            break;
-            case SS:
-            fbg_write(fbg, "SS.", 4, 2);
-            break;
-            case SE:
-            fbg_write(fbg, "SE.", 4, 2);
-            break;
-            case R:
-            fbg_write(fbg, "R.", 4, 2);
-            break;
+            switch(screenstate)
+            {
+                case A:
+                fbg_write(fbg, "As.", 4, 2);
+                break;
+                case D:
+                fbg_write(fbg, "Ds.", 4, 2);
+                break;
+                case SS:
+                fbg_write(fbg, "SSs.", 4, 2);
+                break;
+                case SE:
+                fbg_write(fbg, "SEs.", 4, 2);
+                break;
+                case R:
+                fbg_write(fbg, "Rs.", 4, 2);
+                break;
+            }
+        }
+        else
+        {
+            switch(screenstate)
+            {
+                case A:
+                fbg_write(fbg, "A.", 4, 2);
+                break;
+                case D:
+                fbg_write(fbg, "D.", 4, 2);
+                break;
+                case SS:
+                fbg_write(fbg, "SS.", 4, 2);
+                break;
+                case SE:
+                fbg_write(fbg, "SE.", 4, 2);
+                break;
+                case R:
+                fbg_write(fbg, "R.", 4, 2);
+                break;
+            }
         }
     }
     else
     {
-        switch(screenstate)
+        if(fourier_flag)
         {
-            case A:
-            fbg_write(fbg, "A", 4, 2);
-            break;
-            case D:
-            fbg_write(fbg, "D", 4, 2);
-            break;
-            case SS:
-            fbg_write(fbg, "SS", 4, 2);
-            break;
-            case SE:
-            fbg_write(fbg, "SE", 4, 2);
-            break;
-            case R:
-            fbg_write(fbg, "R", 4, 2);
-            break;
+            switch(screenstate)
+            {
+                case A:
+                fbg_write(fbg, "As", 4, 2);
+                break;
+                case D:
+                fbg_write(fbg, "Ds", 4, 2);
+                break;
+                case SS:
+                fbg_write(fbg, "SSs", 4, 2);
+                break;
+                case SE:
+                fbg_write(fbg, "SEs", 4, 2);
+                break;
+                case R:
+                fbg_write(fbg, "Rs", 4, 2);
+                break;
+            }
+        }
+        else
+        {
+            switch(screenstate)
+            {
+                case A:
+                fbg_write(fbg, "A", 4, 2);
+                break;
+                case D:
+                fbg_write(fbg, "D", 4, 2);
+                break;
+                case SS:
+                fbg_write(fbg, "SS", 4, 2);
+                break;
+                case SE:
+                fbg_write(fbg, "SE", 4, 2);
+                break;
+                case R:
+                fbg_write(fbg, "R", 4, 2);
+                break;
+            }
         }
     }
 }
@@ -65,6 +113,7 @@ void renderEditView()
     insertCurrentTableName();
     table2Screen(currentEditWavetable);
 }
+
 void renderPatchSettings()
 {
     clearScreen();
@@ -72,6 +121,7 @@ void renderPatchSettings()
     fbg_write(fbg, "Patch Settings", 140, 15);
     commitScreenBuffer();
 }
+
 void renderGlobalSettings()
 {
     clearScreen();
@@ -101,7 +151,7 @@ void renderBlurMode()
 {
     clearScreen();
 
-    double threshold = (att_v- 0) * (0.7 - 0.01) / (4095 - 0) + 0.01; //Global Preset 0.7 as max range 0.01 as min range
+    double threshold = (att_v - 4095) * (0.7 - 0.01) / (0 - 4095) + 0.01; //Global Preset 0.7 as max range 0.01 as min range
     applyKBlur(wave[screenstate], currentScreenWavetable, threshold , threshold);
 
     fbg_write(fbg, "Blur", 190, 15); //TODO IMPLEMENT MORE BLURING ALGORITHMS

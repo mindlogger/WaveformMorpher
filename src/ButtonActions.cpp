@@ -11,6 +11,7 @@
 #include "ButtonActions.hpp"
 #include "Loader.hpp"
 #include "Blur.hpp"
+#include "UIRenderer.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -316,21 +317,17 @@ void actionFourier(uint32_t tick, uint8_t id)
 {
     if(fourier_flag)
     {
-        cout << "backwards transform" << endl;
         currentEditWavetable = wave[screenstate];
         transBackward(screenstate);
         fourier_flag = 0;
         renderScreen();
-        addText("W", 460, 260,1);
     }
     else
     {
-        cout << "forward transform" << endl;
         currentEditWavetable = fft[screenstate];
         transForward(screenstate);
         fourier_flag = 1;
         renderScreen();
-        addText("S", 460, 260,1);
     }
 }
 

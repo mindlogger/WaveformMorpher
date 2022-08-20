@@ -26,7 +26,7 @@
 	<vector>
 	<string>
 
-1660991329 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1660994855 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -258,7 +258,7 @@
 	<vector>
 	<dirent.h>
 
-1660992453 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1660995359 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -272,6 +272,7 @@
 	"ButtonActions.hpp"
 	"Loader.hpp"
 	"Blur.hpp"
+	"UIRenderer.hpp"
 	"GlobalDefinitions.hpp"
 	<pigpio.h>
 	<stdlib.h>
@@ -284,9 +285,9 @@
 
 1660992398 /home/pi/WaveformMorpher/src/ButtonActions.hpp
 
-1660990249 /home/pi/WaveformMorpher/src/UIRenderer.hpp
+1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1660993892 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1660995239 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"
@@ -490,9 +491,10 @@
 	<any>
 	<string_view>
 
-1660992332 source:/home/pi/WaveformMorpher/src/Blur.cpp
+1660994233 source:/home/pi/WaveformMorpher/src/Blur.cpp
 	"GlobalDefinitions.hpp"
 	"Blur.hpp"
+	<math.h>
 
 1660993719 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
