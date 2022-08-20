@@ -1,11 +1,12 @@
 #include "FbGraphics.hpp"
 #include "GlobalDefinitions.hpp"
 #include "GlobalPreset.hpp"
+#include "Blur.hpp"
 
-#include "math.h"
+#include <math.h>
 #include <stdlib.h>
 #include <iostream>
-#include "Blur.hpp"
+#include <string.h>
 
 using namespace std;
 
@@ -120,6 +121,7 @@ void renderPatchSettings()
     clearScreen();
 
     fbg_write(fbg, "Patch Settings", 140, 15);
+    fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
     commitScreenBuffer();
 }
 
@@ -128,6 +130,7 @@ void renderGlobalSettings()
     clearScreen();
 
     fbg_write(fbg, "Global Settings", 140, 15);
+    fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
     commitScreenBuffer();
 }
 
@@ -143,7 +146,8 @@ void renderLoad()
         }
         fbg_write(fbg, &filesInDirectory[i + browsingWindowOffset][0], 140, 50 + (i*30));
     }
-
+    fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
+    fbg_write(fbg, ">", SCREEN_SW4_5_POSX, SCREEN_SW1_4_POSY);
     fbg_write(fbg, "Load Patch", 140, 15);
     commitScreenBuffer();
 }
@@ -155,6 +159,8 @@ void renderBlurMode()
     double threshold = (att_v - 4095) * (fGP.Blur.thrsMax - fGP.Blur.thrsMin) / (0 - 4095) + fGP.Blur.thrsMin;
     applyKBlur(wave[screenstate], currentScreenWavetable, threshold , threshold);
 
+    fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
+    fbg_write(fbg, ">", SCREEN_SW4_5_POSX, SCREEN_SW1_4_POSY);
     fbg_write(fbg, "Blur", 190, 15); //TODO IMPLEMENT MORE BLURING ALGORITHMS
 
     table2Screen(currentScreenWavetable);
@@ -167,7 +173,7 @@ char characterOptions[39] = "abcdefghijklmnopqrstuvwxyz1234567890_-"; //ACTUALLY
 char SW1Text[3];
 char SW2Text[3];
 char SW3Text[3];
-
+char SW4Text[3];
 char SW5Text[3];
 char SW6Text[3];
 
@@ -178,6 +184,7 @@ void renderStore()
     if(patchNameIndex == 0)
     {
         patchName = (char*)malloc(MAX_PATCH_NAME_LENGTH);
+        memset(&patchName[0], 0, MAX_PATCH_NAME_LENGTH);
         cout << patchName << endl;
         //DO INIT SHIT
         for(int i = 0; i < 12; i++)
@@ -208,9 +215,13 @@ void renderStore()
     SW2Text[1] = '/';
     SW2Text[2] = fileSaveCharacters[7];
 
-    SW3Text[0] = ' ';
+    SW3Text[0] = '<';
     SW3Text[1] = '/';
     SW3Text[2] = fileSaveCharacters[8];
+
+    SW4Text[0] = '.';
+    SW4Text[1] = '/';
+    SW4Text[2] = '>';
 
     SW5Text[0] = fileSaveCharacters[4];
     SW5Text[1] = '/';
@@ -223,12 +234,9 @@ void renderStore()
     fbg_write(fbg, SW1Text, SCREEN_SW1_3_POSX, SCREEN_SW1_4_POSY);
     fbg_write(fbg, SW2Text, SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY);
     fbg_write(fbg, SW3Text, SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
-
-    //TODO DRAW ARROW BACK SW3
-    //TODO DRAW DICE / SAVE IMAGE
-
-    fbg_write(fbg, SW5Text, SCREEN_SW4_5_POSX, SCREEN_SW2_5_POSY);
-    fbg_write(fbg, SW6Text, SCREEN_SW4_5_POSX, SCREEN_SW3_6_POSY);
+    fbg_write(fbg, SW4Text, SCREEN_SW4_5_POSX - 33, SCREEN_SW1_4_POSY);
+    fbg_write(fbg, SW5Text, SCREEN_SW4_5_POSX - 33, SCREEN_SW2_5_POSY);
+    fbg_write(fbg, SW6Text, SCREEN_SW4_5_POSX - 33, SCREEN_SW3_6_POSY);
 
     commitScreenBuffer();
 }

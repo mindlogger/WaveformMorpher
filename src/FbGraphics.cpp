@@ -167,9 +167,7 @@ void table2Screen(double* wave_table)
     }
     commitScreenBuffer();
 }
-void screenTable2Continuous()
-{
-}
+
 void postScreenSem()
 {
     sem_post(&semRender);

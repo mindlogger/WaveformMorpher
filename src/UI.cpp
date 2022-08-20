@@ -301,7 +301,6 @@ void *handle_input(void *arg)
             {
                 genSqr(currentEditWavetable);
                 renderScreen();
-                screenTable2Continuous();
                 //TODO SET SCREENSTATE TO WAVE
                 cout << (int) screenstate << endl;
 

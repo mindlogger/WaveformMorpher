@@ -18,7 +18,6 @@ void renderDynamicView();
 void *RenderScreen(void *arg);
 void initFbGraphics();
 void table2Screen(double* wave_table);
-void screenTable2Continuous();
 void fillScreen();
 void endFbGraphics();
 #endif

@@ -20,13 +20,13 @@
 
 1587028615 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1660989924 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1661003083 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
 	<string>
 
-1661002404 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1661002686 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -50,7 +50,7 @@
 	<pthread.h>
 	<string>
 
-1661002330 /home/pi/WaveformMorpher/src/FbGraphics.hpp
+1661002684 /home/pi/WaveformMorpher/src/FbGraphics.hpp
 	<string>
 
 1586772889 /home/pi/WaveformMorpher/src/fbgraphics.h
@@ -166,7 +166,7 @@
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1660992761 source:/home/pi/WaveformMorpher/src/UI.cpp
+1661002858 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -288,7 +288,7 @@
 
 1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1661001480 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1661002954 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
@@ -501,7 +501,7 @@
 1660993719 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
 
-1661002389 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
+1661002598 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
 	"GlobalPreset.hpp"
 
 1661002393 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
