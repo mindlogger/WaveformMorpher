@@ -1,6 +1,7 @@
 // UIRenderer.hpp
 #ifndef UIRENDERER_H
 #define UIRENDERER_H
+void insertCurrentTableName();
 void renderEditView();
 void renderPatchSettings();
 void renderGlobalSettings();

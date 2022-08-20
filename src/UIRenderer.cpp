@@ -12,29 +12,56 @@ extern "C"
 #include "fbgraphics.h"
 }
 
+void insertCurrentTableName()
+{
+    if(dynamic_view)
+    {
+        switch(screenstate)
+        {
+            case A:
+            fbg_write(fbg, "A.", 4, 2);
+            break;
+            case D:
+            fbg_write(fbg, "D.", 4, 2);
+            break;
+            case SS:
+            fbg_write(fbg, "SS.", 4, 2);
+            break;
+            case SE:
+            fbg_write(fbg, "SE.", 4, 2);
+            break;
+            case R:
+            fbg_write(fbg, "R.", 4, 2);
+            break;
+        }
+    }
+    else
+    {
+        switch(screenstate)
+        {
+            case A:
+            fbg_write(fbg, "A", 4, 2);
+            break;
+            case D:
+            fbg_write(fbg, "D", 4, 2);
+            break;
+            case SS:
+            fbg_write(fbg, "SS", 4, 2);
+            break;
+            case SE:
+            fbg_write(fbg, "SE", 4, 2);
+            break;
+            case R:
+            fbg_write(fbg, "R", 4, 2);
+            break;
+        }
+    }
+}
+
 void renderEditView()
 {
     clearScreen();
-
-    switch(screenstate)
-    {
-        case A:
-        fbg_write(fbg, "A", 4, 2);
-        break;
-        case D:
-        fbg_write(fbg, "D", 4, 2);
-        break;
-        case SS:
-        fbg_write(fbg, "SS", 4, 2);
-        break;
-        case SE:
-        fbg_write(fbg, "SE", 4, 2);
-        break;
-        case R:
-        fbg_write(fbg, "R", 4, 2);
-        break;
-    }
-
+    insertCurrentTableName();
     table2Screen(currentEditWavetable);
 }
 void renderPatchSettings()

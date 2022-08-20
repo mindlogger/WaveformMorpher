@@ -37,6 +37,6 @@ void actionCopy(uint32_t tick, uint8_t id);
 void actionPaste(uint32_t tick, uint8_t id);
 
 void actionFourier(uint32_t tick, uint8_t id);
-void actionInverse(uint32_t tick, uint8_t id);
+void actionInsert(uint32_t tick, uint8_t id);
 
 #endif

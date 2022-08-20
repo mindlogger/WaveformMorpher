@@ -162,50 +162,56 @@ void postScreenSem()
 }
 void renderDynamicView()
 {
-    double idle = 0.0;
-    double (*working_wavetable)[480];
-    if(fourier_flag)
+    int envelopeState = envelope->getState();
+    if(envelopeState == 0) //ONLY RENDER STUFF IF PLAYING
     {
-    idle = -1.0;
-    working_wavetable = fft;
+        renderScreen();
     }
     else
     {
-    idle = 0.0;
-    working_wavetable = wave;
-    }
-    int x = envelope->getState();
-    double inverse_master_gain = abs(master_gain-1.0);
-    double dec_gain = (master_gain-sus_v)*((-1)/(sus_v-1));
-    double inv_dec_gain = (master_gain-sus_v)*((1)/(sus_v-1))+1;
-    double rel_gain = master_gain*(1.0/sus_v);
-    double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
-    double loop_gain = envelope->getLoopVal();
-    double inv_loop_gain = abs(loop_gain-1.0);
-
-    for(int i = 0;i < WAVE_TABLE_SIZE;i++)
-    {
-
-        switch (x)
+        clearScreen();
+        double (*working_wavetable)[480];
+        if(fourier_flag)
         {
-            case 0:
-                currentScreenWavetable[i] = idle;
-            break;
-            case 1://A
-                currentScreenWavetable[i] = (master_gain*working_wavetable[1][i] + inverse_master_gain*working_wavetable[0][i]);
-            break;
-            case 2://D
-                currentScreenWavetable[i] = (dec_gain*working_wavetable[1][i] + inv_dec_gain*working_wavetable[2][i]);
-            break;
-            case 3://S
-                currentScreenWavetable[i] = loop_gain * working_wavetable[2][i] + inv_loop_gain * working_wavetable[3][i];
-            break;
-            case 4://R
-                currentScreenWavetable[i] = (rel_gain*working_wavetable[3][i] + inv_rel_gain*working_wavetable[4][i]);
-            break;
+            working_wavetable = fft;
         }
+        else
+        {
+            working_wavetable = wave;
+        }
+
+        double inverse_master_gain = abs(master_gain-1.0);
+        double dec_gain = (master_gain-sus_v)*((-1)/(sus_v-1));
+        double inv_dec_gain = (master_gain-sus_v)*((1)/(sus_v-1))+1;
+        double rel_gain = master_gain*(1.0/sus_v);
+        double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
+        double loop_gain = envelope->getLoopVal();
+        double inv_loop_gain = abs(loop_gain-1.0);
+
+        for(int i = 0;i < WAVE_TABLE_SIZE;i++)
+        {
+            switch (envelopeState)
+            {
+                case 1://A
+                    fbg_write(fbg, "A.", 4, 2);
+                    currentScreenWavetable[i] = (master_gain*working_wavetable[1][i] + inverse_master_gain*working_wavetable[0][i]);
+                break;
+                case 2://D
+                    fbg_write(fbg, "D.", 4, 2);
+                    currentScreenWavetable[i] = (dec_gain*working_wavetable[1][i] + inv_dec_gain*working_wavetable[2][i]);
+                break;
+                case 3://S
+                    fbg_write(fbg, "S.", 4, 2);
+                    currentScreenWavetable[i] = loop_gain * working_wavetable[2][i] + inv_loop_gain * working_wavetable[3][i];
+                break;
+                case 4://R
+                    fbg_write(fbg, "R.", 4, 2);
+                    currentScreenWavetable[i] = (rel_gain*working_wavetable[3][i] + inv_rel_gain*working_wavetable[4][i]);
+                break;
+            }
+        }
+        table2Screen(currentScreenWavetable);
     }
-    table2Screen(currentScreenWavetable);
 }
 void *RenderScreen(void *arg)
 {

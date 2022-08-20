@@ -42,7 +42,7 @@ void assignMainActions()
     SW5ShiftEvent = &actionPaste;
 
     SW6Event = &actionFourier;
-    SW6ShiftEvent = &actionInverse;
+    SW6ShiftEvent = &actionInsert;
 }
 
 void assignLoadActions()
@@ -194,15 +194,14 @@ void actionWaveStep(uint32_t tick, uint8_t id)
     if(fourier_flag)
     {
         currentEditWavetable = fft[screenstate];
-        cout << screenstate + 1 << " Spectrum" << endl;
     }
     else
     {
         currentEditWavetable = wave[screenstate];
-        cout << screenstate + 1 << " Wave" << endl;
     }
     renderScreen();
 }
+
 void actionWaveN(uint32_t tick, uint8_t id) //TODO CHANGE THIS TO THE CORRECT FUNCTION
 {
     NTables += 1;
@@ -216,6 +215,7 @@ void actionOpenPatchSettings(uint32_t tick, uint8_t id)
     renderScreen();
     assignPatchSettingActions();
 }
+
 void actionOpenGlobalSettings(uint32_t tick, uint8_t id)
 {
     uiState = GlobalSettings;
@@ -256,15 +256,16 @@ void actionExit(uint32_t tick, uint8_t id)
 
 void actionQuestion(uint32_t tick, uint8_t id)
 {
-    std::cout << "Question got triggerd" << std::endl;
-    dynamic_view = 1;
+    if(dynamic_view)
+        dynamic_view = 0;
+    else
+        dynamic_view = 1;
 }
+
 void actionQuestionS(uint32_t tick, uint8_t id)
 {
-    std::cout << "QuestionS got triggerd" << std::endl;
+    //GLÄTTUNG!
     renderScreen();
-    dynamic_view = 0;
-
 }
 
 void actionCopy(uint32_t tick, uint8_t id)
@@ -272,6 +273,7 @@ void actionCopy(uint32_t tick, uint8_t id)
     std::cout << "WAVE COPY" << std::endl;
     memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
 }
+
 void actionPaste(uint32_t tick, uint8_t id)
 {
     std::cout << "WAVE PASTE" << std::endl;
@@ -300,7 +302,8 @@ void actionFourier(uint32_t tick, uint8_t id)
         addText("S", 460, 260,1);
     }
 }
-void actionInverse(uint32_t tick, uint8_t id)
+
+void actionInsert(uint32_t tick, uint8_t id)
 {
     preset_wave_step = (preset_wave_step + 1) % 4;
     std::cout << preset_wave_step << std::endl;
