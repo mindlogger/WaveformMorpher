@@ -63,11 +63,6 @@ void loadFile(std::string name)
         }
     }
 
-    for(int i = 0; i < WAVE_TABLE_SIZE; i++)
-    {
-        clipboard[i] = incomingJSON["clipboard"][i];
-    }
-
     att_v = (double) incomingJSON["att_v"];
     dec_v = (double) incomingJSON["dec_v"];
     sus_v = (double) incomingJSON["sus_v"];
@@ -89,7 +84,6 @@ void saveFile(std::string name)
         {"NTables", NTables},
         {"wave", wave},
         {"fft", fft},
-        {"clipboard", clipboard},
         {"att_v", att_v},
         {"dec_v", dec_v},
         {"sus_v", sus_v},
