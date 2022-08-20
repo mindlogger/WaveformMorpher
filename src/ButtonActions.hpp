@@ -1,5 +1,5 @@
-#ifndef ButtonActions_H
-#define ButtonActions_H
+#ifndef BUTTONACTIONS_H
+#define BUTTONACTIONS_H
 
 void assignMainActions();
 void assignLoadActions();

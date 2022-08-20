@@ -283,11 +283,11 @@
 	<string>
 	<vector>
 
-1660992398 /home/pi/WaveformMorpher/src/ButtonActions.hpp
+1661000754 /home/pi/WaveformMorpher/src/ButtonActions.hpp
 
 1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1660995239 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1660995504 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"math.h"
@@ -498,4 +498,9 @@
 
 1660993719 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
+
+1661001398 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
+	"GlobalPreset.hpp"
+
+1661001401 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
 

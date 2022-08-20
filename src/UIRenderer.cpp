@@ -1,5 +1,6 @@
 #include "FbGraphics.hpp"
 #include "GlobalDefinitions.hpp"
+#include "GlobalPreset.hpp"
 
 #include "math.h"
 #include <stdlib.h>
@@ -151,7 +152,7 @@ void renderBlurMode()
 {
     clearScreen();
 
-    double threshold = (att_v - 4095) * (0.7 - 0.01) / (0 - 4095) + 0.01; //Global Preset 0.7 as max range 0.01 as min range
+    double threshold = (att_v - 4095) * (fGP.Blur.thrsMax - fGP.Blur.thrsMin) / (0 - 4095) + fGP.Blur.thrsMin;
     applyKBlur(wave[screenstate], currentScreenWavetable, threshold , threshold);
 
     fbg_write(fbg, "Blur", 190, 15); //TODO IMPLEMENT MORE BLURING ALGORITHMS
