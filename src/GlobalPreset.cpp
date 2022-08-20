@@ -2,10 +2,13 @@
 
 tGlobalPreset fGP = {
     .Blur = {
-    .thrsMax = 0.7,
-    .thrsMin = 0.01,
+        .thrsMax = 0.7,
+        .thrsMin = 0.01,
     },
     .Visual = {
-    .continous = false,
-    }
+        .continous = false,
+    },
+    .Synth = {
+        .VCA = false,
+    },
 };

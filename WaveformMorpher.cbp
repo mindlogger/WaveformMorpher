@@ -44,6 +44,8 @@
 		<Unit filename="src/FourierTransformer.cpp" />
 		<Unit filename="src/FourierTransformer.hpp" />
 		<Unit filename="src/GlobalDefinitions.hpp" />
+		<Unit filename="src/GlobalPreset.cpp" />
+		<Unit filename="src/GlobalPreset.hpp" />
 		<Unit filename="src/Loader.cpp" />
 		<Unit filename="src/Loader.hpp" />
 		<Unit filename="src/MidiHandling.cpp" />

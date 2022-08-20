@@ -11,8 +11,13 @@ typedef struct {
 } tVisual;
 
 typedef struct {
+    bool VCA;
+} tSynth;
+
+typedef struct {
     tBlur Blur;
     tVisual Visual;
+    tSynth Synth;
 } tGlobalPreset;
 
 extern tGlobalPreset fGP;

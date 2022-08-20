@@ -44,6 +44,7 @@ void main_init()
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
     NTables = 5;
+    loopingFlag = 0;
 
 
     patchNameIndex = 0;

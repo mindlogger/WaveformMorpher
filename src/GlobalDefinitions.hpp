@@ -45,11 +45,11 @@ EXTERN uint8_t fileSelectionIndex;
 
 EXTERN std::vector<std::string> filesInDirectory;
 
-//EXTERN void (*ScreenUIDrawer)(void);
 EXTERN int NTables;
 EXTERN uint8_t browsingWindowOffset;
-//TODO MAKE EXTERN STRUCT THAT HAS ALL THE IMPORTANT CURRENT STATES
-EXTERN float master_gain; //0 -- 1
+EXTERN uint8_t loopingFlag;
+
+EXTERN double master_gain; //0 -- 1
 EXTERN int touch_is_happening_flag;
 EXTERN int fft_has_been_touched_flag;
 EXTERN int dynamic_view;
@@ -57,7 +57,9 @@ EXTERN int n_shutdown_flag;
 EXTERN int shift_flag;
 EXTERN ADSR *envelope;
 
-EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE]; //FOR DYNAMIC VIEW RENDERING
+EXTERN double HELPVALUE;
+
+EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE];
 EXTERN double *currentEditWavetable;
 
 EXTERN double wave[5][WAVE_TABLE_SIZE];

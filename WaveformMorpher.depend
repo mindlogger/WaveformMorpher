@@ -20,13 +20,13 @@
 
 1587028615 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1661003083 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1661009405 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
 	<string>
 
-1661002686 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1661010425 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1660985451 source:/home/pi/WaveformMorpher/src/main.cpp
+1661006054 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -112,7 +112,7 @@
 
 1587819995 /home/pi/WaveformMorpher/src/UI.hpp
 
-1623492341 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1661008995 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
@@ -161,9 +161,10 @@
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1589448085 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1661010388 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
+	"GlobalPreset.hpp"
 	<math.h>
 
 1661002858 source:/home/pi/WaveformMorpher/src/UI.cpp
@@ -288,14 +289,15 @@
 
 1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1661002954 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1661003950 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
-	"math.h"
+	"Blur.hpp"
+	<math.h>
 	<stdlib.h>
 	<iostream>
-	"Blur.hpp"
+	<string.h>
 	"fbgraphics.h"
 
 1660920377 /home/pi/WaveformMorpher/src/Loader.hpp
@@ -501,8 +503,8 @@
 1660993719 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
 
-1661002598 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
+1661007428 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
 	"GlobalPreset.hpp"
 
-1661002393 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
+1661007396 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
 

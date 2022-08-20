@@ -29,6 +29,8 @@ extern "C"
 
 sem_t semRender;
 
+using namespace std;
+
 void textTimerHandler(union sigval timer_data)
 {
     renderScreen();
@@ -231,6 +233,9 @@ void *RenderScreen(void *arg)
     while(n_shutdown_flag)
     {
         sem_wait(&semRender);
+
+        //cout << envelope->getState() << endl; //GREAT PLACE TO DEBUG STUFF :)
+
         if(dynamic_view)
         {
             renderDynamicView();

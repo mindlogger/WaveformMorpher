@@ -128,7 +128,7 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
         switch ((int)message->at(i))
         {
         case 144:{
-                    std::cout << "ON ";
+                    std::cout << "ON " << std::endl;
                     i++;
                     double f = MidiNote2Freq[(int)message->at(i)];
                     setfreq(f);
@@ -139,7 +139,7 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
                     //unsigned char val1 = (int)message->at(i);
                     }break;
         case 128:{
-                    std::cout << "OFF : " << numb_pressed;
+                    std::cout << "OFF : " << numb_pressed << std::endl;
                     i++;
                     numb_pressed--;
                     if(numb_pressed == 0)
