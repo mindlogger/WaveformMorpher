@@ -6,10 +6,13 @@ void assignLoadActions();
 void assignStoreActions();
 void assignPatchSettingActions();
 void assignGlobalSettingActions();
+void assignBlurActions();
 
 void clearAllActions();
 
 void dummyAction(uint32_t tick, uint8_t id);
+
+void actionApplyBlur(uint32_t tick, uint8_t id);
 
 void actionCharacterClick(uint32_t tick, uint8_t id);
 void actionRerollCharacters(uint32_t tick, uint8_t id);

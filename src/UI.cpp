@@ -165,13 +165,16 @@ unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
 }
 void getADCValues()//TODO MAYBE SOME NICER SCALING HERE?
 {
-
-    envelope->setAttackRate(((5*readADC(0)/4096.0) + 0.01) * SAMPLE_RATE);
-    envelope->setDecayRate(((5*readADC(1)/4096.0) + 0.01) * SAMPLE_RATE);
-    sus_v = (readADC(2)/4096.0);
-    envelope->setSustainLevel(sus_v);
-    envelope->setReleaseRate(((5*readADC(3)/4096.0) + 0.01) * SAMPLE_RATE);
-    double adc_7 = readADC(7);
+    att_v = readADC(0);
+    dec_v = readADC(1);
+    sus_v = readADC(2);
+    rel_v = readADC(3);
+    loop_v = readADC(7);;
+    envelope->setAttackRate(((5*att_v/4096.0) + 0.01) * SAMPLE_RATE);
+    envelope->setDecayRate(((5*dec_v/4096.0) + 0.01) * SAMPLE_RATE);
+    envelope->setSustainLevel(sus_v/4096.0);
+    envelope->setReleaseRate(((5*rel_v/4096.0) + 0.01) * SAMPLE_RATE);
+    double adc_7 = loop_v;
     if(adc_7 > 3700)
     {
         envelope->setPingPong(0);

@@ -116,6 +116,9 @@ void renderScreen()
         case HiddenMode:
             renderHiddenMode();
         break;
+        case BlurMode:
+            renderBlurMode();
+        break;
     }}
 
 void initFbGraphics()
@@ -221,6 +224,10 @@ void *RenderScreen(void *arg)
         if(dynamic_view)
         {
             renderDynamicView();
+        }
+        else if(uiState == BlurMode)
+        {
+            renderBlurMode();
         }
     }
     return NULL;

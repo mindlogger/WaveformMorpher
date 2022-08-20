@@ -97,6 +97,16 @@ void assignGlobalSettingActions()
     SW3ShiftEvent = &actionExit;
 }
 
+void assignBlurActions()
+{
+    clearAllActions();
+
+    SW4Event = &actionApplyBlur;
+
+    SW3Event = &actionExit;
+    SW3ShiftEvent = &actionExit;
+}
+
 void clearAllActions()
 {
     SW1Event = &dummyAction;
@@ -143,6 +153,18 @@ void actionSavePatch(uint32_t tick, uint8_t id)
 
 void dummyAction(uint32_t tick, uint8_t id)
 {
+}
+
+void actionApplyBlur(uint32_t tick, uint8_t id)
+{
+    for(int i = 0; i<WAVE_TABLE_SIZE; i++)
+    {
+        wave[screenstate][i] = currentScreenWavetable[i];
+    }
+
+    uiState = EditView;
+    assignMainActions();
+    renderScreen();
 }
 
 void actionLoad(uint32_t tick, uint8_t id)
@@ -261,13 +283,20 @@ void actionQuestion(uint32_t tick, uint8_t id)
         dynamic_view = 0;
     else
         dynamic_view = 1;
+    renderScreen();
 }
 
 void actionQuestionS(uint32_t tick, uint8_t id)
 {
-    //GLÄTTUNG!
-    applyKBlur(currentEditWavetable, 0.05 , 0.05);
-    renderScreen();
+    if(!fourier_flag)
+    {
+        uiState = BlurMode;
+        assignBlurActions();
+    }
+    else
+    {
+        addText("Exit FFT for Blur Mode", 80, 15, 2);
+    }
 }
 
 void actionCopy(uint32_t tick, uint8_t id)

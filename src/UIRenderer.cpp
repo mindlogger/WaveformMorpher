@@ -4,6 +4,7 @@
 #include "math.h"
 #include <stdlib.h>
 #include <iostream>
+#include "Blur.hpp"
 
 using namespace std;
 
@@ -94,6 +95,18 @@ void renderLoad()
 
     fbg_write(fbg, "Load Patch", 140, 15);
     commitScreenBuffer();
+}
+
+void renderBlurMode()
+{
+    clearScreen();
+
+    double threshold = (att_v- 0) * (0.7 - 0.01) / (4095 - 0) + 0.01; //Global Preset 0.7 as max range 0.01 as min range
+    applyKBlur(wave[screenstate], currentScreenWavetable, threshold , threshold);
+
+    fbg_write(fbg, "Blur", 190, 15); //TODO IMPLEMENT MORE BLURING ALGORITHMS
+
+    table2Screen(currentScreenWavetable);
 }
 
 #define MAX_PATCH_NAME_LENGTH 16

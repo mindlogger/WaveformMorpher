@@ -9,4 +9,5 @@ void renderLoad();
 void renderStore();
 void renderInsertWave();
 void renderHiddenMode();
+void renderBlurMode();
 #endif

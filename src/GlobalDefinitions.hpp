@@ -16,7 +16,7 @@
 #include <string>
 
 enum Screenstates {A,D,SS,SE,R}; //PS: Patch Settings //GS: Global Settings
-enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, HiddenMode};
+enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, BlurMode, HiddenMode};
 EXTERN int fourier_flag; //0 = wave 1 = spectrum
 EXTERN Screenstates screenstate;
 EXTERN UIStates uiState;
