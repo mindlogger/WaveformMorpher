@@ -11,52 +11,44 @@ double step_size = (double) WAVE_TABLE_SIZE * ((double)440/(double)SAMPLE_RATE);
 
 double interpol = 0.0;
 
-double* AttackTable = wave[0];
-double* DecayTable = wave[1];
-double* SustainStartTable = wave[2];
-double* SustainEndTable = wave[3];
-double* ReleaseTable = wave[4];
-
-double* WaveTable[5] = {AttackTable, DecayTable, SustainStartTable, SustainEndTable, ReleaseTable};
-
 void setNTables()
 {
    switch (NTables)
     {
         case 1:
-            AttackTable = wave[0];
-            DecayTable = wave[0];
-            SustainStartTable = wave[0];
-            SustainEndTable = wave[0];
-            ReleaseTable = wave[0];
+            WaveTable[0] = wave[0];
+            WaveTable[1] = wave[0];
+            WaveTable[2] = wave[0];
+            WaveTable[3] = wave[0];
+            WaveTable[4] = wave[0];
         break;
         case 2:
-            AttackTable = wave[0];
-            DecayTable = wave[0];
-            SustainStartTable = wave[0];
-            SustainEndTable = wave[0];
-            ReleaseTable = wave[1];
+            WaveTable[0] = wave[0];
+            WaveTable[1] = wave[0];
+            WaveTable[2] = wave[0];
+            WaveTable[3] = wave[0];
+            WaveTable[4] = wave[1];
         break;
         case 3:
-            AttackTable = wave[0];
-            DecayTable = wave[1];
-            SustainStartTable = wave[1];
-            SustainEndTable = wave[1];
-            ReleaseTable = wave[2];
+            WaveTable[0] = wave[0];
+            WaveTable[1] = wave[1];
+            WaveTable[2] = wave[1];
+            WaveTable[3] = wave[1];
+            WaveTable[4] = wave[2];
         break;
         case 4:
-            AttackTable = wave[0];
-            DecayTable = wave[1];
-            SustainStartTable = wave[2];
-            SustainEndTable = wave[2];
-            ReleaseTable = wave[3];
+            WaveTable[0] = wave[0];
+            WaveTable[1] = wave[1];
+            WaveTable[2] = wave[2];
+            WaveTable[3] = wave[2];
+            WaveTable[4] = wave[3];
         break;
         case 5:
-            AttackTable = wave[0];
-            DecayTable = wave[1];
-            SustainStartTable = wave[2];
-            SustainEndTable = wave[3];
-            ReleaseTable = wave[4];
+            WaveTable[0] = wave[0];
+            WaveTable[1] = wave[1];
+            WaveTable[2] = wave[2];
+            WaveTable[3] = wave[3];
+            WaveTable[4] = wave[4];
         break;
     }
 }
@@ -68,7 +60,6 @@ float getWavetableValue()
     double steigung = 0;
     double nachkomma_x = 0;
     master_gain = envelope->process();
-    HELPVALUE = master_gain;
     int envelopeState = envelope->getState();
     double normalizedSustain = sus_v/4096.0;
     double interpol_a = 0;

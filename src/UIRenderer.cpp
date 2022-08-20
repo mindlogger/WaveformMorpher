@@ -17,95 +17,91 @@ extern "C"
 
 void insertCurrentTableName()
 {
-    if(dynamic_view)
+    switch(screenstate)
     {
-        if(fourier_flag)
-        {
-            switch(screenstate)
+        case A:
+            fbg_write(fbg, "1 - A", 4, 2);
+        break;
+        case D:
+            switch(NTables)
             {
-                case A:
-                fbg_write(fbg, "As.", 4, 2);
+                case 1:
+                    fbg_write(fbg, "1 - D", 4, 2);
                 break;
-                case D:
-                fbg_write(fbg, "Ds.", 4, 2);
+                case 2:
+                    fbg_write(fbg, "2 - R", 4, 2);
                 break;
-                case SS:
-                fbg_write(fbg, "SSs.", 4, 2);
+                case 3:
+                    fbg_write(fbg, "2 - D", 4, 2);
                 break;
-                case SE:
-                fbg_write(fbg, "SEs.", 4, 2);
+                case 4:
+                    fbg_write(fbg, "2 - D", 4, 2);
                 break;
-                case R:
-                fbg_write(fbg, "Rs.", 4, 2);
+                case 5:
+                    fbg_write(fbg, "2 - D", 4, 2);
                 break;
             }
-        }
-        else
-        {
-            switch(screenstate)
+        break;
+        case SS:
+            switch(NTables)
             {
-                case A:
-                fbg_write(fbg, "A.", 4, 2);
+                case 1:
+                    fbg_write(fbg, "1 - SS", 4, 2);
                 break;
-                case D:
-                fbg_write(fbg, "D.", 4, 2);
+                case 2:
+                    fbg_write(fbg, "1 - SS", 4, 2);
                 break;
-                case SS:
-                fbg_write(fbg, "SS.", 4, 2);
+                case 3:
+                    fbg_write(fbg, "3 - R", 4, 2);
                 break;
-                case SE:
-                fbg_write(fbg, "SE.", 4, 2);
+                case 4:
+                    fbg_write(fbg, "3 - SS", 4, 2);
                 break;
-                case R:
-                fbg_write(fbg, "R.", 4, 2);
+                case 5:
+                    fbg_write(fbg, "3 - SS", 4, 2);
                 break;
             }
-        }
-    }
-    else
-    {
-        if(fourier_flag)
-        {
-            switch(screenstate)
+        break;
+        case SE:
+            switch(NTables)
             {
-                case A:
-                fbg_write(fbg, "As", 4, 2);
+                case 1:
+                    fbg_write(fbg, "1 - SE", 4, 2);
                 break;
-                case D:
-                fbg_write(fbg, "Ds", 4, 2);
+                case 2:
+                    fbg_write(fbg, "1 - SE", 4, 2);
                 break;
-                case SS:
-                fbg_write(fbg, "SSs", 4, 2);
+                case 3:
+                    fbg_write(fbg, "2 - SE", 4, 2);
                 break;
-                case SE:
-                fbg_write(fbg, "SEs", 4, 2);
+                case 4:
+                    fbg_write(fbg, "4 - R", 4, 2);
                 break;
-                case R:
-                fbg_write(fbg, "Rs", 4, 2);
+                case 5:
+                    fbg_write(fbg, "3 - SE", 4, 2);
                 break;
             }
-        }
-        else
-        {
-            switch(screenstate)
+        break;
+        case R:
+            switch(NTables)
             {
-                case A:
-                fbg_write(fbg, "A", 4, 2);
+                case 1:
+                    fbg_write(fbg, "1 - R", 4, 2);
                 break;
-                case D:
-                fbg_write(fbg, "D", 4, 2);
+                case 2:
+                    fbg_write(fbg, "2 - R", 4, 2);
                 break;
-                case SS:
-                fbg_write(fbg, "SS", 4, 2);
+                case 3:
+                    fbg_write(fbg, "3 - R", 4, 2);
                 break;
-                case SE:
-                fbg_write(fbg, "SE", 4, 2);
+                case 4:
+                    fbg_write(fbg, "4 - R", 4, 2);
                 break;
-                case R:
-                fbg_write(fbg, "R", 4, 2);
+                case 5:
+                    fbg_write(fbg, "5 - R", 4, 2);
                 break;
             }
-        }
+        break;
     }
 }
 

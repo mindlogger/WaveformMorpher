@@ -214,7 +214,7 @@ void actionStore(uint32_t tick, uint8_t id)
 int preset_wave_step = 0; //TOIDO MOVE THIS SOMEWHERE MORE SENSIBLE
 void actionWaveStep(uint32_t tick, uint8_t id)
 {
-    screenstate = (Screenstates) (((int)screenstate + 1) % 5);
+    screenstate = (Screenstates) (((int)screenstate + 1) % NTables);
     if(fourier_flag)
     {
         currentEditWavetable = fft[screenstate];
@@ -228,8 +228,10 @@ void actionWaveStep(uint32_t tick, uint8_t id)
 
 void actionWaveN(uint32_t tick, uint8_t id) //TODO CHANGE THIS TO THE CORRECT FUNCTION
 {
+    NTables = NTables % 5;
     NTables += 1;
-    NTables = NTables % 6;
+    setNTables();
+    renderScreen();
     addText(std::to_string(NTables),2,80,1);
 }
 

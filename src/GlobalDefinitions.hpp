@@ -67,6 +67,14 @@ EXTERN double fft[5][WAVE_TABLE_SIZE];
 
 EXTERN double clipboard[WAVE_TABLE_SIZE];
 
+EXTERN double* AttackTable;
+EXTERN double* DecayTable;
+EXTERN double* SustainStartTable;
+EXTERN double* SustainEndTable;
+EXTERN double* ReleaseTable;
+
+EXTERN double* WaveTable[5];
+
 EXTERN double att_v;
 EXTERN double dec_v;
 EXTERN double sus_v;

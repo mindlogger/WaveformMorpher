@@ -194,11 +194,12 @@ void renderDynamicView()
             working_wavetable = wave;
         }
 
+        double normalizedSustain = sus_v/4096.0;
         double inverse_master_gain = abs(master_gain-1.0);
-        double dec_gain = (master_gain-sus_v)*((-1)/(sus_v-1));
-        double inv_dec_gain = (master_gain-sus_v)*((1)/(sus_v-1))+1;
-        double rel_gain = master_gain*(1.0/sus_v);
-        double inv_rel_gain = abs(master_gain*(1.0/sus_v)-1.0);
+        double dec_gain = (master_gain-normalizedSustain)*((-1)/(normalizedSustain-1));
+        double inv_dec_gain = (master_gain-normalizedSustain)*((1)/(normalizedSustain-1))+1;
+        double rel_gain = master_gain / normalizedSustain;
+        double inv_rel_gain = abs(rel_gain-1.0);
         double loop_gain = envelope->getLoopVal();
         double inv_loop_gain = abs(loop_gain-1.0);
 
@@ -216,11 +217,26 @@ void renderDynamicView()
                 break;
                 case 3://S
                     fbg_write(fbg, "S.", 4, 2);
-                    currentScreenWavetable[i] = loop_gain * working_wavetable[2][i] + inv_loop_gain * working_wavetable[3][i];
+                    if(loopingFlag)
+                    {
+                        currentScreenWavetable[i] = loop_gain * working_wavetable[2][i] + inv_loop_gain * working_wavetable[3][i];
+                    }
+                    else
+                    {
+                        currentScreenWavetable[i] = working_wavetable[2][i];
+                    }
                 break;
                 case 4://R
                     fbg_write(fbg, "R.", 4, 2);
-                    currentScreenWavetable[i] = (rel_gain*working_wavetable[3][i] + inv_rel_gain*working_wavetable[4][i]);
+                    if(loopingFlag)
+                    {
+                        currentScreenWavetable[i] = (rel_gain*working_wavetable[3][i] + inv_rel_gain*working_wavetable[4][i]); //TODO FIX THIS AT SOME POINT AND FETCH A PROPER WAVETABLE IN TIME
+                    }
+                    else
+                    {
+                        currentScreenWavetable[i] = (rel_gain*working_wavetable[2][i] + inv_rel_gain*working_wavetable[4][i]);
+                    }
+
                 break;
             }
         }

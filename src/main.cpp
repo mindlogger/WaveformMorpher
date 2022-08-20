@@ -27,7 +27,6 @@
 void main_init()
 {
     n_shutdown_flag = 1;
-    sus_v = 0.3;
     envelope = new ADSR();
     envelope->setTargetRatioA(0.3);
     envelope->setTargetRatioDR(0.3);
@@ -35,7 +34,7 @@ void main_init()
     envelope->setDecayRate(1.1 * SAMPLE_RATE);
     envelope->setLoopRate(0.0 * SAMPLE_RATE);
     envelope->setPingPong(0);
-    envelope->setSustainLevel(sus_v);
+    envelope->setSustainLevel(0.3);
     envelope->setReleaseRate(0.1 * SAMPLE_RATE);
 
     screenstate = A;
@@ -46,6 +45,17 @@ void main_init()
     NTables = 5;
     loopingFlag = 0;
 
+    AttackTable = wave[0];
+    DecayTable = wave[1];
+    SustainStartTable = wave[2];
+    SustainEndTable = wave[3];
+    ReleaseTable = wave[4];
+
+    WaveTable[0] = AttackTable;
+    WaveTable[1] = DecayTable;
+    WaveTable[2] = SustainStartTable;
+    WaveTable[3] = SustainEndTable;
+    WaveTable[4] = ReleaseTable;
 
     patchNameIndex = 0;
     fileSelectionIndex = 0;
