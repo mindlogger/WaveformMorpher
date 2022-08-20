@@ -118,7 +118,6 @@ void renderScreen()
         break;
     }}
 
-
 void initFbGraphics()
 {
     char *path = strdup("/dev/fb1"); //THIS IS HERE TO AVOID WARNINGS
@@ -222,20 +221,6 @@ void *RenderScreen(void *arg)
         if(dynamic_view)
         {
             renderDynamicView();
-        }
-        else
-        {
-        /*
-        char xa[4];
-        xa[0] = 'X';
-        xa[1] = '1';
-        xa[2] = 'B';
-        xa[3] = '\0';
-        sprintf(xa, "%d", (int) screenstate);
-        fbg_write(fbg, xa , 25, 25);
-        //std::cout << xa[1] << std::endl;
-        fbg_draw(fbg);
-        fbg_flip(fbg);*/
         }
     }
     return NULL;

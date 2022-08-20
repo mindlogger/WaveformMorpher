@@ -10,6 +10,7 @@
 #include "UI.hpp"
 #include "ButtonActions.hpp"
 #include "Loader.hpp"
+#include "Blur.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -265,6 +266,7 @@ void actionQuestion(uint32_t tick, uint8_t id)
 void actionQuestionS(uint32_t tick, uint8_t id)
 {
     //GLÄTTUNG!
+    applyKBlur(currentEditWavetable, 0.05 , 0.05);
     renderScreen();
 }
 
