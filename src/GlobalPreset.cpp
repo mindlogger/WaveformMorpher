@@ -1,8 +1,11 @@
 #include "GlobalPreset.hpp"
 
-const tGlobalPreset fGP = {
+tGlobalPreset fGP = {
     .Blur = {
     .thrsMax = 0.7,
-    .thrsMin = 0.01
+    .thrsMin = 0.01,
+    },
+    .Visual = {
+    .continous = false,
     }
 };

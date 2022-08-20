@@ -5,6 +5,7 @@
 #include <string>
 
 void addText(std::string text, int x, int y, int timeout);
+void setLine(int x1, int y1,int x2, int y2);
 void setPixel(int x, int y);
 void setPixelOff(int x, int y);
 void setPixelOff(int x);

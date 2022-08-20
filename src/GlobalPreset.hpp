@@ -7,9 +7,14 @@ typedef struct {
 } tBlur;
 
 typedef struct {
+    bool continous;
+} tVisual;
+
+typedef struct {
     tBlur Blur;
+    tVisual Visual;
 } tGlobalPreset;
 
-extern const tGlobalPreset fGP;
+extern tGlobalPreset fGP;
 
 #endif

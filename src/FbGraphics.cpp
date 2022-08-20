@@ -1,6 +1,7 @@
 #include "FbGraphics.hpp"
 #include "GlobalDefinitions.hpp"
 #include "UIRenderer.hpp"
+#include "GlobalPreset.hpp"
 
 extern "C"
 {
@@ -59,6 +60,11 @@ void addText(std::string text, int x, int y, int timeout)
 
 void addRedrawTimeout(int timeout)
 {}
+
+void setLine(int x1, int y1,int x2, int y2)
+{
+    fbg_line(fbg,x1,y1,x2,y2,255,255,255);
+}
 
 void setPixel(int x, int y)
 {
@@ -150,6 +156,13 @@ void table2Screen(double* wave_table)
             x = 319;
         }
         setPixel(i,x);
+        if(fGP.Visual.continous && i > 0)
+        {
+            double x2 = ((wave_table[i-1]+1) * 159.0);
+            x2 = -1 * x2 + 319;
+            x2 = round(x2);
+            setLine(i,x,i,x2);
+        }
         //std::cout << "setpixel " << i << ": " << x << std::endl; //DEBUG
     }
     commitScreenBuffer();
