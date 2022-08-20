@@ -26,6 +26,8 @@ std::list<std::tuple<size_t, double>> editedPixels;
 
 void signal_callback_handler(int signum)
 {
+    if(uiState != EditView) //ONLY PROCESS TOUCH ON EDIT VIEW
+        return;
 
     input_event ev;
     int flag_x = -1;//these correspond to abs values
@@ -72,7 +74,7 @@ void signal_callback_handler(int signum)
         {
             processlist();
             touch_is_happening_flag = 0;
-            table2Screen(currentEditWavetable);
+            renderScreen();
         }
         else if(ev.type == 1 && ev.value == 1)//BTN_TOUCH ON
         {
@@ -197,21 +199,20 @@ void processlist()
 
     while(editedPixels.size() > 1)
     {
-    double x1 = std::get<0>(editedPixels.front());
-    double y1 = std::get<1>(editedPixels.front());
-    editedPixels.pop_front();
-    double x2 = std::get<0>(editedPixels.front());
-    double y2 = std::get<1>(editedPixels.front());
-    //std::cout << "SCALED THE FOLLOWING " << x1 << " " << y1 << " "  << x2 << " "  << y2 << " "  << std::endl;
-    if(x1<x2)
-    {
-    drawLine( x1,  y1,  x2,  y2);
-
-    }
-    else
-    {
-    drawLine( x2,  y2,  x1,  y1);
-    }
+        double x1 = std::get<0>(editedPixels.front());
+        double y1 = std::get<1>(editedPixels.front());
+        editedPixels.pop_front();
+        double x2 = std::get<0>(editedPixels.front());
+        double y2 = std::get<1>(editedPixels.front());
+        //std::cout << "SCALED THE FOLLOWING " << x1 << " " << y1 << " "  << x2 << " "  << y2 << " "  << std::endl;
+        if(x1<x2)
+        {
+            drawLine( x1,  y1,  x2,  y2);
+        }
+        else
+        {
+            drawLine( x2,  y2,  x1,  y1);
+        }
     }
     clearTouchscreenList();
 }
@@ -232,7 +233,6 @@ void drawLine(double x1, double y1, double x2, double y2)
         //std::cout << mainWave[c] << std::endl;
     }
 }
-
 
 void endTouchscreen()
 {

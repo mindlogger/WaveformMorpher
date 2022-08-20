@@ -92,7 +92,7 @@ int main()
 
     main_init();
 
-    table2Screen(currentEditWavetable);
+    renderScreen();
 
     pthread_t uitxt_t;
     while(n_shutdown_flag)//TODO WHILE NOT SHUTDOWN
