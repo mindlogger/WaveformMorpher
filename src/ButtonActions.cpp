@@ -161,6 +161,7 @@ void actionInsertWave(uint32_t tick, uint8_t id)
             genSil(currentEditWavetable);
         break;
     }
+    actionExit(0,0);
 }
 void actionCharacterClick(uint32_t tick, uint8_t id)
 {
@@ -296,10 +297,8 @@ void actionExit(uint32_t tick, uint8_t id)
         case DynamicView:
         break;
         case PatchSettings:
-            //SAVE SETTINGS?
         break;
         case GlobalSettings:
-            //SAVE SETTINGS?
         break;
         case Load:
         break;
