@@ -94,6 +94,18 @@ void assignPatchSettingActions()
     SW3ShiftEvent = &actionExit;
 }
 
+void assignInsertActions()
+{
+    clearAllActions();
+
+    SW1Event = &actionInsertWave;
+    SW2Event = &actionInsertWave;
+    SW4Event = &actionInsertWave;
+    SW5Event = &actionInsertWave;
+
+    SW3Event = &actionExit;
+}
+
 void assignGlobalSettingActions()
 {
     clearAllActions();
@@ -132,6 +144,24 @@ void clearAllActions()
     SW6ShiftEvent = &dummyAction;
 }
 
+void actionInsertWave(uint32_t tick, uint8_t id)
+{
+    switch(id)
+    {
+        case 1:
+            genSin(currentEditWavetable);
+        break;
+        case 2:
+            genSqr(currentEditWavetable);
+        break;
+        case 4:
+            genSaw(currentEditWavetable);
+        break;
+        case 5:
+            genSil(currentEditWavetable);
+        break;
+    }
+}
 void actionCharacterClick(uint32_t tick, uint8_t id)
 {
     patchName[patchNameIndex] = fileSaveCharacters[id-1];
@@ -220,7 +250,6 @@ void actionStore(uint32_t tick, uint8_t id)
     renderScreen();
 }
 
-int preset_wave_step = 0; //TOIDO MOVE THIS SOMEWHERE MORE SENSIBLE
 void actionWaveStep(uint32_t tick, uint8_t id)
 {
     screenstate = (Screenstates) (((int)screenstate + 1) % NTables);
@@ -344,22 +373,7 @@ void actionFourier(uint32_t tick, uint8_t id)
 
 void actionInsert(uint32_t tick, uint8_t id)
 {
-    preset_wave_step = (preset_wave_step + 1) % 4;
-    std::cout << preset_wave_step << std::endl;
-    switch(preset_wave_step)
-    {
-    case 0:
-        genSil(currentEditWavetable);
-    break;
-    case 1:
-        genSqr(currentEditWavetable);
-    break;
-    case 2:
-        genSaw(currentEditWavetable);
-    break;
-    case 3:
-        genSin(currentEditWavetable);
-    break;
-    }
+    uiState = InsertWave;
     renderScreen();
+    assignInsertActions();
 }

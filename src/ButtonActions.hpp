@@ -5,10 +5,13 @@ void assignMainActions();
 void assignLoadActions();
 void assignStoreActions();
 void assignPatchSettingActions();
+void assignInsertActions();
 void assignGlobalSettingActions();
 void assignBlurActions();
 
 void clearAllActions();
+
+void actionInsertWave(uint32_t tick, uint8_t id);
 
 void dummyAction(uint32_t tick, uint8_t id);
 

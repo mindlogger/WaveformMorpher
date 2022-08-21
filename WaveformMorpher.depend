@@ -261,7 +261,7 @@
 	<vector>
 	<dirent.h>
 
-1661084057 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1661084796 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -286,11 +286,11 @@
 	<string>
 	<vector>
 
-1661083882 /home/pi/WaveformMorpher/src/ButtonActions.hpp
+1661084804 /home/pi/WaveformMorpher/src/ButtonActions.hpp
 
 1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1661078455 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1661084936 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"

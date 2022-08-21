@@ -148,7 +148,7 @@ void renderLoad()
     }
     fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
     fbg_write(fbg, ">", SCREEN_SW4_5_POSX, SCREEN_SW1_4_POSY);
-    fbg_write(fbg, "Load Patch", 140, 15);
+    fbg_write(fbg, "Load Patch", 140, SCREEN_HEADER_Y);
     commitScreenBuffer();
 }
 
@@ -276,6 +276,14 @@ void renderStore()
 }
 void renderInsertWave()
 {
+    clearScreen();
+    fbg_write(fbg, "Insert Wave", 140, SCREEN_HEADER_Y);
+    fbg_write(fbg, "Sine", SCREEN_SW1_3_POSX, SCREEN_SW1_4_POSY);
+    fbg_write(fbg, "Square", SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY);
+    fbg_write(fbg, "Saw", SCREEN_SW4_5_POSX - 40, SCREEN_SW1_4_POSY);
+    fbg_write(fbg, "Silence", SCREEN_SW4_5_POSX - 95, SCREEN_SW2_5_POSY);
+    fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
+    commitScreenBuffer();
 }
 void renderHiddenMode()
 {}
