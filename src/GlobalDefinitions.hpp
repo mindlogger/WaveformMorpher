@@ -1,11 +1,15 @@
 #define SAMPLE_RATE (48000)
 #define WAVE_TABLE_SIZE (480)
+
 #define SCREEN_SW1_3_POSX 4
 #define SCREEN_SW4_5_POSX 460
 
 #define SCREEN_SW1_4_POSY 31
 #define SCREEN_SW2_5_POSY 148
 #define SCREEN_SW3_6_POSY 260
+
+#define SCREEN_HEADER_Y 7
+
 #ifdef GLOBALS
 #define EXTERN
 #else
@@ -45,7 +49,20 @@ EXTERN uint8_t fileSelectionIndex;
 
 EXTERN std::vector<std::string> filesInDirectory;
 
+/*PATCH SETTINGS START*/
+EXTERN double wave[5][WAVE_TABLE_SIZE];
+EXTERN double fft[5][WAVE_TABLE_SIZE];
+
 EXTERN int NTables;
+EXTERN bool VCA_FLAG;
+
+EXTERN double att_v;
+EXTERN double dec_v;
+EXTERN double sus_v;
+EXTERN double rel_v;
+EXTERN double loop_v;
+/*PATCH SETTINGS END*/
+
 EXTERN uint8_t browsingWindowOffset;
 EXTERN uint8_t loopingFlag;
 
@@ -62,8 +79,6 @@ EXTERN double HELPVALUE;
 EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE];
 EXTERN double *currentEditWavetable;
 
-EXTERN double wave[5][WAVE_TABLE_SIZE];
-EXTERN double fft[5][WAVE_TABLE_SIZE];
 
 EXTERN double clipboard[WAVE_TABLE_SIZE];
 
@@ -75,8 +90,4 @@ EXTERN double* ReleaseTable;
 
 EXTERN double* WaveTable[5];
 
-EXTERN double att_v;
-EXTERN double dec_v;
-EXTERN double sus_v;
-EXTERN double rel_v;
-EXTERN double loop_v;
+

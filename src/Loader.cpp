@@ -52,8 +52,6 @@ void loadFile(std::string name)
     json incomingJSON;
     inputFile >> incomingJSON;
 
-    NTables = (int) incomingJSON["NTables"];
-
     for(int j = 0; j < 5; j++)
     {
         for(int i = 0; i < WAVE_TABLE_SIZE; i++)
@@ -62,6 +60,10 @@ void loadFile(std::string name)
             fft[j][i] = incomingJSON["fft"][j][i];
         }
     }
+
+    NTables = (int) incomingJSON["NTables"];
+
+    VCA_FLAG = (bool) incomingJSON["VCA_FLAG"];
 
     att_v = (double) incomingJSON["att_v"];
     dec_v = (double) incomingJSON["dec_v"];
@@ -81,9 +83,10 @@ void loadFile(std::string name)
 void saveFile(std::string name)
 {
     json outgoingJSON = {
-        {"NTables", NTables},
         {"wave", wave},
         {"fft", fft},
+        {"NTables", NTables},
+        {"VCA_FLAG", VCA_FLAG},
         {"att_v", att_v},
         {"dec_v", dec_v},
         {"sus_v", sus_v},

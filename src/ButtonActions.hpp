@@ -18,6 +18,8 @@ void actionCharacterClick(uint32_t tick, uint8_t id);
 void actionRerollCharacters(uint32_t tick, uint8_t id);
 void actionSavePatch(uint32_t tick, uint8_t id);
 
+void actionToggleVCA(uint32_t tick, uint8_t id);
+
 void actionLoad(uint32_t tick, uint8_t id);
 void actionLoadPatch(uint32_t tick, uint8_t id);
 void actionBrowseUp(uint32_t tick, uint8_t id);

@@ -20,13 +20,13 @@
 
 1661011097 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1661083106 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1661084195 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
 	<string>
 
-1661083086 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1661083280 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1661080310 source:/home/pi/WaveformMorpher/src/main.cpp
+1661083481 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -161,7 +161,7 @@
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1661083140 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1661083491 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
@@ -242,7 +242,7 @@
 1660821192 /usr/local/include/json-c/linkhash.h
 	"json_object.h"
 
-1661001723 source:/home/pi/WaveformMorpher/src/Loader.cpp
+1661083672 source:/home/pi/WaveformMorpher/src/Loader.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -261,7 +261,7 @@
 	<vector>
 	<dirent.h>
 
-1661011526 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1661084057 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -286,7 +286,7 @@
 	<string>
 	<vector>
 
-1661000754 /home/pi/WaveformMorpher/src/ButtonActions.hpp
+1661083882 /home/pi/WaveformMorpher/src/ButtonActions.hpp
 
 1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
@@ -505,9 +505,9 @@
 1661076590 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
 
-1661077076 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
+1661083443 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
 	"GlobalPreset.hpp"
 
-1661076944 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
+1661083442 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
 	<stdint.h>
 

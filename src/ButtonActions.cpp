@@ -87,6 +87,9 @@ void assignStoreActions()
 void assignPatchSettingActions()
 {
     clearAllActions();
+
+    SW5Event = &actionToggleVCA;
+
     SW3Event = &actionExit;
     SW3ShiftEvent = &actionExit;
 }
@@ -149,6 +152,12 @@ void actionSavePatch(uint32_t tick, uint8_t id)
 
     uiState = EditView;
     assignMainActions();
+    renderScreen();
+}
+
+void actionToggleVCA(uint32_t tick, uint8_t id)
+{
+    VCA_FLAG = !VCA_FLAG;
     renderScreen();
 }
 

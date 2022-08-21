@@ -21,7 +21,6 @@ typedef struct {
 } tVisual;
 
 typedef struct {
-    bool VCA;
 } tSynth;
 
 typedef struct {

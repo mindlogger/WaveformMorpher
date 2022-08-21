@@ -144,7 +144,7 @@ float getWavetableValue()
         }
     }
 
-    if(fGP.Synth.VCA)
+    if(VCA_FLAG)
         return interpol * master_gain;
     else
         return interpol;

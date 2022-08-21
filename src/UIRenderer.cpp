@@ -116,7 +116,11 @@ void renderPatchSettings()
 {
     clearScreen();
 
-    fbg_write(fbg, "Patch Settings", 140, 15);
+    fbg_write(fbg, "Patch Settings", 140, SCREEN_HEADER_Y);
+    if(VCA_FLAG)
+        fbg_write(fbg, "VCA:On", SCREEN_SW4_5_POSX - 100, SCREEN_SW2_5_POSY);
+    else
+        fbg_write(fbg, "VCA:Off", SCREEN_SW4_5_POSX - 100, SCREEN_SW2_5_POSY);
     fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
     commitScreenBuffer();
 }

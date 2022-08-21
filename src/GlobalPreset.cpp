@@ -17,6 +17,5 @@ tGlobalPreset fGP = {
         .continous = false,
     },
     .Synth = {
-        .VCA = false,
     },
 };
