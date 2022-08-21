@@ -3,6 +3,9 @@
 #include "GlobalPreset.hpp"
 
 #include <math.h>
+#include <iostream>
+
+using namespace std;
 double freq = 440;
 
 double waveOscIndex = 0.0;
@@ -116,13 +119,14 @@ float getWavetableValue()
         break;
         case 4://R
             {
-                f_x = wave[2][(int)waveOscIndex];
-                steigung = wave[2][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - wave[2][(int)waveOscIndex];
+                f_x = WaveTable[2][(int)waveOscIndex];
+                steigung = WaveTable[2][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - WaveTable[2][(int)waveOscIndex];
                 nachkomma_x = (int)waveOscIndex - waveOscIndex;
 
                 double interpol_c = f_x + steigung * nachkomma_x;
 
-                double rel_gain = master_gain / (normalizedSustain);
+                double rel_gain = master_gain / normalizedSustain ;
+
                 double inv_rel_gain = abs(rel_gain-1.0);
                 interpol = (rel_gain*interpol_c + inv_rel_gain*interpol_b); //INTERPOL B IS w4 INTERPOL C w2
             }
