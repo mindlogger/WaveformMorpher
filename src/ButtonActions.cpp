@@ -74,8 +74,8 @@ void assignStoreActions()
     SW3Event = &actionExit;
     SW3ShiftEvent = &actionCharacterClick;
 
-    SW4Event = &actionRerollCharacters;
-    SW4ShiftEvent = &actionSavePatch;
+    SW4Event = &actionSavePatch;
+    SW4ShiftEvent = &actionRerollCharacters;
 
     SW5Event = &actionCharacterClick;
     SW5ShiftEvent = &actionCharacterClick;
@@ -335,21 +335,26 @@ void actionQuestionS(uint32_t tick, uint8_t id)
     }
     else
     {
-        addText("Exit FFT for Blur Mode", 80, 15, 2);
+        addText("Exit FFT for Blur Mode", calcCenterOfText("Exit FFT for Blur Mode"), SCREEN_HEADER_Y, 2);
     }
 }
 
 void actionCopy(uint32_t tick, uint8_t id)
 {
-    std::cout << "WAVE COPY" << std::endl;
     memcpy(&clipboard,currentEditWavetable,WAVE_TABLE_SIZE * sizeof(double));
+    renderScreen();
+    clearScreen();
+    insertCurrentTableName();
+    addText("Copy", calcCenterOfText("Copy"), SCREEN_HEADER_Y, 1);
 }
 
 void actionPaste(uint32_t tick, uint8_t id)
 {
-    std::cout << "WAVE PASTE" << std::endl;
     memcpy(currentEditWavetable,&clipboard,WAVE_TABLE_SIZE * sizeof(double));
     renderScreen();
+    clearScreen();
+    insertCurrentTableName();
+    addText("Paste", calcCenterOfText("Paste"), SCREEN_HEADER_Y, 1);
 }
 
 void actionFourier(uint32_t tick, uint8_t id)
@@ -360,6 +365,9 @@ void actionFourier(uint32_t tick, uint8_t id)
         transBackward(screenstate);
         fourier_flag = 0;
         renderScreen();
+        clearScreen();
+        insertCurrentTableName();
+        addText("IFFT", calcCenterOfText("IFFT"), SCREEN_HEADER_Y, 1);
     }
     else
     {
@@ -367,6 +375,9 @@ void actionFourier(uint32_t tick, uint8_t id)
         transForward(screenstate);
         fourier_flag = 1;
         renderScreen();
+        clearScreen();
+        insertCurrentTableName();
+        addText("FFT", calcCenterOfText("FFT"), SCREEN_HEADER_Y, 1);
     }
 }
 

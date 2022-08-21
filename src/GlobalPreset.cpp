@@ -18,4 +18,21 @@ tGlobalPreset fGP = {
     },
     .Synth = {
     },
+    .Color = {
+        .Confirm = {
+            .r = 0,
+            .g = 255,
+            .b = 0,
+        },
+        .Cancel = {
+            .r = 255,
+            .g = 0,
+            .b = 0,
+        },
+        .HighlightA = {
+            .r = 175,
+            .g = 238,
+            .b = 238,
+        },
+    },
 };

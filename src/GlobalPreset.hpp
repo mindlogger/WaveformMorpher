@@ -24,10 +24,23 @@ typedef struct {
 } tSynth;
 
 typedef struct {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} tRGB;
+
+typedef struct {
+    tRGB Confirm;
+    tRGB Cancel;
+    tRGB HighlightA;
+} tColor;
+
+typedef struct {
     tKBlur KBlur;
     tMBlur MBlur;
     tVisual Visual;
     tSynth Synth;
+    tColor Color;
 } tGlobalPreset;
 
 extern tGlobalPreset fGP;

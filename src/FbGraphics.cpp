@@ -36,6 +36,11 @@ void textTimerHandler(union sigval timer_data)
     renderScreen();
 }
 
+uint16_t calcCenterOfText(std::string text)
+{
+    return 240 - (text.length() * 8);
+}
+
 void addText(std::string text, int x, int y, int timeout)
 {
     //clearScreen();
@@ -72,18 +77,22 @@ void setPixel(int x, int y)
 {
     fbg_pixel(fbg,x,y,255,255,255);
 }
+
 void setPixelOff(int x, int y)
 {
     fbg_pixel(fbg,x,y,0,0,0);
 }
+
 void setPixelOff(int x)
 {
     fbg_line(fbg,x,0,x,320,0,0,0);
 }
+
 void clearScreen()
 {
     fbg_clear(fbg, 0);
 }
+
 void commitScreenBuffer()
 {
     fbg_flip(fbg);
@@ -174,6 +183,7 @@ void postScreenSem()
 {
     sem_post(&semRender);
 }
+
 void renderDynamicView()
 {
     int envelopeState = envelope->getState();
@@ -243,6 +253,7 @@ void renderDynamicView()
         table2Screen(currentScreenWavetable);
     }
 }
+
 void *RenderScreen(void *arg)
 {
     sem_init(&semRender, 0, 1);
@@ -263,9 +274,11 @@ void *RenderScreen(void *arg)
     }
     return NULL;
 }
+
 void fillScreen()
 {
 }
+
 void endFbGraphics()
 {
     fbg_freeImage(bb_font_img);
