@@ -152,12 +152,46 @@ void renderBlurMode()
 {
     clearScreen();
 
-    double threshold = (att_v - 4095) * (fGP.Blur.thrsMax - fGP.Blur.thrsMin) / (0 - 4095) + fGP.Blur.thrsMin;
-    applyKBlur(wave[screenstate], currentScreenWavetable, threshold , threshold);
-
     fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
     fbg_write(fbg, ">", SCREEN_SW4_5_POSX, SCREEN_SW1_4_POSY);
-    fbg_write(fbg, "Blur", 190, 15); //TODO IMPLEMENT MORE BLURING ALGORITHMS
+
+    uint8_t algorithm = (uint8_t) ( (rel_v - 4095) * (1 - 4) / (0 - 4095) + 4);
+
+    switch(algorithm)
+    {
+        case 1:
+        {
+            double threshold = (att_v - 4095) * (fGP.KBlur.thrsMax - fGP.KBlur.thrsMin) / (0 - 4095) + fGP.KBlur.thrsMin;
+            double gain = (dec_v - 4095) * (fGP.KBlur.gainMax - fGP.KBlur.gainMin) / (0 - 4095) + fGP.KBlur.gainMin;
+            uint16_t window = (sus_v - 4095) * (fGP.KBlur.windowMax - fGP.KBlur.windowMin) / (0 - 4095) + fGP.KBlur.windowMin;
+            applyKBlurForward(wave[screenstate], currentScreenWavetable, threshold , gain, window);
+            fbg_write(fbg, "K-Blur-F", 190, 15);
+        }
+        break;
+        case 2:
+        {
+            double threshold = (att_v - 4095) * (fGP.KBlur.thrsMax - fGP.KBlur.thrsMin) / (0 - 4095) + fGP.KBlur.thrsMin;
+            double gain = (dec_v - 4095) * (fGP.KBlur.gainMax - fGP.KBlur.gainMin) / (0 - 4095) + fGP.KBlur.gainMin;
+            uint16_t window = (sus_v - 4095) * (fGP.KBlur.windowMax - fGP.KBlur.windowMin) / (0 - 4095) + fGP.KBlur.windowMin;
+            applyKBlurBackward(wave[screenstate], currentScreenWavetable, threshold , gain, window);
+            fbg_write(fbg, "K-Blur-B", 190, 15);
+        }
+        break;
+        case 3:
+        {
+            uint16_t rounds = (att_v - 4095) * (fGP.MBlur.roundsMin - fGP.MBlur.roundsMax) / (0 - 4095) + fGP.MBlur.roundsMax;
+            applyMedianBlur(wave[screenstate], currentScreenWavetable, rounds);
+            fbg_write(fbg, "M-Blur", 190, 15);
+        }
+        break;
+        default:
+        {
+            uint16_t rounds = (att_v - 4095) * (fGP.MBlur.roundsMin - fGP.MBlur.roundsMax) / (0 - 4095) + fGP.MBlur.roundsMax;
+            applyMedianBlur(wave[screenstate], currentScreenWavetable, rounds);
+            fbg_write(fbg, "M-Blur", 190, 15);
+        }
+        break;
+    }
 
     table2Screen(currentScreenWavetable);
 }
