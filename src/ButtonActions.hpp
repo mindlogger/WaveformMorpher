@@ -2,7 +2,7 @@
 #define BUTTONACTIONS_H
 
 void assignMainActions();
-void assignLoadActions();
+void assignLoadPatchActions();
 void assignStoreActions();
 void assignPatchSettingActions();
 void assignInsertActions();
@@ -27,12 +27,20 @@ void actionSavePatch(uint32_t tick, uint8_t id);
 
 void actionToggleVCA(uint32_t tick, uint8_t id);
 
-void actionLoad(uint32_t tick, uint8_t id);
+void actionBrowsePatch(uint32_t tick, uint8_t id);
 void actionLoadPatch(uint32_t tick, uint8_t id);
-void actionBrowseUp(uint32_t tick, uint8_t id);
-void actionBrowseDown(uint32_t tick, uint8_t id);
+void actionPatchBrowseUp(uint32_t tick, uint8_t id);
+void actionPatchBrowseDown(uint32_t tick, uint8_t id);
 
-void actionStore(uint32_t tick, uint8_t id);
+void actionStorePatch(uint32_t tick, uint8_t id);
+
+void actionStoreWave(uint32_t tick, uint8_t id);
+
+void actionBrowseWave(uint32_t tick, uint8_t id);
+void actionLoadWave(uint32_t tick, uint8_t id);
+void actionDeleteWave(uint32_t tick, uint8_t id);
+void actionWaveBrowseUp(uint32_t tick, uint8_t id);
+void actionWaveBrowseDown(uint32_t tick, uint8_t id);
 
 void actionWaveStep(uint32_t tick, uint8_t id);
 void actionWaveN(uint32_t tick, uint8_t id);

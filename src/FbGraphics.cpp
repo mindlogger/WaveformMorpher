@@ -135,6 +135,9 @@ void renderScreen()
         case BlurMode:
             renderBlurMode();
         break;
+        case UserInsertWave:
+            renderUserInsertWave();
+        break;
     }}
 
 void initFbGraphics()

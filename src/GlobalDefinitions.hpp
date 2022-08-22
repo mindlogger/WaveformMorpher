@@ -22,7 +22,7 @@
 #include <string>
 
 enum Screenstates {A,D,SS,SE,R}; //PS: Patch Settings //GS: Global Settings
-enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, BlurMode, HiddenMode};
+enum UIStates {EditView, DynamicView, PatchSettings, GlobalSettings, Load, Store, InsertWave, BlurMode, HiddenMode, UserInsertWave};
 EXTERN int fourier_flag; //0 = wave 1 = spectrum
 EXTERN Screenstates screenstate;
 EXTERN UIStates uiState;
@@ -46,7 +46,9 @@ EXTERN struct _fbg_font *bbfont;
 EXTERN char fileSaveCharacters[12];
 EXTERN int patchNameIndex;
 EXTERN char* patchName;
-EXTERN uint8_t fileSelectionIndex;
+EXTERN uint32_t fileSelectionIndexPatch;
+EXTERN uint32_t fileSelectionIndexWave;
+EXTERN uint32_t fileUserWavesCount;
 
 EXTERN std::vector<std::string> filesInDirectory;
 

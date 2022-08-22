@@ -8,6 +8,7 @@ void renderGlobalSettings();
 void renderLoad();
 void renderStore();
 void renderInsertWave();
+void renderUserInsertWave();
 void renderHiddenMode();
 void renderBlurMode();
 #endif

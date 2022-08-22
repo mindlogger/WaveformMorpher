@@ -8,6 +8,7 @@
 #include "FourierTransformer.hpp"
 #include "ADSR.hpp"
 #include "UI.hpp"
+#include "Loader.hpp"
 
 #include "GlobalDefinitions.hpp"
 #include "json.hpp"
@@ -20,12 +21,45 @@
 
 using json = nlohmann::json;
 
-
 using namespace std;
 
-void setupLoader()
+void setupFileLoader()
 {
-    //SETUP THE FILE LOADER
+    updateUserWavesCount();
+    cout << "userWavesCount: " << fileUserWavesCount << endl;
+}
+
+void updateUserWavesCount()
+{
+    int64_t buffer = getFileCountInDirectory("/home/pi/WaveformMorpherWaves/") - 2;
+    if(buffer >= 0)
+    {
+        fileUserWavesCount = buffer;
+    }
+    else
+    {
+        cout << "ISSUE WITH THE FILE READING" << endl;
+        //TODO THROW BIG ERROR
+        return;
+    }
+}
+
+uint32_t getFileCountInDirectory(std::string path)
+{
+    DIR *d;
+    struct dirent *dir;
+    uint32_t entries = 0;
+
+    d = opendir(path.c_str());
+    if (d)
+    {
+        while ((dir = readdir(d)) != NULL)
+        {
+            entries++;
+        }
+        closedir(d);
+    }
+    return entries;
 }
 
 void getFilesInDirectory()
@@ -46,7 +80,7 @@ void getFilesInDirectory()
     }
 }
 
-void loadFile(std::string name)
+void loadPatchFromFile(std::string name)
 {
     std::ifstream inputFile("/home/pi/WaveformMorpherPatches/" + name /* + ".wmp"*/);
     json incomingJSON;
@@ -82,7 +116,7 @@ void loadFile(std::string name)
     currentEditWavetable = wave[0];
 }
 
-void saveFile(std::string name)
+void savePatchToFile(std::string name)
 {
     json outgoingJSON = {
         {"wave", wave},
@@ -99,3 +133,48 @@ void saveFile(std::string name)
 
     std::ofstream outputFile("/home/pi/WaveformMorpherPatches/" + name + ".wmp");
     outputFile << std::setw(4) << outgoingJSON << std::endl; //THE SETW MAKES IT PRETTY}
+
+void loadWaveFromFile(uint32_t index)
+{
+    if(fileUserWavesCount == 0)
+    {
+        genSil(currentScreenWavetable);
+    }
+    else
+    {
+        std::string path = std::string("/home/pi/WaveformMorpherWaves/") + std::to_string(index) + ".wmw";
+        std::ifstream inputFile(path);
+        json incomingJSON;
+        if(inputFile.is_open())
+        {
+            inputFile >> incomingJSON;
+
+            for(int i = 0; i < WAVE_TABLE_SIZE; i++)
+            {
+                currentScreenWavetable[i] = incomingJSON["wave"][i];
+            }
+        }
+        else
+        {
+            genSil(currentScreenWavetable);
+        }
+    }
+}
+
+void saveWaveToFile()
+{
+    json outgoingJSON = {
+        {"wave", wave[screenstate]},
+        {"fft", fft[screenstate]},
+    };
+
+    std::string path = std::string("/home/pi/WaveformMorpherWaves/") + std::to_string(fileUserWavesCount + 1) + ".wmw";
+    std::ofstream outputFile(path);
+    outputFile << std::setw(4) << outgoingJSON << std::endl; //THE SETW MAKES IT PRETTY
+}
+
+void deleteWaveFile(uint32_t index)
+{
+    std::string path = std::string("/home/pi/WaveformMorpherWaves/") + std::to_string(index) + ".wmw";
+    remove(&path[0]);
+}

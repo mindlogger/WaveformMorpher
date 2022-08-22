@@ -29,8 +29,8 @@ using namespace std;
 
 void assignMainActions()
 {
-    SW1Event = &actionLoad;
-    SW1ShiftEvent = &actionStore;
+    SW1Event = &actionBrowsePatch;
+    SW1ShiftEvent = &actionStorePatch;
 
     SW2Event = &actionWaveStep;
     SW2ShiftEvent = &actionWaveN;
@@ -48,7 +48,7 @@ void assignMainActions()
     SW6ShiftEvent = &actionInsert;
 }
 
-void assignLoadActions()
+void assignLoadPatchActions()
 {
     clearAllActions();
 
@@ -57,9 +57,9 @@ void assignLoadActions()
 
     SW4Event = &actionLoadPatch;
 
-    SW5Event = &actionBrowseUp;
+    SW5Event = &actionPatchBrowseUp;
 
-    SW6Event = &actionBrowseDown;
+    SW6Event = &actionPatchBrowseDown;
 }
 
 void assignStoreActions()
@@ -104,8 +104,25 @@ void assignInsertActions()
     SW2Event = &actionInsertWave;
     SW4Event = &actionInsertWave;
     SW5Event = &actionInsertWave;
+    SW6Event = &actionBrowseWave;
+    SW3Event = &actionExit;
+}
+
+void assignInsertUserActions()
+{
+    clearAllActions();
+
+    SW2Event = &actionStoreWave;
+
+    SW2ShiftEvent = &actionDeleteWave;
 
     SW3Event = &actionExit;
+
+    SW4Event = &actionLoadWave;
+
+    SW5Event = &actionWaveBrowseUp;
+
+    SW6Event = &actionWaveBrowseDown;
 }
 
 void assignGlobalSettingActions()
@@ -205,7 +222,7 @@ void actionRerollCharacters(uint32_t tick, uint8_t id)
 
 void actionSavePatch(uint32_t tick, uint8_t id)
 {
-    saveFile(string(patchName));
+    savePatchToFile(string(patchName));
     patchNameIndex = 0;
     free(patchName);
 
@@ -236,46 +253,103 @@ void actionApplyBlur(uint32_t tick, uint8_t id)
     renderScreen();
 }
 
-void actionLoad(uint32_t tick, uint8_t id)
+void actionBrowsePatch(uint32_t tick, uint8_t id)
 {
     getFilesInDirectory();
 
     uiState = Load;
-    assignLoadActions();
+    assignLoadPatchActions();
     renderScreen();
 }
 
 void actionLoadPatch(uint32_t tick, uint8_t id)
 {
-    loadFile(filesInDirectory[fileSelectionIndex]);
+    loadPatchFromFile(filesInDirectory[fileSelectionIndexPatch]);
 
-    uiState = EditView;
-    assignMainActions();
-    renderScreen();
+    patchNameIndex = 0;
+    fileSelectionIndexPatch = 0;
+    browsingWindowOffset = 0;
+
+    actionExit(0,0);
 }
 
-void actionBrowseUp(uint32_t tick, uint8_t id)
+void actionPatchBrowseUp(uint32_t tick, uint8_t id)
 {
-    if(fileSelectionIndex > 0)
-        fileSelectionIndex--;
-    if(fileSelectionIndex - browsingWindowOffset < 3 && browsingWindowOffset != 0)
+    if(fileSelectionIndexPatch > 0)
+        fileSelectionIndexPatch--;
+    if(fileSelectionIndexPatch - browsingWindowOffset < 3 && browsingWindowOffset != 0)
         browsingWindowOffset--;
     renderScreen();
 }
 
-void actionBrowseDown(uint32_t tick, uint8_t id)
+void actionPatchBrowseDown(uint32_t tick, uint8_t id)
 {
-    if(filesInDirectory.size() -1 > fileSelectionIndex)
-        fileSelectionIndex++;
-    if(fileSelectionIndex - browsingWindowOffset > 6 && browsingWindowOffset + 9 < filesInDirectory.size())
+    if(filesInDirectory.size() -1 > fileSelectionIndexPatch)
+        fileSelectionIndexPatch++;
+    if(fileSelectionIndexPatch - browsingWindowOffset > 6 && browsingWindowOffset + 9 < filesInDirectory.size())
         browsingWindowOffset++;
     renderScreen();
 }
 
-void actionStore(uint32_t tick, uint8_t id)
+void actionStorePatch(uint32_t tick, uint8_t id)
 {
     uiState = Store;
     assignStoreActions();
+    renderScreen();
+}
+
+void actionStoreWave(uint32_t tick, uint8_t id)
+{
+    saveWaveToFile();
+    updateUserWavesCount();
+
+    fileSelectionIndexWave = 1;
+
+    actionExit(0,0);
+}
+
+void actionBrowseWave(uint32_t tick, uint8_t id)
+{
+    loadWaveFromFile(fileSelectionIndexWave);
+    uiState = UserInsertWave;
+    assignInsertUserActions();
+    renderScreen();
+}
+
+void actionLoadWave(uint32_t tick, uint8_t id)
+{
+    for(int i = 0; i < WAVE_TABLE_SIZE; i++)
+    {
+        wave[screenstate][i] = currentScreenWavetable[i];
+    }
+
+    fileSelectionIndexWave = 1;
+
+    actionExit(0,0);
+}
+
+void actionDeleteWave(uint32_t tick, uint8_t id)
+{
+    //deleteWaveFile(fileSelectionIndexWave); //IMPLEMENT THIS IN THE FUTURE WITH PROPER FILE BROWSING/HANDLING
+}
+
+void actionWaveBrowseUp(uint32_t tick, uint8_t id)
+{
+    if(fileSelectionIndexWave > 1)
+    {
+        fileSelectionIndexWave--;
+        loadWaveFromFile(fileSelectionIndexWave);
+    }
+    renderScreen();
+}
+
+void actionWaveBrowseDown(uint32_t tick, uint8_t id)
+{
+    if(fileUserWavesCount > fileSelectionIndexWave)
+    {
+        fileSelectionIndexWave++;
+        loadWaveFromFile(fileSelectionIndexWave);
+    }
     renderScreen();
 }
 

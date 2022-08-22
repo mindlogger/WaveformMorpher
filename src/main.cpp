@@ -62,7 +62,9 @@ void main_init()
     WaveTable[4] = ReleaseTable;
 
     patchNameIndex = 0;
-    fileSelectionIndex = 0;
+    fileSelectionIndexPatch = 0;
+    fileSelectionIndexWave = 1;
+    fileUserWavesCount = 0;
     browsingWindowOffset = 0;
 
     srand((unsigned int)time(NULL));   // Initialization, should only be called once.
@@ -76,6 +78,8 @@ void main_init()
     genSil(clipboard);
 
     setNTables();
+
+    setupFileLoader();
 
     initAudio();
     setupUI();

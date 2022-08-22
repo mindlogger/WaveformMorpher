@@ -20,13 +20,13 @@
 
 1661011097 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1661160938 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1661173166 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
 	<string>
 
-1661157549 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1661167574 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1661158395 source:/home/pi/WaveformMorpher/src/main.cpp
+1661177371 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -87,6 +87,7 @@
 	"ADSR.hpp"
 	"UI.hpp"
 	"Loader.hpp"
+	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<signal.h>
 	<pthread.h>
@@ -243,7 +244,7 @@
 1660821192 /usr/local/include/json-c/linkhash.h
 	"json_object.h"
 
-1661160673 source:/home/pi/WaveformMorpher/src/Loader.cpp
+1661177816 source:/home/pi/WaveformMorpher/src/Loader.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -254,6 +255,7 @@
 	"FourierTransformer.hpp"
 	"ADSR.hpp"
 	"UI.hpp"
+	"Loader.hpp"
 	"GlobalDefinitions.hpp"
 	"json.hpp"
 	<stdio.h>
@@ -262,7 +264,7 @@
 	<vector>
 	<dirent.h>
 
-1661161750 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1661177719 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -288,11 +290,11 @@
 	<string>
 	<vector>
 
-1661158763 /home/pi/WaveformMorpher/src/ButtonActions.hpp
+1661172663 /home/pi/WaveformMorpher/src/ButtonActions.hpp
 
-1660995310 /home/pi/WaveformMorpher/src/UIRenderer.hpp
+1661173610 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1661160488 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1661177514 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
@@ -303,7 +305,7 @@
 	<string.h>
 	"fbgraphics.h"
 
-1660920377 /home/pi/WaveformMorpher/src/Loader.hpp
+1661172623 /home/pi/WaveformMorpher/src/Loader.hpp
 	<string>
 
 1660309567 /home/pi/WaveformMorpher/src/json.hpp

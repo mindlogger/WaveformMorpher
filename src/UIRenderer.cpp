@@ -264,7 +264,7 @@ void renderLoad()
 
     for(int i = 0; i < 9 && i < filesInDirectory.size(); i++)
     {
-        if(fileSelectionIndex == i + browsingWindowOffset)
+        if(fileSelectionIndexPatch == i + browsingWindowOffset)
         {
             fbg_text(fbg, bbfont, "o", calcCenterOfText(filesInDirectory[i + browsingWindowOffset]) - 2*16, 48 + (i*30), fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
             fbg_text(fbg, bbfont, "o", calcCenterOfText(filesInDirectory[i + browsingWindowOffset]) + (filesInDirectory[i + browsingWindowOffset].length() * 16) + 16, 49 + (i*30), fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
@@ -407,12 +407,43 @@ void renderStore()
 void renderInsertWave()
 {
     clearScreen();
+
     fbg_write(fbg, "Insert Wave", calcCenterOfText("Insert Wave"), SCREEN_HEADER_Y);
+
     fbg_write(fbg, "Sine", SCREEN_SW1_3_POSX, SCREEN_SW1_4_POSY);
     fbg_write(fbg, "Square", SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY);
-    fbg_write(fbg, "Saw", SCREEN_SW4_6_POSX - 40, SCREEN_SW1_4_POSY);
-    fbg_write(fbg, "Silence", SCREEN_SW4_6_POSX - 95, SCREEN_SW2_5_POSY);
+    fbg_write(fbg, "Saw", SCREEN_SW4_6_POSX - 2*16, SCREEN_SW1_4_POSY);
+    fbg_write(fbg, "Silence", SCREEN_SW4_6_POSX - 6*16, SCREEN_SW2_5_POSY);
+    fbg_write(fbg, "User", SCREEN_SW4_6_POSX - 3*16, SCREEN_SW3_6_POSY);
     fbg_write(fbg, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY);
+
+    commitScreenBuffer();
+}
+
+void renderUserInsertWave()
+{
+    clearScreen();
+
+    table2Screen(currentScreenWavetable);
+
+    clearScreen();
+
+    table2Screen(currentScreenWavetable);
+
+    fbg_write(fbg, "User Wave", calcCenterOfText("User Wave"), SCREEN_HEADER_Y);
+    fbg_write(fbg, &(std::to_string(fileSelectionIndexWave))[0] , calcCenterOfText(std::to_string(fileSelectionIndexWave)), SCREEN_SECOND_HEADER_Y);
+
+    /*SW2Text[0] = ' ';
+    SW2Text[1] = '/';
+    SW2Text[2] = ' ';*/
+
+    //fbg_write(fbg, SW2Text, SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY);
+    fbg_text(fbg, bbfont , "W", SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    //fbg_text(fbg, bbfont , "x", SCREEN_SW1_3_POSX + 2*16, SCREEN_SW2_5_POSY - 1, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r); //IMPLEMENT THIS IN THE FUTURE WITH PROPER FILE BROWSING/HANDLING
+
+    fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
+    fbg_text(fbg, bbfont , ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
+
     commitScreenBuffer();
 }
 
