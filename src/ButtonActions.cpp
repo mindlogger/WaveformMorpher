@@ -363,7 +363,16 @@ void actionQuestionS(uint32_t tick, uint8_t id)
     }
     else
     {
-        addText("Exit FFT for Blur Mode", calcCenterOfText("Exit FFT for Blur Mode"), SCREEN_HEADER_Y, 2);
+        for(int i = 0; i < WAVE_TABLE_SIZE; i++) //APPLY SNAPSHOT FOR UNDOING
+        {
+            fft[screenstate][i] = fftEnterSnapshot[i];
+        }
+        fft_has_been_touched_flag = 1;
+
+        renderScreen();
+        clearScreen();
+        insertCurrentTableName();
+        addText("Undo", calcCenterOfText("Undo"), SCREEN_HEADER_Y, 1);
     }
 }
 
@@ -401,6 +410,12 @@ void actionFourier(uint32_t tick, uint8_t id)
     {
         currentEditWavetable = fft[screenstate];
         transForward(screenstate);
+
+        for(int i = 0; i < WAVE_TABLE_SIZE; i++) //GET A SNAPSHOT FOR UNDOING
+        {
+            fftEnterSnapshot[i] = fft[screenstate][i];
+        }
+
         fourier_flag = 1;
         renderScreen();
         clearScreen();

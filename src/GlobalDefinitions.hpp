@@ -81,8 +81,9 @@ EXTERN double HELPVALUE;
 EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE];
 EXTERN double *currentEditWavetable;
 
-
 EXTERN double clipboard[WAVE_TABLE_SIZE];
+
+EXTERN double fftEnterSnapshot[WAVE_TABLE_SIZE];
 
 EXTERN double* AttackTable;
 EXTERN double* DecayTable;
