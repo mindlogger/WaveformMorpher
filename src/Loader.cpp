@@ -65,6 +65,8 @@ void loadFile(std::string name)
 
     VCAFlag = (bool) incomingJSON["VCA_FLAG"];
 
+    KnobBehaviour = (bool) incomingJSON["KnobBehaviour"];
+
     knob1Value = (double) incomingJSON["att_v"];
     knob2Value = (double) incomingJSON["dec_v"];
     knob3Value = (double) incomingJSON["sus_v"];
@@ -87,6 +89,7 @@ void saveFile(std::string name)
         {"fft", fft},
         {"NTables", NTables},
         {"VCA_FLAG", VCAFlag},
+        {"KnobBehaviour", KnobBehaviour},
         {"att_v", knob1Value},
         {"dec_v", knob2Value},
         {"sus_v", knob3Value},
