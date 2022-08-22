@@ -16,7 +16,7 @@ double interpol = 0.0;
 
 void setNTables()
 {
-   switch (NTables)
+    switch (NTables)
     {
         case 1:
             WaveTable[0] = wave[0];
@@ -52,6 +52,140 @@ void setNTables()
             WaveTable[2] = wave[2];
             WaveTable[3] = wave[3];
             WaveTable[4] = wave[4];
+        break;
+    }
+}
+
+void setCueTable()
+{
+    switch (NTables)
+    {
+        case 1:
+            WaveTable[0] = currentScreenWavetable;
+            WaveTable[1] = currentScreenWavetable;
+            WaveTable[2] = currentScreenWavetable;
+            WaveTable[3] = currentScreenWavetable;
+            WaveTable[4] = currentScreenWavetable;
+        break;
+        case 2:
+            if(screenstate == 0)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[0];
+                WaveTable[2] = wave[0];
+                WaveTable[3] = wave[0];
+                WaveTable[4] = currentScreenWavetable;
+            }
+            else if(screenstate == 1)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[0];
+                WaveTable[2] = wave[0];
+                WaveTable[3] = wave[0];
+                WaveTable[4] = currentScreenWavetable;
+            }
+        break;
+        case 3:
+            if(screenstate == 0)
+            {
+                WaveTable[0] = currentScreenWavetable;
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[1];
+                WaveTable[3] = wave[1];
+                WaveTable[4] = wave[2];
+            }
+            else if(screenstate == 1)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = currentScreenWavetable;
+                WaveTable[2] = currentScreenWavetable;
+                WaveTable[3] = currentScreenWavetable;
+                WaveTable[4] = wave[2];
+            }
+            else if(screenstate == 2)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[1];
+                WaveTable[3] = wave[1];
+                WaveTable[4] = currentScreenWavetable;
+            }
+        break;
+        case 4:
+            if(screenstate == 0)
+            {
+                WaveTable[0] = currentScreenWavetable;
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[2];
+                WaveTable[3] = wave[2];
+                WaveTable[4] = wave[3];
+            }
+            else if(screenstate == 1)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = currentScreenWavetable;
+                WaveTable[2] = wave[2];
+                WaveTable[3] = wave[2];
+                WaveTable[4] = wave[3];
+            }
+            else if(screenstate == 2)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[1];
+                WaveTable[2] = currentScreenWavetable;
+                WaveTable[3] = wave[2];
+                WaveTable[4] = wave[3];
+            }
+            else if(screenstate == 3)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[2];
+                WaveTable[3] = wave[2];
+                WaveTable[4] = currentScreenWavetable;
+            }
+        break;
+        case 5:
+            if(screenstate == 0)
+            {
+                WaveTable[0] = currentScreenWavetable;
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[2];
+                WaveTable[3] = wave[3];
+                WaveTable[4] = wave[4];
+            }
+            else if(screenstate == 1)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = currentScreenWavetable;
+                WaveTable[2] = wave[2];
+                WaveTable[3] = wave[3];
+                WaveTable[4] = wave[4];
+            }
+            else if(screenstate == 2)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[1];
+                WaveTable[2] = currentScreenWavetable;
+                WaveTable[3] = wave[3];
+                WaveTable[4] = wave[4];
+            }
+            else if(screenstate == 3)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[2];
+                WaveTable[3] = currentScreenWavetable;
+                WaveTable[4] = wave[4];
+            }
+            else if(screenstate == 4)
+            {
+                WaveTable[0] = wave[0];
+                WaveTable[1] = wave[1];
+                WaveTable[2] = wave[2];
+                WaveTable[3] = wave[3];
+                WaveTable[4] = currentScreenWavetable;
+            }
         break;
     }
 }
@@ -92,7 +226,7 @@ float getWavetableValue()
         case 0:
 
         break;
-        case 1://A //DONE
+        case 1://A
             interpol = (master_gain*interpol_b + interpol_a*abs(master_gain-1)); //INTERPOL A IST ATTACK; INTERPOL B IST DECAY
         break;
         case 2://D

@@ -2,6 +2,7 @@
 #ifndef WAVEOSC_H
 #define WAVEOSC_H
 void setNTables();
+void setCueTable();
 float getWavetableValue();
 void setfreq(double f);
 enum envState {

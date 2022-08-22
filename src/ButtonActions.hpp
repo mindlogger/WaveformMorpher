@@ -16,6 +16,7 @@ void actionInsertWave(uint32_t tick, uint8_t id);
 void dummyAction(uint32_t tick, uint8_t id);
 
 void actionApplyBlur(uint32_t tick, uint8_t id);
+void actionUndoBlur(uint32_t tick, uint8_t id);
 
 void actionToggleKnobBehaviourPatch(uint32_t tick, uint8_t id);
 void actionToggleKnobBehaviourGlobal(uint32_t tick, uint8_t id);

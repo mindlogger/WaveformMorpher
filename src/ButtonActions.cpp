@@ -142,8 +142,7 @@ void assignBlurActions()
 
     SW4Event = &actionApplyBlur;
 
-    SW3Event = &actionExit;
-    SW3ShiftEvent = &actionExit;
+    SW3Event = &actionUndoBlur;
 }
 
 void clearAllActions()
@@ -248,9 +247,17 @@ void actionApplyBlur(uint32_t tick, uint8_t id)
         wave[screenstate][i] = currentScreenWavetable[i];
     }
 
-    uiState = EditView;
-    assignMainActions();
-    renderScreen();
+    actionExit(0,0);
+}
+
+void actionUndoBlur(uint32_t tick, uint8_t id)
+{
+    for(int i = 0; i<WAVE_TABLE_SIZE; i++)
+    {
+        wave[screenstate][i] = fftEnterSnapshot[i];
+    }
+
+    actionExit(0,0);
 }
 
 void actionBrowsePatch(uint32_t tick, uint8_t id)
@@ -412,6 +419,11 @@ void actionExit(uint32_t tick, uint8_t id)
         break;
         case HiddenMode:
         break;
+        case BlurMode:
+            setNTables();
+        break;
+        case UserInsertWave:
+        break;
     }
 
     uiState = EditView;
@@ -432,6 +444,11 @@ void actionQuestionS(uint32_t tick, uint8_t id)
 {
     if(!fourier_flag)
     {
+        for(int i = 0; i < WAVE_TABLE_SIZE; i++) //APPLY SNAPSHOT FOR UNDOING
+        {
+            fftEnterSnapshot[i] = wave[screenstate][i];
+        }
+        setCueTable();
         uiState = BlurMode;
         assignBlurActions();
     }
