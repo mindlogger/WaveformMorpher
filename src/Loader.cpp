@@ -63,12 +63,12 @@ void loadFile(std::string name)
 
     NTables = (int) incomingJSON["NTables"];
 
-    VCA_FLAG = (bool) incomingJSON["VCA_FLAG"];
+    VCAFlag = (bool) incomingJSON["VCA_FLAG"];
 
-    att_v = (double) incomingJSON["att_v"];
-    dec_v = (double) incomingJSON["dec_v"];
-    sus_v = (double) incomingJSON["sus_v"];
-    rel_v = (double) incomingJSON["rel_v"];
+    knob1Value = (double) incomingJSON["att_v"];
+    knob2Value = (double) incomingJSON["dec_v"];
+    knob3Value = (double) incomingJSON["sus_v"];
+    knob4Value = (double) incomingJSON["rel_v"];
     loop_v= (double) incomingJSON["loop_v"];
 
     screenstate = A;
@@ -86,11 +86,11 @@ void saveFile(std::string name)
         {"wave", wave},
         {"fft", fft},
         {"NTables", NTables},
-        {"VCA_FLAG", VCA_FLAG},
-        {"att_v", att_v},
-        {"dec_v", dec_v},
-        {"sus_v", sus_v},
-        {"rel_v", rel_v},
+        {"VCA_FLAG", VCAFlag},
+        {"att_v", knob1Value},
+        {"dec_v", knob2Value},
+        {"sus_v", knob3Value},
+        {"rel_v", knob4Value},
         {"loop_v", loop_v},
     };
 

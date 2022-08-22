@@ -9,7 +9,7 @@
 #include "ADSR.hpp"
 #include "UI.hpp"
 #include "ButtonActions.hpp"
-
+#include "GlobalPreset.hpp"
 #include "GlobalDefinitions.hpp"
 
 #include <pigpio.h>
@@ -163,17 +163,23 @@ unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
     return 0;
     }
 }
-void getADCValues()//TODO MAYBE SOME NICER SCALING HERE?
+void getADCValues()
 {
-    att_v = readADC(0);
-    dec_v = readADC(1);
-    sus_v = readADC(2);
-    rel_v = readADC(3);
-    loop_v = readADC(7);;
-    envelope->setAttackRate(((5*att_v/4096.0) + 0.01) * SAMPLE_RATE);
-    envelope->setDecayRate(((5*dec_v/4096.0) + 0.01) * SAMPLE_RATE);
-    envelope->setSustainLevel(sus_v/4096.0);
-    envelope->setReleaseRate(((5*rel_v/4096.0) + 0.01) * SAMPLE_RATE);
+    knob1Value = readADC(0);
+    knob2Value = readADC(1);
+    knob3Value = readADC(2);
+    knob4Value = readADC(3);
+    loop_v = readADC(7);
+    if(fGP.KnobResponse == Always
+    || (fGP.KnobResponse == EditViewOnly && uiState == EditView)
+    || (fGP.KnobResponse == PerPatch && KnobBehaviour == true && uiState == EditView)
+    || (fGP.KnobResponse == PerPatch && KnobBehaviour == false))
+    {
+        envelope->setAttackRate(((5*knob1Value/4096.0) + 0.01) * SAMPLE_RATE);
+        envelope->setDecayRate(((5*knob2Value/4096.0) + 0.01) * SAMPLE_RATE);
+        envelope->setSustainLevel(knob3Value/4096.0);
+        envelope->setReleaseRate(((5*knob4Value/4096.0) + 0.01) * SAMPLE_RATE);
+    }
     double adc_7 = loop_v;
     if(adc_7 > 3700)
     {

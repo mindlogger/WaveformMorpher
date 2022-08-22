@@ -44,7 +44,8 @@ void main_init()
     fft_has_been_touched_flag = 0;
     NTables = 5;
     loopingFlag = 0;
-    VCA_FLAG = false;
+    VCAFlag = false;
+    KnobBehaviour = true;
 
     AttackTable = wave[0];
     DecayTable = wave[1];

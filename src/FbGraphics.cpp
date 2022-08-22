@@ -204,7 +204,7 @@ void renderDynamicView()
             working_wavetable = wave;
         }
 
-        double normalizedSustain = sus_v/4096.0;
+        double normalizedSustain = knob3Value/4096.0;
         double inverse_master_gain = abs(master_gain-1.0);
         double dec_gain = (master_gain-normalizedSustain)*((-1)/(normalizedSustain-1));
         double inv_dec_gain = (master_gain-normalizedSustain)*((1)/(normalizedSustain-1))+1;

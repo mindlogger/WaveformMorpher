@@ -12,6 +12,7 @@
 #include "Loader.hpp"
 #include "Blur.hpp"
 #include "UIRenderer.hpp"
+#include "GlobalPreset.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -89,6 +90,7 @@ void assignPatchSettingActions()
     clearAllActions();
 
     SW5Event = &actionToggleVCA;
+    SW6Event = &actionToggleKnobBehaviourPatch;
 
     SW3Event = &actionExit;
     SW3ShiftEvent = &actionExit;
@@ -109,6 +111,10 @@ void assignInsertActions()
 void assignGlobalSettingActions()
 {
     clearAllActions();
+
+    SW5Event = &actionToggleContinous;
+    SW6Event = &actionToggleKnobBehaviourGlobal;
+
     SW3Event = &actionExit;
     SW3ShiftEvent = &actionExit;
 }
@@ -144,6 +150,27 @@ void clearAllActions()
     SW6ShiftEvent = &dummyAction;
 }
 
+void actionToggleKnobBehaviourPatch(uint32_t tick, uint8_t id)
+{
+    if(fGP.KnobResponse == PerPatch)
+    {
+        KnobBehaviour = ! KnobBehaviour;
+        renderScreen();
+    }
+}
+
+void actionToggleKnobBehaviourGlobal(uint32_t tick, uint8_t id)
+{
+    fGP.KnobResponse = (EKnobResponseTypes) ( (fGP.KnobResponse + 1) % 3);
+    renderScreen();
+}
+
+void actionToggleContinous(uint32_t tick, uint8_t id)
+{
+    fGP.Visual.continous = ! fGP.Visual.continous;
+    renderScreen();
+}
+
 void actionInsertWave(uint32_t tick, uint8_t id)
 {
     switch(id)
@@ -163,6 +190,7 @@ void actionInsertWave(uint32_t tick, uint8_t id)
     }
     actionExit(0,0);
 }
+
 void actionCharacterClick(uint32_t tick, uint8_t id)
 {
     patchName[patchNameIndex] = fileSaveCharacters[id-1];
@@ -188,7 +216,7 @@ void actionSavePatch(uint32_t tick, uint8_t id)
 
 void actionToggleVCA(uint32_t tick, uint8_t id)
 {
-    VCA_FLAG = !VCA_FLAG;
+    VCAFlag = !VCAFlag;
     renderScreen();
 }
 

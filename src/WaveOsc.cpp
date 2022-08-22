@@ -64,7 +64,7 @@ float getWavetableValue()
     double nachkomma_x = 0;
     master_gain = envelope->process();
     int envelopeState = envelope->getState();
-    double normalizedSustain = sus_v/4096.0;
+    double normalizedSustain = knob3Value/4096.0;
     double interpol_a = 0;
     double interpol_b = 0;
 
@@ -144,7 +144,7 @@ float getWavetableValue()
         }
     }
 
-    if(VCA_FLAG)
+    if(VCAFlag)
         return interpol * master_gain;
     else
         return interpol;

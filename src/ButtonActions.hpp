@@ -17,6 +17,10 @@ void dummyAction(uint32_t tick, uint8_t id);
 
 void actionApplyBlur(uint32_t tick, uint8_t id);
 
+void actionToggleKnobBehaviourPatch(uint32_t tick, uint8_t id);
+void actionToggleKnobBehaviourGlobal(uint32_t tick, uint8_t id);
+void actionToggleContinous(uint32_t tick, uint8_t id);
+
 void actionCharacterClick(uint32_t tick, uint8_t id);
 void actionRerollCharacters(uint32_t tick, uint8_t id);
 void actionSavePatch(uint32_t tick, uint8_t id);

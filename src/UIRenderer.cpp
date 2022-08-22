@@ -209,10 +209,22 @@ void renderPatchSettings()
     clearScreen();
 
     fbg_write(fbg, "Patch Settings", calcCenterOfText("Patch Settings"), SCREEN_HEADER_Y);
-    if(VCA_FLAG)
-        fbg_write(fbg, "VCA:On", SCREEN_SW4_6_POSX - 100, SCREEN_SW2_5_POSY);
+
+    if(VCAFlag)
+        fbg_write(fbg, "VCA:On", SCREEN_SW4_6_POSX - 5*16, SCREEN_SW2_5_POSY);
     else
-        fbg_write(fbg, "VCA:Off", SCREEN_SW4_6_POSX - 100, SCREEN_SW2_5_POSY);
+        fbg_write(fbg, "VCA:Off", SCREEN_SW4_6_POSX - 6*16, SCREEN_SW2_5_POSY);
+    if(fGP.KnobResponse == PerPatch)
+    {
+        if(KnobBehaviour)
+            fbg_write(fbg, "KnobB:EditViewOnly", SCREEN_SW4_6_POSX - 17*16, SCREEN_SW3_6_POSY);
+        else
+            fbg_write(fbg, "KnobB:Always", SCREEN_SW4_6_POSX - 11*16, SCREEN_SW3_6_POSY);
+    }
+    else
+    {
+            fbg_write(fbg, "KnobB:GlobalSettings", SCREEN_SW4_6_POSX - 19*16, SCREEN_SW3_6_POSY);
+    }
 
     fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
     commitScreenBuffer();
@@ -223,6 +235,25 @@ void renderGlobalSettings()
     clearScreen();
 
     fbg_write(fbg, "Global Settings", calcCenterOfText("Global Settings"), SCREEN_HEADER_Y);
+
+    if(fGP.Visual.continous)
+        fbg_write(fbg, "Wave:Continous", SCREEN_SW4_6_POSX - 13*16, SCREEN_SW2_5_POSY);
+    else
+        fbg_write(fbg, "Wave:Discrete", SCREEN_SW4_6_POSX - 12*16, SCREEN_SW2_5_POSY);
+
+    switch(fGP.KnobResponse)
+    {
+        case EditViewOnly:
+            fbg_write(fbg, "KnobB:EditViewOnly", SCREEN_SW4_6_POSX - 17*16, SCREEN_SW3_6_POSY);
+        break;
+        case PerPatch:
+            fbg_write(fbg, "KnobB:PerPatch", SCREEN_SW4_6_POSX - 13*16, SCREEN_SW3_6_POSY);
+        break;
+        case Always:
+            fbg_write(fbg, "KnobB:Always", SCREEN_SW4_6_POSX - 11*16, SCREEN_SW3_6_POSY);
+        break;
+    }
+
     fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
     commitScreenBuffer();
 }
@@ -253,38 +284,38 @@ void renderBlurMode()
     fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
     fbg_text(fbg, bbfont , ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
 
-    uint8_t algorithm = (uint8_t) ( (rel_v - 4095) * (1 - 4) / (0 - 4095) + 4);
+    uint8_t algorithm = (uint8_t) ( (knob4Value - 4095) * (1 - 4) / (0 - 4095) + 4);
 
     switch(algorithm)
     {
         case 1:
         {
-            double threshold = (att_v - 4095) * (fGP.KBlur.thrsMax - fGP.KBlur.thrsMin) / (0 - 4095) + fGP.KBlur.thrsMin;
-            double gain = (dec_v - 4095) * (fGP.KBlur.gainMax - fGP.KBlur.gainMin) / (0 - 4095) + fGP.KBlur.gainMin;
-            uint16_t window = (sus_v - 4095) * (fGP.KBlur.windowMax - fGP.KBlur.windowMin) / (0 - 4095) + fGP.KBlur.windowMin;
+            double threshold = (knob1Value - 4095) * (fGP.KBlur.thrsMax - fGP.KBlur.thrsMin) / (0 - 4095) + fGP.KBlur.thrsMin;
+            double gain = (knob2Value - 4095) * (fGP.KBlur.gainMax - fGP.KBlur.gainMin) / (0 - 4095) + fGP.KBlur.gainMin;
+            uint16_t window = (knob3Value - 4095) * (fGP.KBlur.windowMax - fGP.KBlur.windowMin) / (0 - 4095) + fGP.KBlur.windowMin;
             applyKBlurForward(wave[screenstate], currentScreenWavetable, threshold , gain, window);
             fbg_write(fbg, "K-Blur-F", calcCenterOfText("K-Blur-F"), SCREEN_HEADER_Y);
         }
         break;
         case 2:
         {
-            double threshold = (att_v - 4095) * (fGP.KBlur.thrsMax - fGP.KBlur.thrsMin) / (0 - 4095) + fGP.KBlur.thrsMin;
-            double gain = (dec_v - 4095) * (fGP.KBlur.gainMax - fGP.KBlur.gainMin) / (0 - 4095) + fGP.KBlur.gainMin;
-            uint16_t window = (sus_v - 4095) * (fGP.KBlur.windowMax - fGP.KBlur.windowMin) / (0 - 4095) + fGP.KBlur.windowMin;
+            double threshold = (knob1Value - 4095) * (fGP.KBlur.thrsMax - fGP.KBlur.thrsMin) / (0 - 4095) + fGP.KBlur.thrsMin;
+            double gain = (knob2Value - 4095) * (fGP.KBlur.gainMax - fGP.KBlur.gainMin) / (0 - 4095) + fGP.KBlur.gainMin;
+            uint16_t window = (knob3Value - 4095) * (fGP.KBlur.windowMax - fGP.KBlur.windowMin) / (0 - 4095) + fGP.KBlur.windowMin;
             applyKBlurBackward(wave[screenstate], currentScreenWavetable, threshold , gain, window);
             fbg_write(fbg, "K-Blur-B", calcCenterOfText("K-Blur-B"), SCREEN_HEADER_Y);
         }
         break;
         case 3:
         {
-            uint16_t rounds = (att_v - 4095) * (fGP.MBlur.roundsMin - fGP.MBlur.roundsMax) / (0 - 4095) + fGP.MBlur.roundsMax;
+            uint16_t rounds = (knob1Value - 4095) * (fGP.MBlur.roundsMin - fGP.MBlur.roundsMax) / (0 - 4095) + fGP.MBlur.roundsMax;
             applyMedianBlur(wave[screenstate], currentScreenWavetable, rounds);
             fbg_write(fbg, "M-Blur", calcCenterOfText("M-Blur"), SCREEN_HEADER_Y);
         }
         break;
         default:
         {
-            uint16_t rounds = (att_v - 4095) * (fGP.MBlur.roundsMin - fGP.MBlur.roundsMax) / (0 - 4095) + fGP.MBlur.roundsMax;
+            uint16_t rounds = (knob1Value - 4095) * (fGP.MBlur.roundsMin - fGP.MBlur.roundsMax) / (0 - 4095) + fGP.MBlur.roundsMax;
             applyMedianBlur(wave[screenstate], currentScreenWavetable, rounds);
             fbg_write(fbg, "M-Blur", calcCenterOfText("M-Blur"), SCREEN_HEADER_Y);
         }

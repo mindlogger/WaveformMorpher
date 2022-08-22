@@ -35,11 +35,14 @@ typedef struct {
     tRGB HighlightA;
 } tColor;
 
+enum EKnobResponseTypes {EditViewOnly, PerPatch, Always};
+
 typedef struct {
     tKBlur KBlur;
     tMBlur MBlur;
     tVisual Visual;
     tSynth Synth;
+    EKnobResponseTypes KnobResponse;
     tColor Color;
 } tGlobalPreset;
 

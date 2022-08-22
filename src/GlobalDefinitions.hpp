@@ -55,12 +55,13 @@ EXTERN double wave[5][WAVE_TABLE_SIZE];
 EXTERN double fft[5][WAVE_TABLE_SIZE];
 
 EXTERN int NTables;
-EXTERN bool VCA_FLAG;
+EXTERN bool VCAFlag;
+EXTERN bool KnobBehaviour; // false:= always readout; true:= edit view only
 
-EXTERN double att_v;
-EXTERN double dec_v;
-EXTERN double sus_v;
-EXTERN double rel_v;
+EXTERN double knob1Value;
+EXTERN double knob2Value;
+EXTERN double knob3Value;
+EXTERN double knob4Value;
 EXTERN double loop_v;
 /*PATCH SETTINGS END*/
 
