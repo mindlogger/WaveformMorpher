@@ -17,28 +17,30 @@ extern "C"
 
 void insertCurrentTableName()
 {
-    switch(screenstate)
+    if(dynamic_view)
     {
+        switch(screenstate)
+        {
         case A:
-            fbg_write(fbg, "1 - A", 4, 2);
+            fbg_text(fbg, bbfont, "1 - A", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
         break;
         case D:
             switch(NTables)
             {
                 case 1:
-                    fbg_write(fbg, "1 - D", 4, 2);
+                    fbg_text(fbg, bbfont, "1 - D", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 2:
-                    fbg_write(fbg, "2 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "2 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 3:
-                    fbg_write(fbg, "2 - D", 4, 2);
+                    fbg_text(fbg, bbfont, "2 - D", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 4:
-                    fbg_write(fbg, "2 - D", 4, 2);
+                    fbg_text(fbg, bbfont, "2 - D", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 5:
-                    fbg_write(fbg, "2 - D", 4, 2);
+                    fbg_text(fbg, bbfont, "2 - D", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
             }
         break;
@@ -46,19 +48,19 @@ void insertCurrentTableName()
             switch(NTables)
             {
                 case 1:
-                    fbg_write(fbg, "1 - SS", 4, 2);
+                    fbg_text(fbg, bbfont, "1 - SS", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 2:
-                    fbg_write(fbg, "1 - SS", 4, 2);
+                    fbg_text(fbg, bbfont, "1 - SS", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 3:
-                    fbg_write(fbg, "3 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "3 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 4:
-                    fbg_write(fbg, "3 - SS", 4, 2);
+                    fbg_text(fbg, bbfont, "3 - SS", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 5:
-                    fbg_write(fbg, "3 - SS", 4, 2);
+                    fbg_text(fbg, bbfont, "3 - SS", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
             }
         break;
@@ -66,19 +68,19 @@ void insertCurrentTableName()
             switch(NTables)
             {
                 case 1:
-                    fbg_write(fbg, "1 - SE", 4, 2);
+                    fbg_text(fbg, bbfont, "1 - SE", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 2:
-                    fbg_write(fbg, "1 - SE", 4, 2);
+                    fbg_text(fbg, bbfont, "1 - SE", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 3:
-                    fbg_write(fbg, "2 - SE", 4, 2);
+                    fbg_text(fbg, bbfont, "2 - SE", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 4:
-                    fbg_write(fbg, "4 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "4 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 5:
-                    fbg_write(fbg, "3 - SE", 4, 2);
+                    fbg_text(fbg, bbfont, "3 - SE", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
             }
         break;
@@ -86,22 +88,112 @@ void insertCurrentTableName()
             switch(NTables)
             {
                 case 1:
-                    fbg_write(fbg, "1 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "1 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 2:
-                    fbg_write(fbg, "2 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "2 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 3:
-                    fbg_write(fbg, "3 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "3 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 4:
-                    fbg_write(fbg, "4 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "4 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
                 case 5:
-                    fbg_write(fbg, "5 - R", 4, 2);
+                    fbg_text(fbg, bbfont, "5 - R", 4, 2, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
                 break;
             }
         break;
+        }
+    }
+    else
+    {
+        switch(screenstate)
+        {
+            case A:
+                fbg_write(fbg, "1 - A", 4, 2);
+            break;
+            case D:
+                switch(NTables)
+                {
+                    case 1:
+                        fbg_write(fbg, "1 - D", 4, 2);
+                    break;
+                    case 2:
+                        fbg_write(fbg, "2 - R", 4, 2);
+                    break;
+                    case 3:
+                        fbg_write(fbg, "2 - D", 4, 2);
+                    break;
+                    case 4:
+                        fbg_write(fbg, "2 - D", 4, 2);
+                    break;
+                    case 5:
+                        fbg_write(fbg, "2 - D", 4, 2);
+                    break;
+                }
+            break;
+            case SS:
+                switch(NTables)
+                {
+                    case 1:
+                        fbg_write(fbg, "1 - SS", 4, 2);
+                    break;
+                    case 2:
+                        fbg_write(fbg, "1 - SS", 4, 2);
+                    break;
+                    case 3:
+                        fbg_write(fbg, "3 - R", 4, 2);
+                    break;
+                    case 4:
+                        fbg_write(fbg, "3 - SS", 4, 2);
+                    break;
+                    case 5:
+                        fbg_write(fbg, "3 - SS", 4, 2);
+                    break;
+                }
+            break;
+            case SE:
+                switch(NTables)
+                {
+                    case 1:
+                        fbg_write(fbg, "1 - SE", 4, 2);
+                    break;
+                    case 2:
+                        fbg_write(fbg, "1 - SE", 4, 2);
+                    break;
+                    case 3:
+                        fbg_write(fbg, "2 - SE", 4, 2);
+                    break;
+                    case 4:
+                        fbg_write(fbg, "4 - R", 4, 2);
+                    break;
+                    case 5:
+                        fbg_write(fbg, "3 - SE", 4, 2);
+                    break;
+                }
+            break;
+            case R:
+                switch(NTables)
+                {
+                    case 1:
+                        fbg_write(fbg, "1 - R", 4, 2);
+                    break;
+                    case 2:
+                        fbg_write(fbg, "2 - R", 4, 2);
+                    break;
+                    case 3:
+                        fbg_write(fbg, "3 - R", 4, 2);
+                    break;
+                    case 4:
+                        fbg_write(fbg, "4 - R", 4, 2);
+                    break;
+                    case 5:
+                        fbg_write(fbg, "5 - R", 4, 2);
+                    break;
+                }
+            break;
+        }
     }
 }
 
@@ -221,13 +313,12 @@ void renderStore()
     {
         patchName = (char*)malloc(MAX_PATCH_NAME_LENGTH);
         memset(&patchName[0], 0, MAX_PATCH_NAME_LENGTH);
-        cout << patchName << endl;
+
         //DO INIT SHIT
         for(int i = 0; i < 12; i++)
         {
             fileSaveCharacters[i] = characterUpercaseOptions[rand() % 39];
         }
-        //USE characterUpercaseOptions
     }
     else
     {

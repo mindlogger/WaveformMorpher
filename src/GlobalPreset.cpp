@@ -30,9 +30,9 @@ tGlobalPreset fGP = {
             .b = 0,
         },
         .HighlightA = {
-            .r = 175,
-            .g = 238,
-            .b = 238,
+            .r = 145,
+            .g = 175,
+            .b = 255,
         },
     },
 };
