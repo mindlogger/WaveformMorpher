@@ -8,6 +8,7 @@
 #include "ADSR.hpp"
 #include "UI.hpp"
 #include "Loader.hpp"
+#include "WaveOsc.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -42,7 +43,8 @@ void main_init()
     dynamic_view = 0;//TODO STRUCT WITH ALL CUR STATES INIT HERE
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
-    NTables = 5;
+    NTables = 1;
+
     loopingFlag = 0;
     VCAFlag = false;
     KnobBehaviour = true;
@@ -72,6 +74,8 @@ void main_init()
     genSin(wave[4]);//RE
 
     genSil(clipboard);
+
+    setNTables();
 
     initAudio();
     setupUI();

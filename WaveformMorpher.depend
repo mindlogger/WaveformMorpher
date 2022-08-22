@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1587976988 source:/home/pi/WaveformMorpher/src/ADSR.cpp
+1661165718 source:/home/pi/WaveformMorpher/src/ADSR.cpp
 	"ADSR.hpp"
 	<math.h>
 
@@ -262,7 +262,7 @@
 	<vector>
 	<dirent.h>
 
-1661161452 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1661161750 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"

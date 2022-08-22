@@ -30,8 +30,8 @@ ADSR::ADSR(void) {
     setDecayRate(0);
     setReleaseRate(0);
     setSustainLevel(1.0);
-    setTargetRatioA(0.3);
-    setTargetRatioDR(0.0001);
+    setTargetRatioA(100); //(small number such as 0.0001 to 0.01 for mostly-exponential, large numbers like 100 for virtually linear):
+    setTargetRatioDR(100);
     ping_pong_flag = 1;
 }
 
