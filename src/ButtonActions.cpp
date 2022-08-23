@@ -274,8 +274,6 @@ void actionLoadPatch(uint32_t tick, uint8_t id)
     loadPatchFromFile(filesInDirectory[fileSelectionIndexPatch]);
 
     patchNameIndex = 0;
-    fileSelectionIndexPatch = 0;
-    browsingWindowOffset = 0;
 
     actionExit(0,0);
 }

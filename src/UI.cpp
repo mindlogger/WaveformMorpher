@@ -163,6 +163,26 @@ unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
     return 0;
     }
 }
+
+void setADSRValue(double value, uint8_t id)
+{
+    switch(id)
+    {
+        case 0: //A
+            envelope->setAttackRate(((fGP.ADSR.A.pMax*value/4096.0) + fGP.ADSR.A.pMin) * SAMPLE_RATE);
+        break;
+        case 1: //D
+            envelope->setDecayRate(((fGP.ADSR.D.pMax*knob2Value/4096.0) + fGP.ADSR.D.pMin) * SAMPLE_RATE);
+        break;
+        case 2: //S
+            envelope->setSustainLevel(knob3Value/4096.0);
+        break;
+        case 3: //R
+            envelope->setReleaseRate(((fGP.ADSR.R.pMax*knob4Value/4096.0) + fGP.ADSR.R.pMin) * SAMPLE_RATE);
+        break;
+    }
+}
+
 void getADCValues()
 {
     knob1Value = readADC(0);
@@ -170,8 +190,8 @@ void getADCValues()
     knob3Value = readADC(2);
     knob4Value = readADC(3);
 
-    //ONLY SEND VALUES TO ADC IF THEY ARE IN THE WINDOW OF CHANGE
     loop_v = readADC(7);
+
     if(fGP.UI.KnobResponse == Always
     || (fGP.UI.KnobResponse == EditViewOnly && uiState == EditView)
     || (fGP.UI.KnobResponse == PerPatch && KnobBehaviour == true && uiState == EditView)
@@ -184,7 +204,7 @@ void getADCValues()
                 knobState[0] = true;
                 renderScreen();
             }
-            envelope->setAttackRate(((5*knob1Value/4096.0) + 0.01) * SAMPLE_RATE);
+            setADSRValue(knob1Value, 0);
         }
 
         if(knobState[1] || (knob2Value < knobEnterHeldValue[1] + fGP.UI.KnobWindow && knob2Value > knobEnterHeldValue[1] - fGP.UI.KnobWindow ))
@@ -194,7 +214,7 @@ void getADCValues()
                 knobState[1] = true;
                 renderScreen();
             }
-            envelope->setDecayRate(((5*knob2Value/4096.0) + 0.01) * SAMPLE_RATE);
+            setADSRValue(knob2Value, 1);
         }
 
         if(knobState[2] || (knob3Value < knobEnterHeldValue[2] + fGP.UI.KnobWindow && knob3Value > knobEnterHeldValue[2] - fGP.UI.KnobWindow ))
@@ -204,7 +224,7 @@ void getADCValues()
                 knobState[2] = true;
                 renderScreen();
             }
-            envelope->setSustainLevel(knob3Value/4096.0);
+            setADSRValue(knob3Value, 2);
         }
 
         if(knobState[3] || (knob4Value < knobEnterHeldValue[3] + fGP.UI.KnobWindow && knob4Value > knobEnterHeldValue[3] - fGP.UI.KnobWindow ))
@@ -214,7 +234,7 @@ void getADCValues()
                 knobState[3] = true;
                 renderScreen();
             }
-            envelope->setReleaseRate(((5*knob4Value/4096.0) + 0.01) * SAMPLE_RATE);
+            setADSRValue(knob4Value, 3);
         }
     }
     else

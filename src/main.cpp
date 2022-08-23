@@ -9,6 +9,7 @@
 #include "UI.hpp"
 #include "Loader.hpp"
 #include "WaveOsc.hpp"
+#include "GlobalPreset.hpp"
 
 #include "GlobalDefinitions.hpp"
 
@@ -29,8 +30,8 @@ void main_init()
 {
     n_shutdown_flag = 1;
     envelope = new ADSR();
-    envelope->setTargetRatioA(0.3);
-    envelope->setTargetRatioDR(0.3);
+    envelope->setTargetRatioA(fGP.ADSR.A.pRatio);
+    envelope->setTargetRatioDR(fGP.ADSR.D.pRatio);
     envelope->setAttackRate(1.1 * SAMPLE_RATE);
     envelope->setDecayRate(1.1 * SAMPLE_RATE);
     envelope->setLoopRate(0.0 * SAMPLE_RATE);

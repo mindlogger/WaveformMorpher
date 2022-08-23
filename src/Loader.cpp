@@ -102,20 +102,26 @@ void loadPatchFromFile(std::string name)
     KnobBehaviour = (bool) incomingJSON["KnobBehaviour"];
 
     knob1Value = (double) incomingJSON["att_v"];
-    knob2Value = (double) incomingJSON["dec_v"];
-    knob3Value = (double) incomingJSON["sus_v"];
-    knob4Value = (double) incomingJSON["rel_v"];
-
-    knobEnterHeldValue[0] = knob1Value;
+    knobEnterHeldValue[0] = (double) incomingJSON["att_v"];
     knobState[0] = false;
-    knobEnterHeldValue[1] = knob2Value;
-    knobState[1] = false;
-    knobEnterHeldValue[2] = knob3Value;
-    knobState[2] = false;
-    knobEnterHeldValue[3] = knob4Value;
-    knobState[3] = false;
+    setADSRValue((double) incomingJSON["att_v"], 0);
 
-    loop_v= (double) incomingJSON["loop_v"];
+    knob2Value = (double) incomingJSON["dec_v"];
+    knobEnterHeldValue[1] = (double) incomingJSON["dec_v"];
+    knobState[1] = false;
+    setADSRValue((double) incomingJSON["dec_v"], 1);
+
+    knob3Value = (double) incomingJSON["sus_v"];
+    knobEnterHeldValue[2] = (double) incomingJSON["sus_v"];
+    knobState[2] = false;
+    setADSRValue((double) incomingJSON["sus_v"], 2);
+
+    knob4Value = (double) incomingJSON["rel_v"];
+    knobEnterHeldValue[3] = (double) incomingJSON["rel_v"];
+    knobState[3] = false;
+    setADSRValue((double) incomingJSON["rel_v"], 3);
+
+    loop_v = (double) incomingJSON["loop_v"];
 
     screenstate = A;
     uiState = EditView;

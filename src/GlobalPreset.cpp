@@ -22,6 +22,23 @@ tGlobalPreset fGP = {
         .KnobResponse = EditViewOnly,
         .KnobWindow = 100,
     },
+    .ADSR = {
+        .A = {
+            .pMax = 5,
+            .pMin = 0.001,
+            .pRatio = 100, //.0001 to .01 for mostly-exponential and 100 is linear
+        },
+        .D = {
+            .pMax = 5,
+            .pMin = 0.001,
+            .pRatio = 100, //.0001 to .01 for mostly-exponential and 100 is linear
+        },
+        .R = {
+            .pMax = 5,
+            .pMin = 0.001,
+            .pRatio = 100, //UNUSED CUS ADSR ISNT READY
+        },
+    },
     .Color = {
         .Confirm = {
             .r = 0,

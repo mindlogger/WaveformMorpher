@@ -205,14 +205,14 @@ void renderEditView()
     clearScreen();
     table2Screen(currentEditWavetable);
 
-    //if(!knobState[0])
-        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 16 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
-    //if(!knobState[1])
-        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 168 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
-    //if(!knobState[2])
-        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 320 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
-    //if(!knobState[3])
-        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW4_6_POSX - 16 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    if(!knobState[0])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knobEnterHeldValue[0]/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 16 - ( (uint32_t) (log10( (uint32_t) (knobEnterHeldValue[0]/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    if(!knobState[1])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knobEnterHeldValue[1]/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 177 - ( (uint32_t) (log10( (uint32_t) (knobEnterHeldValue[1]/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    if(!knobState[2])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knobEnterHeldValue[2]/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 328 - ( (uint32_t) (log10( (uint32_t) (knobEnterHeldValue[2]/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    if(!knobState[3])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knobEnterHeldValue[3]/40.690)) + "%")[0], SCREEN_SW4_6_POSX - 16 - ( (uint32_t) (log10( (uint32_t) (knobEnterHeldValue[3]/40.690) ) ) )*16, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
 
     insertCurrentTableName();
     commitScreenBuffer();
