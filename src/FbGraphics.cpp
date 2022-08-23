@@ -135,6 +135,12 @@ void renderScreen()
         case BlurMode:
             renderBlurMode();
         break;
+        case FilterMode:
+            renderFilterMode();
+        break;
+        case AttenuateMode:
+            renderAttenuateMode();
+        break;
         case UserInsertWave:
             renderUserInsertWave();
         break;
@@ -146,7 +152,7 @@ void initFbGraphics()
     fbg = fbg_setup(path, 0); // you can also directly use fbg_init(); for "/dev/fb0", last argument mean that will not use page flipping mechanism  for double buffering (it is actually slower on some devices!)
     fbg_clear(fbg, 0); // can also be replaced by fbg_fill(fbg, 0, 0, 0);
     fbg_fill(fbg,255,255,255);
-    bb_font_img = fbg_loadImage(fbg, "img/16px_roboto_mono_bitmap_font.png");
+    bb_font_img = fbg_loadImage(fbg, "/home/pi/WaveformMorpherFonts/default_font.png");
     bbfont = fbg_createFont(fbg, bb_font_img, 16, 16, 33);
     pthread_t render_t;
     pthread_create(&render_t,NULL,RenderScreen,NULL);
@@ -273,6 +279,10 @@ void *RenderScreen(void *arg)
         else if(uiState == BlurMode)
         {
             renderBlurMode();
+        }
+        else if(uiState == AttenuateMode)
+        {
+            renderAttenuateMode();
         }
     }
     return NULL;

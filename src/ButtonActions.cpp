@@ -136,13 +136,24 @@ void assignGlobalSettingActions()
     SW3ShiftEvent = &actionExit;
 }
 
-void assignBlurActions()
+void assignFilterModeActions()
 {
     clearAllActions();
 
-    SW4Event = &actionApplyBlur;
+    SW4Event = &actionSwitchToAttenuate;
 
-    SW3Event = &actionUndoBlur;
+    SW5Event = &actionSwitchToBlur;
+
+    SW3Event = &actionUndoFilter;
+}
+
+void assignGenericFilterModeActions()
+{
+    clearAllActions();
+
+    SW4Event = &actionApplyFilter;
+
+    SW3Event = &actionUndoFilter;
 }
 
 void clearAllActions()
@@ -240,7 +251,28 @@ void dummyAction(uint32_t tick, uint8_t id)
 {
 }
 
-void actionApplyBlur(uint32_t tick, uint8_t id)
+void actionSwitchToFilter(uint32_t tick, uint8_t id)
+{
+    uiState = FilterMode;
+    renderScreen();
+    assignFilterModeActions();
+}
+
+void actionSwitchToBlur(uint32_t tick, uint8_t id)
+{
+    uiState = BlurMode;
+    renderScreen();
+    assignGenericFilterModeActions();
+}
+
+void actionSwitchToAttenuate(uint32_t tick, uint8_t id)
+{
+    uiState = AttenuateMode;
+    renderScreen();
+    assignGenericFilterModeActions();
+}
+
+void actionApplyFilter(uint32_t tick, uint8_t id)
 {
     for(int i = 0; i<WAVE_TABLE_SIZE; i++)
     {
@@ -250,7 +282,7 @@ void actionApplyBlur(uint32_t tick, uint8_t id)
     actionExit(0,0);
 }
 
-void actionUndoBlur(uint32_t tick, uint8_t id)
+void actionUndoFilter(uint32_t tick, uint8_t id)
 {
     for(int i = 0; i<WAVE_TABLE_SIZE; i++)
     {
@@ -445,10 +477,14 @@ void actionQuestionS(uint32_t tick, uint8_t id)
         for(int i = 0; i < WAVE_TABLE_SIZE; i++) //APPLY SNAPSHOT FOR UNDOING
         {
             fftEnterSnapshot[i] = wave[screenstate][i];
+            currentScreenWavetable[i] = wave[screenstate][i];
         }
+
         setCueTable();
-        uiState = BlurMode;
-        assignBlurActions();
+
+        uiState = FilterMode;
+        renderScreen();
+        assignFilterModeActions();
     }
     else
     {

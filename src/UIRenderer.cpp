@@ -272,23 +272,53 @@ void renderGlobalSettings()
     commitScreenBuffer();
 }
 
-void renderLoad()
+void renderFilterMode()
 {
     clearScreen();
 
-    for(int i = 0; i < 9 && i < filesInDirectory.size(); i++)
-    {
-        if(fileSelectionIndexPatch == i + browsingWindowOffset)
-        {
-            fbg_text(fbg, bbfont, "o", calcCenterOfText(filesInDirectory[i + browsingWindowOffset]) - 2*16, 48 + (i*30), fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
-            fbg_text(fbg, bbfont, "o", calcCenterOfText(filesInDirectory[i + browsingWindowOffset]) + (filesInDirectory[i + browsingWindowOffset].length() * 16) + 16, 49 + (i*30), fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
-        }
-        fbg_write(fbg, &filesInDirectory[i + browsingWindowOffset][0], calcCenterOfText(filesInDirectory[i + browsingWindowOffset]), 50 + (i*30));
-    }
+    fbg_write(fbg, "Filter Mode", calcCenterOfText("Filter Mode"), SCREEN_HEADER_Y);
+
+    fbg_write(fbg, "Attenuate", SCREEN_SW4_6_POSX - 8*16, SCREEN_SW1_4_POSY);
+
+    fbg_write(fbg, "Blur", SCREEN_SW4_6_POSX - 3*16, SCREEN_SW2_5_POSY);
+
+    fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
+    commitScreenBuffer();
+}
+
+void renderAttenuateMode()
+{
+    clearScreen();
+
+    fbg_write(fbg, "Attenuate Mode", calcCenterOfText("Attenuate Mode"), SCREEN_HEADER_Y);
+
     fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
     fbg_text(fbg, bbfont , ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
-    fbg_write(fbg, "Load Patch", calcCenterOfText("Load Patch"), SCREEN_HEADER_Y);
-    commitScreenBuffer();
+
+    //ATTENTION WE DO 3 THINGS AT ONCE COPY FROM THE SOURCE PHASE SHIFT IT AND ATTENUATION
+
+    uint16_t amtToShift = (uint16_t) ( ((uint16_t) knob2Value - 0) * (WAVE_TABLE_SIZE - 0) / (4095 - 0) + 0);
+    double attenuation = (knob1Value - 4095) * (1.0 - 0) / (0 - 4095) + 0;
+
+    for(int i = 0; i < WAVE_TABLE_SIZE; i++)
+    {
+        currentScreenWavetable[i] = wave[screenstate][( (i + amtToShift) % WAVE_TABLE_SIZE)] * attenuation;
+    }
+
+    uint16_t amtToMirror = (uint16_t) ( ((uint16_t) knob3Value - 0) * (WAVE_TABLE_SIZE - 0) / (4095 - 0) + 0);
+    double uglyFixTable[WAVE_TABLE_SIZE];
+
+    for(int i = 0; i < amtToMirror; i++)
+    {
+        uglyFixTable[i] = currentScreenWavetable[WAVE_TABLE_SIZE - 1 - i];
+    }
+
+    for(int i = 0; i < amtToMirror; i++)
+    {
+        currentScreenWavetable[i] = uglyFixTable[i];
+    }
+
+    table2Screen(currentScreenWavetable);
 }
 
 void renderBlurMode()
@@ -338,6 +368,26 @@ void renderBlurMode()
 
     table2Screen(currentScreenWavetable);
 }
+
+void renderLoad()
+{
+    clearScreen();
+
+    for(int i = 0; i < 9 && i < filesInDirectory.size(); i++)
+    {
+        if(fileSelectionIndexPatch == i + browsingWindowOffset)
+        {
+            fbg_text(fbg, bbfont, "o", calcCenterOfText(filesInDirectory[i + browsingWindowOffset]) - 2*16, 48 + (i*30), fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+            fbg_text(fbg, bbfont, "o", calcCenterOfText(filesInDirectory[i + browsingWindowOffset]) + (filesInDirectory[i + browsingWindowOffset].length() * 16) + 16, 49 + (i*30), fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+        }
+        fbg_write(fbg, &filesInDirectory[i + browsingWindowOffset][0], calcCenterOfText(filesInDirectory[i + browsingWindowOffset]), 50 + (i*30));
+    }
+    fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
+    fbg_text(fbg, bbfont , ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
+    fbg_write(fbg, "Load Patch", calcCenterOfText("Load Patch"), SCREEN_HEADER_Y);
+    commitScreenBuffer();
+}
+
 
 #define MAX_PATCH_NAME_LENGTH 16
 char characterUpercaseOptions[39] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"; //ACTUALLY ONLY 38 CHARACTERS

@@ -142,10 +142,12 @@ void setupUI()
         pthread_t ui_t;
         pthread_create(&ui_t,NULL,handle_ui,NULL);
 }
+
 void postUISem()
 {
     sem_post(&semUI);
 }
+
 unsigned int readADC(unsigned int pin)// pin:0-7;ret:0 - 4096
 {
     if(pin < 8)
@@ -300,6 +302,7 @@ void getADCValues()
     //envelope->setLoopRate(((5*readADC(X)/4096.0) + 0.01) * SAMPLE_RATE);
     //if(readADC(X) == 0) SET LOOP OFF
 }
+
 void *handle_ui(void *arg)
 {
     sem_init(&semUI, 0, 1);
@@ -311,6 +314,7 @@ void *handle_ui(void *arg)
     gpioTerminate();
     return NULL;
 }
+
 void *handle_input(void *arg)
 {
         char input = '0';
