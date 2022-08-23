@@ -26,6 +26,12 @@
 #include <time.h>
 #include <stdlib.h>
 
+void sig_term_handler(int signum)
+{
+    std::cout << "Terminating the program" << std::endl;
+    n_shutdown_flag = false;
+}
+
 void main_init()
 {
     n_shutdown_flag = 1;
@@ -93,6 +99,7 @@ void main_init()
 
     initAudio();
     setupUI();
+    signal(SIGINT, sig_term_handler);
     initFbGraphics();
     initTouchscreen();
     initMidi();
@@ -102,23 +109,17 @@ void main_init()
 
 void main_end()
 {
-    n_shutdown_flag = 0; //TODO IS THIS RLY NECECERY
     endTimer();
-    endFbGraphics();
     endAudio();
+    endFbGraphics();
     endMidi();
-    endTransformer();
     gpioTerminate();
+    endTransformer();
     //reboot(RB_POWER_OFF);
 }
-void sig_term_handler(int signum)//DEBUGING PURPOSES
-{
-    gpioTerminate();
-}
+
 int main()
 {
-    signal(SIGINT, sig_term_handler);
-
     currentEditWavetable = wave[0];
 
     main_init();
@@ -126,7 +127,7 @@ int main()
     renderScreen();
 
     pthread_t uitxt_t;
-    while(n_shutdown_flag)//TODO WHILE NOT SHUTDOWN
+    while(n_shutdown_flag)
     {
         pthread_create(&uitxt_t,NULL,handle_input,NULL);
         pthread_join(uitxt_t,NULL);

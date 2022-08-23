@@ -87,7 +87,10 @@ void setupTimer()
     //makeTimer("Fourth Timer", &t4, 100, 100);
 }
 
-void endTimer()//TODO TURN TIMERS OFF
+void endTimer()
 {
-
+    signal(SIGEV_SIGNAL, SIG_DFL);
+    signal(SIGRTMIN + 1, SIG_DFL);
+    signal(SIGRTMIN + 2, SIG_DFL);
+    signal(SIGRTMIN + 3, SIG_DFL);
 }

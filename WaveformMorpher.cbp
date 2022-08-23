@@ -20,6 +20,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-std=c++11" />
+			<Add option="-g" />
 			<Add option="-D__LINUX_ALSA__" />
 			<Add directory="/usr/local/include/json-c" />
 		</Compiler>

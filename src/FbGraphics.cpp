@@ -309,7 +309,7 @@ void fillScreen()
 
 void endFbGraphics()
 {
+    fbg_close(fbg);
     fbg_freeImage(bb_font_img);
     fbg_freeFont(bbfont);
-    fbg_close(fbg);
 }
