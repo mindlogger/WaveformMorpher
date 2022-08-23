@@ -88,6 +88,21 @@ void setPixelOff(int x)
     fbg_line(fbg,x,0,x,320,0,0,0);
 }
 
+void drawBrowsingArrows()
+{
+    struct _fbg_img *archLinuxIcon = fbg_loadPNG(fbg, "/home/pi/WaveformMorpherImages/archLinuxIcon.png");
+    struct _fbg_img *archLinuxRIcon = fbg_loadPNG(fbg, "/home/pi/WaveformMorpherImages/archLinuxRIcon.png");
+
+    fbg_imageScale(fbg, archLinuxIcon, SCREEN_SW4_6_POSX - 6, SCREEN_SW2_5_POSY - 5, 0.35, 0.35);
+    fbg_imageScale(fbg, archLinuxRIcon, SCREEN_SW4_6_POSX - 6, SCREEN_SW3_6_POSY - 5, 0.35, 0.35);
+}
+
+void drawSaveIcon()
+{
+    struct _fbg_img *saveIcon = fbg_loadPNG(fbg, "/home/pi/WaveformMorpherImages/saveIcon.png");
+    fbg_imageScale(fbg, saveIcon, SCREEN_SW1_3_POSX + 3, SCREEN_SW2_5_POSY - 3, 0.09, 0.09);
+}
+
 void clearScreen()
 {
     fbg_clear(fbg, 0);

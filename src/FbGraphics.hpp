@@ -10,6 +10,8 @@ void setLine(int x1, int y1,int x2, int y2);
 void setPixel(int x, int y);
 void setPixelOff(int x, int y);
 void setPixelOff(int x);
+void drawBrowsingArrows();
+void drawSaveIcon();
 void clearScreen();
 void commitScreenBuffer();
 void updateScreen();

@@ -385,6 +385,7 @@ void renderLoad()
     fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
     fbg_text(fbg, bbfont , ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
     fbg_write(fbg, "Load Patch", calcCenterOfText("Load Patch"), SCREEN_HEADER_Y);
+    drawBrowsingArrows();
     commitScreenBuffer();
 }
 
@@ -494,6 +495,8 @@ void renderUserInsertWave()
 
     table2Screen(currentScreenWavetable);
 
+
+
     fbg_write(fbg, "User Wave", calcCenterOfText("User Wave"), SCREEN_HEADER_Y);
     fbg_write(fbg, &(std::to_string(fileSelectionIndexWave))[0] , calcCenterOfText(std::to_string(fileSelectionIndexWave)), SCREEN_SECOND_HEADER_Y);
 
@@ -507,6 +510,9 @@ void renderUserInsertWave()
 
     fbg_text(fbg, bbfont, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
     fbg_text(fbg, bbfont, ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
+
+    drawSaveIcon();
+    drawBrowsingArrows();
 
     commitScreenBuffer();
 }
