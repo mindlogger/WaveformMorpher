@@ -95,4 +95,8 @@ EXTERN double* ReleaseTable;
 
 EXTERN double* WaveTable[5];
 
+EXTERN bool knobState[4]; //true:= active false:= inactive
+EXTERN double knobEnterHeldValue[4];
+EXTERN double knobReturnHeldValue[4];
+
 

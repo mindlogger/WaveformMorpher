@@ -38,11 +38,16 @@ typedef struct {
 enum EKnobResponseTypes {EditViewOnly, PerPatch, Always};
 
 typedef struct {
+    EKnobResponseTypes KnobResponse;
+    double KnobWindow;
+} tUI;
+
+typedef struct {
     tKBlur KBlur;
     tMBlur MBlur;
     tVisual Visual;
     tSynth Synth;
-    EKnobResponseTypes KnobResponse;
+    tUI UI;
     tColor Color;
 } tGlobalPreset;
 

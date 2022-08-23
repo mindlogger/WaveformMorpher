@@ -105,6 +105,16 @@ void loadPatchFromFile(std::string name)
     knob2Value = (double) incomingJSON["dec_v"];
     knob3Value = (double) incomingJSON["sus_v"];
     knob4Value = (double) incomingJSON["rel_v"];
+
+    knobEnterHeldValue[0] = knob1Value;
+    knobState[0] = false;
+    knobEnterHeldValue[1] = knob2Value;
+    knobState[1] = false;
+    knobEnterHeldValue[2] = knob3Value;
+    knobState[2] = false;
+    knobEnterHeldValue[3] = knob4Value;
+    knobState[3] = false;
+
     loop_v= (double) incomingJSON["loop_v"];
 
     screenstate = A;

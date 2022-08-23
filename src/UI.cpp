@@ -169,16 +169,76 @@ void getADCValues()
     knob2Value = readADC(1);
     knob3Value = readADC(2);
     knob4Value = readADC(3);
+
+    //ONLY SEND VALUES TO ADC IF THEY ARE IN THE WINDOW OF CHANGE
     loop_v = readADC(7);
-    if(fGP.KnobResponse == Always
-    || (fGP.KnobResponse == EditViewOnly && uiState == EditView)
-    || (fGP.KnobResponse == PerPatch && KnobBehaviour == true && uiState == EditView)
-    || (fGP.KnobResponse == PerPatch && KnobBehaviour == false))
+    if(fGP.UI.KnobResponse == Always
+    || (fGP.UI.KnobResponse == EditViewOnly && uiState == EditView)
+    || (fGP.UI.KnobResponse == PerPatch && KnobBehaviour == true && uiState == EditView)
+    || (fGP.UI.KnobResponse == PerPatch && KnobBehaviour == false))
     {
-        envelope->setAttackRate(((5*knob1Value/4096.0) + 0.01) * SAMPLE_RATE);
-        envelope->setDecayRate(((5*knob2Value/4096.0) + 0.01) * SAMPLE_RATE);
-        envelope->setSustainLevel(knob3Value/4096.0);
-        envelope->setReleaseRate(((5*knob4Value/4096.0) + 0.01) * SAMPLE_RATE);
+        if(knobState[0] || (knob1Value < knobEnterHeldValue[0] + fGP.UI.KnobWindow && knob1Value > knobEnterHeldValue[0] - fGP.UI.KnobWindow ))
+        {
+            if(!knobState[0])
+            {
+                knobState[0] = true;
+                renderScreen();
+            }
+            envelope->setAttackRate(((5*knob1Value/4096.0) + 0.01) * SAMPLE_RATE);
+        }
+
+        if(knobState[1] || (knob2Value < knobEnterHeldValue[1] + fGP.UI.KnobWindow && knob2Value > knobEnterHeldValue[1] - fGP.UI.KnobWindow ))
+        {
+            if(!knobState[1])
+            {
+                knobState[1] = true;
+                renderScreen();
+            }
+            envelope->setDecayRate(((5*knob2Value/4096.0) + 0.01) * SAMPLE_RATE);
+        }
+
+        if(knobState[2] || (knob3Value < knobEnterHeldValue[2] + fGP.UI.KnobWindow && knob3Value > knobEnterHeldValue[2] - fGP.UI.KnobWindow ))
+        {
+            if(!knobState[2])
+            {
+                knobState[2] = true;
+                renderScreen();
+            }
+            envelope->setSustainLevel(knob3Value/4096.0);
+        }
+
+        if(knobState[3] || (knob4Value < knobEnterHeldValue[3] + fGP.UI.KnobWindow && knob4Value > knobEnterHeldValue[3] - fGP.UI.KnobWindow ))
+        {
+            if(!knobState[3])
+            {
+                knobState[3] = true;
+                renderScreen();
+            }
+            envelope->setReleaseRate(((5*knob4Value/4096.0) + 0.01) * SAMPLE_RATE);
+        }
+    }
+    else
+    {
+        if(knobState[0])
+        {
+            knobState[0] = false;
+            knobEnterHeldValue[0] = knob1Value;
+        }
+        if(knobState[1])
+        {
+            knobState[1] = false;
+            knobEnterHeldValue[1] = knob2Value;
+        }
+        if(knobState[2])
+        {
+            knobState[2] = false;
+            knobEnterHeldValue[2] = knob3Value;
+        }
+        if(knobState[3])
+        {
+            knobState[3] = false;
+            knobEnterHeldValue[3] = knob4Value;
+        }
     }
     double adc_7 = loop_v;
     if(adc_7 > 3700)

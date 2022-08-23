@@ -200,8 +200,22 @@ void insertCurrentTableName()
 void renderEditView()
 {
     clearScreen();
-    insertCurrentTableName();
     table2Screen(currentEditWavetable);
+
+    clearScreen();
+    table2Screen(currentEditWavetable);
+
+    //if(!knobState[0])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 16 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    //if(!knobState[1])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 168 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    //if(!knobState[2])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW1_3_POSX + 320 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    //if(!knobState[3])
+        fbg_text(fbg, bbfont, &(std::to_string( (int) (knob1Value/40.690)) + "%")[0], SCREEN_SW4_6_POSX - 16 - ( (uint32_t) (log10( (uint32_t) (knob1Value/40.690) ) ) )*8, SCREEN_SW3_6_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+
+    insertCurrentTableName();
+    commitScreenBuffer();
 }
 
 void renderPatchSettings()
@@ -214,7 +228,7 @@ void renderPatchSettings()
         fbg_write(fbg, "VCA:On", SCREEN_SW4_6_POSX - 5*16, SCREEN_SW2_5_POSY);
     else
         fbg_write(fbg, "VCA:Off", SCREEN_SW4_6_POSX - 6*16, SCREEN_SW2_5_POSY);
-    if(fGP.KnobResponse == PerPatch)
+    if(fGP.UI.KnobResponse == PerPatch)
     {
         if(KnobBehaviour)
             fbg_write(fbg, "KnobB:EditViewOnly", SCREEN_SW4_6_POSX - 17*16, SCREEN_SW3_6_POSY);
@@ -241,7 +255,7 @@ void renderGlobalSettings()
     else
         fbg_write(fbg, "Wave:Discrete", SCREEN_SW4_6_POSX - 12*16, SCREEN_SW2_5_POSY);
 
-    switch(fGP.KnobResponse)
+    switch(fGP.UI.KnobResponse)
     {
         case EditViewOnly:
             fbg_write(fbg, "KnobB:EditViewOnly", SCREEN_SW4_6_POSX - 17*16, SCREEN_SW3_6_POSY);
@@ -438,11 +452,11 @@ void renderUserInsertWave()
     SW2Text[2] = ' ';*/
 
     //fbg_write(fbg, SW2Text, SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY);
-    fbg_text(fbg, bbfont , "W", SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
+    fbg_text(fbg, bbfont, "W", SCREEN_SW1_3_POSX, SCREEN_SW2_5_POSY, fGP.Color.HighlightA.b, fGP.Color.HighlightA.g, fGP.Color.HighlightA.r);
     //fbg_text(fbg, bbfont , "x", SCREEN_SW1_3_POSX + 2*16, SCREEN_SW2_5_POSY - 1, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r); //IMPLEMENT THIS IN THE FUTURE WITH PROPER FILE BROWSING/HANDLING
 
-    fbg_text(fbg, bbfont , "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
-    fbg_text(fbg, bbfont , ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
+    fbg_text(fbg, bbfont, "<", SCREEN_SW1_3_POSX, SCREEN_SW3_6_POSY, fGP.Color.Cancel.b, fGP.Color.Cancel.g, fGP.Color.Cancel.r);
+    fbg_text(fbg, bbfont, ">", SCREEN_SW4_6_POSX, SCREEN_SW1_4_POSY, fGP.Color.Confirm.b, fGP.Color.Confirm.g, fGP.Color.Confirm.r);
 
     commitScreenBuffer();
 }

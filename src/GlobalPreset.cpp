@@ -18,7 +18,10 @@ tGlobalPreset fGP = {
     },
     .Synth = {
     },
-    .KnobResponse = EditViewOnly,
+    .UI = {
+        .KnobResponse = EditViewOnly,
+        .KnobWindow = 100,
+    },
     .Color = {
         .Confirm = {
             .r = 0,

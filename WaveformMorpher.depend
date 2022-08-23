@@ -20,7 +20,7 @@
 
 1661179145 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1661173166 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1661247071 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1661177371 source:/home/pi/WaveformMorpher/src/main.cpp
+1661249820 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -162,14 +162,14 @@
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1661179476 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1661180433 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
 	<math.h>
 	<iostream>
 
-1661158491 source:/home/pi/WaveformMorpher/src/UI.cpp
+1661251308 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -244,7 +244,7 @@
 1660821192 /usr/local/include/json-c/linkhash.h
 	"json_object.h"
 
-1661177816 source:/home/pi/WaveformMorpher/src/Loader.cpp
+1661249811 source:/home/pi/WaveformMorpher/src/Loader.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -264,7 +264,7 @@
 	<vector>
 	<dirent.h>
 
-1661179561 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
+1661244136 source:/home/pi/WaveformMorpher/src/ButtonActions.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -294,7 +294,7 @@
 
 1661173610 /home/pi/WaveformMorpher/src/UIRenderer.hpp
 
-1661179274 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
+1661251973 source:/home/pi/WaveformMorpher/src/UIRenderer.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
@@ -509,9 +509,9 @@
 1661178687 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
 
-1661157330 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
+1661246951 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
 	"GlobalPreset.hpp"
 
-1661157402 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
+1661243771 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
 	<stdint.h>
 

@@ -168,7 +168,7 @@ void clearAllActions()
 
 void actionToggleKnobBehaviourPatch(uint32_t tick, uint8_t id)
 {
-    if(fGP.KnobResponse == PerPatch)
+    if(fGP.UI.KnobResponse == PerPatch)
     {
         KnobBehaviour = ! KnobBehaviour;
         renderScreen();
@@ -177,7 +177,7 @@ void actionToggleKnobBehaviourPatch(uint32_t tick, uint8_t id)
 
 void actionToggleKnobBehaviourGlobal(uint32_t tick, uint8_t id)
 {
-    fGP.KnobResponse = (EKnobResponseTypes) ( (fGP.KnobResponse + 1) % 3);
+    fGP.UI.KnobResponse = (EKnobResponseTypes) ( (fGP.UI.KnobResponse + 1) % 3);
     renderScreen();
 }
 

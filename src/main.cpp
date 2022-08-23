@@ -49,6 +49,15 @@ void main_init()
     VCAFlag = false;
     KnobBehaviour = true;
 
+    knobEnterHeldValue[0] = 0;
+    knobState[0] = true;
+    knobEnterHeldValue[1] = 0;
+    knobState[1] = true;
+    knobEnterHeldValue[2] = 0;
+    knobState[2] = true;
+    knobEnterHeldValue[3] = 0;
+    knobState[3] = true;
+
     AttackTable = wave[0];
     DecayTable = wave[1];
     SustainStartTable = wave[2];
