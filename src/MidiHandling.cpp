@@ -136,7 +136,8 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
                     double f = MidiNote2Freq[(int)message->at(i)];
                     noteHistory.push_back(message->at(i));
                     setfreq(f);
-                    envelope->gate(true);
+                    WEnv->gate(true);
+                    AEnv->gate(true);
 
                     i++; //SKIP VELOCITY DATA
                 }
@@ -155,7 +156,8 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
 
                     if(noteHistory.empty())
                     {
-                        envelope->gate(false); //TURN GATE OFF IF NO NOTES LEFT
+                        WEnv->gate(false); //TURN GATE OFF IF NO NOTES LEFT
+                        AEnv->gate(false);
                     }
                     else
                     {
@@ -174,7 +176,8 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
 
 void allMidiNotesOff()
 {
-    envelope->gate(false); //TURN GATE OFF
+    WEnv->gate(false); //TURN GATE OFF
+    AEnv->gate(false); //TURN GATE OFF
     noteHistory.clear();
 }
 

@@ -210,7 +210,7 @@ void postScreenSem()
 
 void renderDynamicView()
 {
-    int envelopeState = envelope->getState();
+    int envelopeState = WEnv->getState();
     if(envelopeState == 0) //ONLY RENDER STUFF IF PLAYING
     {
         renderScreen();
@@ -229,12 +229,12 @@ void renderDynamicView()
         }
 
         double normalizedSustain = knob3Value/4096.0;
-        double inverse_master_gain = abs(master_gain-1.0);
-        double dec_gain = (master_gain-normalizedSustain)*((-1)/(normalizedSustain-1));
-        double inv_dec_gain = (master_gain-normalizedSustain)*((1)/(normalizedSustain-1))+1;
-        double rel_gain = master_gain / normalizedSustain;
+        double inverse_master_gain = abs(WMasterGain-1.0);
+        double dec_gain = (WMasterGain-normalizedSustain)*((-1)/(normalizedSustain-1));
+        double inv_dec_gain = (WMasterGain-normalizedSustain)*((1)/(normalizedSustain-1))+1;
+        double rel_gain = WMasterGain / normalizedSustain;
         double inv_rel_gain = abs(rel_gain-1.0);
-        double loop_gain = envelope->getLoopVal();
+        double loop_gain = WEnv->getLoopVal();
         double inv_loop_gain = abs(loop_gain-1.0);
 
         for(int i = 0;i < WAVE_TABLE_SIZE;i++)
@@ -243,7 +243,7 @@ void renderDynamicView()
             {
                 case 1://A
                     fbg_write(fbg, "A.", 4, 2);
-                    currentScreenWavetable[i] = (master_gain*working_wavetable[1][i] + inverse_master_gain*working_wavetable[0][i]);
+                    currentScreenWavetable[i] = (WMasterGain*working_wavetable[1][i] + inverse_master_gain*working_wavetable[0][i]);
                 break;
                 case 2://D
                     fbg_write(fbg, "D.", 4, 2);

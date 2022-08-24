@@ -35,22 +35,33 @@ void sig_term_handler(int signum)
 void main_init()
 {
     n_shutdown_flag = true;
-    envelope = new ADSR();
-    envelope->setTargetRatioA(fGP.ADSR.A.pRatio);
-    envelope->setTargetRatioDR(fGP.ADSR.D.pRatio);
-    envelope->setAttackRate(1.1 * SAMPLE_RATE);
-    envelope->setDecayRate(1.1 * SAMPLE_RATE);
-    envelope->setLoopRate(0.0 * SAMPLE_RATE);
-    envelope->setPingPong(0);
-    envelope->setSustainLevel(0.3);
-    envelope->setReleaseRate(0.1 * SAMPLE_RATE);
+
+    WEnv = new ADSR();
+    WEnv->setTargetRatioA(fGP.ADSR.A.pRatio);
+    WEnv->setTargetRatioDR(fGP.ADSR.D.pRatio);
+    WEnv->setAttackRate(1.1 * SAMPLE_RATE);
+    WEnv->setDecayRate(1.1 * SAMPLE_RATE);
+    WEnv->setLoopRate(0.0 * SAMPLE_RATE);
+    WEnv->setPingPong(0);
+    WEnv->setSustainLevel(0.5);
+    WEnv->setReleaseRate(0.1 * SAMPLE_RATE);
+
+    AEnv = new ADSR();
+    AEnv->setTargetRatioA(fGP.ADSR.A.pRatio);
+    AEnv->setTargetRatioDR(fGP.ADSR.D.pRatio);
+    AEnv->setAttackRate(1.1 * SAMPLE_RATE);
+    AEnv->setDecayRate(1.1 * SAMPLE_RATE);
+    AEnv->setLoopRate(0.0 * SAMPLE_RATE);
+    AEnv->setPingPong(0);
+    AEnv->setSustainLevel(0.3);
+    AEnv->setReleaseRate(0.1 * SAMPLE_RATE);
 
     screenstate = A;
     uiState = EditView;
     dynamic_view = 0;//TODO STRUCT WITH ALL CUR STATES INIT HERE
     fourier_flag = 0;
     fft_has_been_touched_flag = 0;
-    NTables = 1;
+    NTables = 5;
 
     loopingFlag = 0;
     VCAFlag = false;

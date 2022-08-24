@@ -171,16 +171,19 @@ void setADSRValue(double value, uint8_t id)
     switch(id)
     {
         case 0: //A
-            envelope->setAttackRate(((fGP.ADSR.A.pMax*value/4096.0) + fGP.ADSR.A.pMin) * SAMPLE_RATE);
+            WEnv->setAttackRate(((fGP.ADSR.A.pMax*value/4096.0) + fGP.ADSR.A.pMin) * SAMPLE_RATE);
+            AEnv->setAttackRate(((fGP.ADSR.A.pMax*value/4096.0) + fGP.ADSR.A.pMin) * SAMPLE_RATE);
         break;
         case 1: //D
-            envelope->setDecayRate(((fGP.ADSR.D.pMax*knob2Value/4096.0) + fGP.ADSR.D.pMin) * SAMPLE_RATE);
+            WEnv->setDecayRate(((fGP.ADSR.D.pMax*knob2Value/4096.0) + fGP.ADSR.D.pMin) * SAMPLE_RATE);
+            AEnv->setDecayRate(((fGP.ADSR.D.pMax*knob2Value/4096.0) + fGP.ADSR.D.pMin) * SAMPLE_RATE);
         break;
         case 2: //S
-            envelope->setSustainLevel(knob3Value/4096.0);
+            AEnv->setSustainLevel(knob3Value/4096.0);
         break;
         case 3: //R
-            envelope->setReleaseRate(((fGP.ADSR.R.pMax*knob4Value/4096.0) + fGP.ADSR.R.pMin) * SAMPLE_RATE);
+            WEnv->setReleaseRate(((fGP.ADSR.R.pMax*knob4Value/4096.0) + fGP.ADSR.R.pMin) * SAMPLE_RATE);
+            AEnv->setReleaseRate(((fGP.ADSR.R.pMax*knob4Value/4096.0) + fGP.ADSR.R.pMin) * SAMPLE_RATE);
         break;
     }
 }
@@ -265,12 +268,15 @@ void getADCValues()
     double adc_7 = loop_v;
     if(adc_7 > 3700)
     {
-        envelope->setPingPong(0);
+        WEnv->setPingPong(0);
+        AEnv->setPingPong(0);
     }
     else
     {
-        envelope->setPingPong(1);
-        envelope->setLoopRate(/*((5*(adc_7+0.0001)/4095.0) + 0.05)*/ 3 * SAMPLE_RATE); //DEBUG SHIT FOR NOW
+        WEnv->setPingPong(1);
+        WEnv->setLoopRate(/*((5*(adc_7+0.0001)/4095.0) + 0.05)*/ 3 * SAMPLE_RATE); //DEBUG SHIT FOR NOW
+        AEnv->setPingPong(1);
+        AEnv->setLoopRate(/*((5*(adc_7+0.0001)/4095.0) + 0.05)*/ 3 * SAMPLE_RATE); //DEBUG SHIT FOR NOW
     }
     if(readADC(5) > 1028)
     {

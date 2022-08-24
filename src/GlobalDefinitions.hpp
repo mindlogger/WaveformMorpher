@@ -70,15 +70,15 @@ EXTERN double loop_v;
 EXTERN uint8_t browsingWindowOffset;
 EXTERN uint8_t loopingFlag;
 
-EXTERN double master_gain; //0 -- 1
+EXTERN double WMasterGain; //0 -- 1
+EXTERN double AMasterGain; //0 -- 1
 EXTERN int touch_is_happening_flag;
 EXTERN int fft_has_been_touched_flag;
 EXTERN int dynamic_view;
 EXTERN bool n_shutdown_flag;
 EXTERN int shift_flag;
-EXTERN ADSR *envelope;
-
-EXTERN double HELPVALUE;
+EXTERN ADSR *WEnv;
+EXTERN ADSR *AEnv;
 
 EXTERN double currentScreenWavetable[WAVE_TABLE_SIZE];
 EXTERN double *currentEditWavetable;

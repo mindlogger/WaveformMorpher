@@ -117,6 +117,7 @@ inline double ADSR::process() {
                 }
                 }
             }
+            output = sustainLevel;
             break;
         case env_release:
             output = releaseBase + output * releaseCoef;

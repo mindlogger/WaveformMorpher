@@ -6,7 +6,7 @@ void genSin(double* waveTable)
 {
 	for(int i = 0;i < WAVE_TABLE_SIZE;i++)
 	{
-		waveTable[i] = sin(2*M_PI*(1/(double)WAVE_TABLE_SIZE)*i);
+		waveTable[i] = sin( (2*M_PI*(1/(double)WAVE_TABLE_SIZE)*i) + M_PI);
 	}
 }
 

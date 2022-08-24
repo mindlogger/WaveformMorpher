@@ -52,7 +52,8 @@ static paTestData data;
 
 void initAudio()
 {
-    master_gain = 0;
+    WMasterGain = 0;
+    AMasterGain = 0;
 
     PaStream *stream;
     PaError err;

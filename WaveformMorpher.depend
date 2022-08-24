@@ -3,10 +3,10 @@
 	"ADSR.hpp"
 	<math.h>
 
-1592743578 /home/pi/WaveformMorpher/src/ADSR.hpp
+1661349900 /home/pi/WaveformMorpher/src/ADSR.hpp
 	<math.h>
 
-1661346332 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
+1661347842 source:/home/pi/WaveformMorpher/src/AudioOut.cpp
 	"WaveOsc.hpp"
 	"portaudio.h"
 	"GlobalDefinitions.hpp"
@@ -20,13 +20,13 @@
 
 1661179145 /home/pi/WaveformMorpher/src/WaveOsc.hpp
 
-1661337725 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
+1661347887 /home/pi/WaveformMorpher/src/GlobalDefinitions.hpp
 	"ADSR.hpp"
 	<stdint.h>
 	<vector>
 	<string>
 
-1661280380 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
+1661347870 source:/home/pi/WaveformMorpher/src/FbGraphics.cpp
 	"FbGraphics.hpp"
 	"GlobalDefinitions.hpp"
 	"UIRenderer.hpp"
@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1661337748 source:/home/pi/WaveformMorpher/src/main.cpp
+1661350216 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -114,7 +114,7 @@
 
 1661252984 /home/pi/WaveformMorpher/src/UI.hpp
 
-1661338254 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1661347754 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
@@ -160,19 +160,19 @@
 	<string>
 	"GlobalDefinitions.hpp"
 
-1587028932 source:/home/pi/WaveformMorpher/src/WaveGenerator.cpp
+1661348230 source:/home/pi/WaveformMorpher/src/WaveGenerator.cpp
 	"WaveGenerator.hpp"
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1661345506 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1661351321 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
 	<math.h>
 	<iostream>
 
-1661337739 source:/home/pi/WaveformMorpher/src/UI.cpp
+1661348086 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
