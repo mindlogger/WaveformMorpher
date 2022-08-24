@@ -14,6 +14,8 @@ double step_size = (double) WAVE_TABLE_SIZE * ((double)440/(double)SAMPLE_RATE);
 
 double interpol = 0.0;
 
+double lastADGainValue = 0.0;
+
 void setNTables()
 {
     switch (NTables)
@@ -243,14 +245,15 @@ float getWavetableValue()
 
         break;
         case 1://A
-            interpol = (master_gain*interpolSecondTable + interpolFirstTable*abs(master_gain-1)); //INTERPOL A IST ATTACK; INTERPOL B IST DECAY
+            interpol = master_gain*interpolSecondTable + interpolFirstTable*abs(master_gain-1);
+            lastADGainValue = master_gain;
         break;
         case 2://D
             {
                 double dec_gain = (master_gain-normalizedSustain)*((-1)/(normalizedSustain-1));
                 double inv_dec_gain = (master_gain-normalizedSustain)*((1)/(normalizedSustain-1))+1;
                 interpol = (dec_gain*interpolFirstTable + interpolSecondTable*inv_dec_gain);
-
+                lastADGainValue = master_gain;
             }
         break;
         case 3://S
@@ -278,6 +281,9 @@ float getWavetableValue()
                 double interpolSustainTable = f_x + steigung * abs(nachkomma_x);
 
                 double rel_gain = master_gain / normalizedSustain;
+                if(lastADGainValue > normalizedSustain)
+                    rel_gain = master_gain / lastADGainValue; //USE HIGHEST LAST SENT DECAY VALUE
+
                 if(rel_gain > 1.0) //LIMIT INCASE WE TURN THE KNOBS WHILE PLAYING
                 {
                     rel_gain = 1.0;
