@@ -46,13 +46,13 @@ typedef struct {
     double pMax;
     double pMin;
     double pRatio;
-} tADSRPhase;
+} tEnvPhase;
 
 typedef struct {
-    tADSRPhase A;
-    tADSRPhase D;
-    tADSRPhase R;
-} tADSR;
+    tEnvPhase A;
+    tEnvPhase D;
+    tEnvPhase R;
+} tEnv;
 
 typedef struct {
     tKBlur KBlur;
@@ -60,7 +60,8 @@ typedef struct {
     tVisual Visual;
     tSynth Synth;
     tUI UI;
-    tADSR ADSR;
+    tEnv WEnv;
+    tEnv AEnv;
     tColor Color;
 } tGlobalPreset;
 

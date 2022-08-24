@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1661350216 source:/home/pi/WaveformMorpher/src/main.cpp
+1661352507 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -165,14 +165,14 @@
 	"GlobalDefinitions.hpp"
 	<math.h>
 
-1661351321 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
+1661351873 source:/home/pi/WaveformMorpher/src/WaveOsc.cpp
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	"GlobalPreset.hpp"
 	<math.h>
 	<iostream>
 
-1661348086 source:/home/pi/WaveformMorpher/src/UI.cpp
+1661352533 source:/home/pi/WaveformMorpher/src/UI.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -512,9 +512,9 @@
 1661178687 /home/pi/WaveformMorpher/src/Blur.hpp
 	<stdint.h>
 
-1661253388 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
+1661352567 source:/home/pi/WaveformMorpher/src/GlobalPreset.cpp
 	"GlobalPreset.hpp"
 
-1661253573 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
+1661352451 /home/pi/WaveformMorpher/src/GlobalPreset.hpp
 	<stdint.h>
 

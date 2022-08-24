@@ -37,8 +37,8 @@ void main_init()
     n_shutdown_flag = true;
 
     WEnv = new ADSR();
-    WEnv->setTargetRatioA(fGP.ADSR.A.pRatio);
-    WEnv->setTargetRatioDR(fGP.ADSR.D.pRatio);
+    WEnv->setTargetRatioA(fGP.WEnv.A.pRatio);
+    WEnv->setTargetRatioDR(fGP.WEnv.D.pRatio);
     WEnv->setAttackRate(1.1 * SAMPLE_RATE);
     WEnv->setDecayRate(1.1 * SAMPLE_RATE);
     WEnv->setLoopRate(0.0 * SAMPLE_RATE);
@@ -47,8 +47,8 @@ void main_init()
     WEnv->setReleaseRate(0.1 * SAMPLE_RATE);
 
     AEnv = new ADSR();
-    AEnv->setTargetRatioA(fGP.ADSR.A.pRatio);
-    AEnv->setTargetRatioDR(fGP.ADSR.D.pRatio);
+    AEnv->setTargetRatioA(fGP.AEnv.A.pRatio);
+    AEnv->setTargetRatioDR(fGP.AEnv.D.pRatio);
     AEnv->setAttackRate(1.1 * SAMPLE_RATE);
     AEnv->setDecayRate(1.1 * SAMPLE_RATE);
     AEnv->setLoopRate(0.0 * SAMPLE_RATE);

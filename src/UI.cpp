@@ -171,19 +171,19 @@ void setADSRValue(double value, uint8_t id)
     switch(id)
     {
         case 0: //A
-            WEnv->setAttackRate(((fGP.ADSR.A.pMax*value/4096.0) + fGP.ADSR.A.pMin) * SAMPLE_RATE);
-            AEnv->setAttackRate(((fGP.ADSR.A.pMax*value/4096.0) + fGP.ADSR.A.pMin) * SAMPLE_RATE);
+            WEnv->setAttackRate(((fGP.WEnv.A.pMax*value/4096.0) + fGP.WEnv.A.pMin) * SAMPLE_RATE);
+            AEnv->setAttackRate(((fGP.AEnv.A.pMax*value/4096.0) + fGP.AEnv.A.pMin) * SAMPLE_RATE);
         break;
         case 1: //D
-            WEnv->setDecayRate(((fGP.ADSR.D.pMax*knob2Value/4096.0) + fGP.ADSR.D.pMin) * SAMPLE_RATE);
-            AEnv->setDecayRate(((fGP.ADSR.D.pMax*knob2Value/4096.0) + fGP.ADSR.D.pMin) * SAMPLE_RATE);
+            WEnv->setDecayRate(((fGP.WEnv.D.pMax*knob2Value/4096.0) + fGP.WEnv.D.pMin) * SAMPLE_RATE);
+            AEnv->setDecayRate(((fGP.AEnv.D.pMax*knob2Value/4096.0) + fGP.AEnv.D.pMin) * SAMPLE_RATE);
         break;
         case 2: //S
             AEnv->setSustainLevel(knob3Value/4096.0);
         break;
         case 3: //R
-            WEnv->setReleaseRate(((fGP.ADSR.R.pMax*knob4Value/4096.0) + fGP.ADSR.R.pMin) * SAMPLE_RATE);
-            AEnv->setReleaseRate(((fGP.ADSR.R.pMax*knob4Value/4096.0) + fGP.ADSR.R.pMin) * SAMPLE_RATE);
+            WEnv->setReleaseRate(((fGP.WEnv.R.pMax*knob4Value/4096.0) + fGP.WEnv.R.pMin) * SAMPLE_RATE);
+            AEnv->setReleaseRate(((fGP.AEnv.R.pMax*knob4Value/4096.0) + fGP.AEnv.R.pMin) * SAMPLE_RATE);
         break;
     }
 }
