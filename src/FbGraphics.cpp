@@ -106,6 +106,8 @@ void drawSaveIcon()
 void clearScreen()
 {
     fbg_clear(fbg, 0);
+    fbg_flip(fbg);
+    fbg_draw(fbg);
 }
 
 void commitScreenBuffer()

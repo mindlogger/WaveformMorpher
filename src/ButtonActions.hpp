@@ -15,6 +15,7 @@ void clearAllActions();
 void actionInsertWave(uint32_t tick, uint8_t id);
 
 void dummyAction(uint32_t tick, uint8_t id);
+void actionShutdown(uint32_t tick, uint8_t id);
 
 void actionSwitchToFilter(uint32_t tick, uint8_t id);
 void actionSwitchToBlur(uint32_t tick, uint8_t id);

@@ -129,6 +129,8 @@ void assignGlobalSettingActions()
 {
     clearAllActions();
 
+    SW2Event = &actionShutdown;
+
     SW4Event = &actionAllNotesOff;
     SW5Event = &actionToggleContinous;
     SW6Event = &actionToggleKnobBehaviourGlobal;
@@ -256,6 +258,12 @@ void actionToggleVCA(uint32_t tick, uint8_t id)
 
 void dummyAction(uint32_t tick, uint8_t id)
 {
+}
+
+void actionShutdown(uint32_t tick, uint8_t id)
+{
+    clearScreen();
+    n_shutdown_flag = false;
 }
 
 void actionSwitchToFilter(uint32_t tick, uint8_t id)
