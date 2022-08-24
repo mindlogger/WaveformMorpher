@@ -151,7 +151,6 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
                         {
                             noteHistory.erase(releasedNoteIterator); //ERASE THE RELEASED NOTE
                         }
-
                     }
 
                     if(noteHistory.empty())
