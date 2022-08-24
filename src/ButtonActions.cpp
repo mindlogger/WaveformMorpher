@@ -129,6 +129,7 @@ void assignGlobalSettingActions()
 {
     clearAllActions();
 
+    SW4Event = &actionAllNotesOff;
     SW5Event = &actionToggleContinous;
     SW6Event = &actionToggleKnobBehaviourGlobal;
 
@@ -189,6 +190,12 @@ void actionToggleKnobBehaviourPatch(uint32_t tick, uint8_t id)
 void actionToggleKnobBehaviourGlobal(uint32_t tick, uint8_t id)
 {
     fGP.UI.KnobResponse = (EKnobResponseTypes) ( (fGP.UI.KnobResponse + 1) % 3);
+    renderScreen();
+}
+
+void actionAllNotesOff(uint32_t tick, uint8_t id)
+{
+    allMidiNotesOff();
     renderScreen();
 }
 

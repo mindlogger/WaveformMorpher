@@ -250,6 +250,8 @@ void renderGlobalSettings()
 
     fbg_write(fbg, "Global Settings", calcCenterOfText("Global Settings"), SCREEN_HEADER_Y);
 
+    fbg_write(fbg, "AllNotesOff", SCREEN_SW4_6_POSX - 10*16, SCREEN_SW1_4_POSY + 2);
+
     if(fGP.Visual.continous)
         fbg_write(fbg, "Wave:Continous", SCREEN_SW4_6_POSX - 13*16, SCREEN_SW2_5_POSY);
     else

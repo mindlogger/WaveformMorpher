@@ -121,8 +121,6 @@ double MidiNote2Freq[120] = {16.35,
 7902.13
 };
 
-int numb_pressed = 0; //THIS HELPS WITH PLAYING SMOOTHLY BUT CANT BE USED WITH SUSTAIN PEDAL
-
 std::vector<unsigned char> noteHistory;
 
 void midiCallback( double deltatime, std::vector< unsigned char > *message, void *userData )
@@ -173,6 +171,12 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
         break;
         }
     }
+}
+
+void allMidiNotesOff()
+{
+    envelope->gate(false); //TURN GATE OFF
+    noteHistory.clear();
 }
 
 void initMidi()
