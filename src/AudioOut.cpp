@@ -34,15 +34,22 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
     float x = getWavetableValue();
     if(x > 1.0)
+    {
+        std::cout << "A OVER! " << x << std::endl;
         x = 1.0;
+    }
     if(x < -1.0)
+    {
+        std::cout << "A UNDER! " << x << std::endl;
         x = -1.0;
+    }
     data->left_phase = x;
     data->right_phase = x;
     return 0;
 }
 
 static paTestData data;
+
 void initAudio()
 {
     master_gain = 0;

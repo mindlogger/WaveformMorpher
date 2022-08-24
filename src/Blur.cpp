@@ -25,6 +25,10 @@ void applyKBlurForward(double *sourceTable, double *destinationTable, double thr
                 destinationTable[(i + w) % WAVE_TABLE_SIZE ] = destinationTable[i] - (offset * ( (double) w) / ( (double) window));
             }
         }
+        if(destinationTable[i] > 1.0)
+            destinationTable[i] = 1.0;
+        else if(destinationTable[i] < -1.0)
+            destinationTable[i] = -1.0;
     }
 }
 
@@ -46,15 +50,23 @@ void applyKBlurBackward(double *sourceTable, double *destinationTable, double th
             }
             whereToLook = abs(whereToLook);
             whereToLook = whereToLook % WAVE_TABLE_SIZE;
-            if(destinationTable[i] + threshold < destinationTable[whereToLook])//TO BIG LEAP UP
+            if(destinationTable[i % WAVE_TABLE_SIZE] + threshold < destinationTable[whereToLook])//TO BIG LEAP UP
             {
-                destinationTable[whereToLook] = destinationTable[i] - (offset * ( (double) w) / ( (double) window));
+                destinationTable[whereToLook] = destinationTable[i % WAVE_TABLE_SIZE] - (offset * ( (double) w) / ( (double) window));
             }
-            else if(destinationTable[i] - threshold > destinationTable[whereToLook])//TO BIG LEAP DOWN
+            else if(destinationTable[i % WAVE_TABLE_SIZE] - threshold > destinationTable[whereToLook])//TO BIG LEAP DOWN
             {
-                destinationTable[whereToLook] = destinationTable[i] + (offset * ( (double) w) / ( (double) window));
+                destinationTable[whereToLook] = destinationTable[i % WAVE_TABLE_SIZE] + (offset * ( (double) w) / ( (double) window));
             }
         }
+    }
+
+    for(int i = 0; i < WAVE_TABLE_SIZE; i++) //CLIP
+    {
+        if(destinationTable[i] > 1.0)
+            destinationTable[i] = 1.0;
+        else if(destinationTable[i] < -1.0)
+            destinationTable[i] = -1.0;
     }
 }
 
@@ -64,6 +76,7 @@ void applyMedianBlur(double *sourceTable, double *destinationTable, uint16_t rou
     {
         destinationTable[i] = sourceTable[i];
     }
+
     for(int j = 0; j < rounds; j++)
     {
         for(int i = 0; i < WAVE_TABLE_SIZE + rounds; i++)
@@ -74,6 +87,14 @@ void applyMedianBlur(double *sourceTable, double *destinationTable, uint16_t rou
         {
             destinationTable[(i + 1 ) % (WAVE_TABLE_SIZE - 1)] = (destinationTable[i % WAVE_TABLE_SIZE] + destinationTable[(i + 1) % (WAVE_TABLE_SIZE - 1)]) / 2;
         }
+    }
+
+    for(int i = 0; i < WAVE_TABLE_SIZE; i++) //CLIP
+    {
+        if(destinationTable[i] > 1.0)
+            destinationTable[i] = 1.0;
+        else if(destinationTable[i] < -1.0)
+            destinationTable[i] = -1.0;
     }
 }
 

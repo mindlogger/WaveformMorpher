@@ -193,33 +193,49 @@ void setCueTable()
 float getWavetableValue()
 {
     step_size = (double) WAVE_TABLE_SIZE * (freq/(double)SAMPLE_RATE);
+
     double f_x = 0;
     double steigung = 0;
     double nachkomma_x = 0;
+
     master_gain = envelope->process();
     int envelopeState = envelope->getState();
-    double normalizedSustain = knob3Value/4096.0;
-    double interpol_a = 0;
-    double interpol_b = 0;
+    double normalizedSustain = knob3Value/4095.0;
+
+    double interpolFirstTable = 0;
+    double interpolSecondTable = 0;
 
     if(envelopeState > 0)
     {
         f_x = WaveTable[envelopeState-1][(int)waveOscIndex];
-        steigung = WaveTable[envelopeState-1][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - WaveTable[envelopeState-1][(int)waveOscIndex];
+
+        steigung = WaveTable[envelopeState-1][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - (WaveTable[envelopeState-1][(int)waveOscIndex]);
+
         nachkomma_x = (int)waveOscIndex - waveOscIndex;
 
-        interpol_a = f_x + steigung * nachkomma_x;
+        interpolFirstTable = (f_x + steigung * abs(nachkomma_x));
+        /*if(interpolFirstTable < -1.0 || interpolFirstTable > 1.0)
+        {
+            std::cout << "STATE " << envelopeState << std::endl;
+            std::cout << "master_gain " << master_gain << std::endl;
+            std::cout << "normalizedSustain " << normalizedSustain << std::endl;
+            std::cout << "f_x " << f_x << std::endl;
+            std::cout << "steigung " << steigung << std::endl;
+            std::cout << "nachkomma_x " << nachkomma_x << std::endl;
+        }*/
     }
     else
     {
-        interpol_a = 0;
+        interpolFirstTable = 0;
     }
 
     f_x = WaveTable[envelopeState][(int)waveOscIndex];
-    steigung = WaveTable[envelopeState][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - WaveTable[envelopeState][(int)waveOscIndex];
+
+    steigung = WaveTable[envelopeState][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - (WaveTable[envelopeState][(int)waveOscIndex]);
+
     nachkomma_x = (int)waveOscIndex - waveOscIndex;
 
-    interpol_b = f_x + steigung * nachkomma_x;
+    interpolSecondTable = f_x + steigung * abs(nachkomma_x);
 
     switch (envelopeState)
     {
@@ -227,13 +243,13 @@ float getWavetableValue()
 
         break;
         case 1://A
-            interpol = (master_gain*interpol_b + interpol_a*abs(master_gain-1)); //INTERPOL A IST ATTACK; INTERPOL B IST DECAY
+            interpol = (master_gain*interpolSecondTable + interpolFirstTable*abs(master_gain-1)); //INTERPOL A IST ATTACK; INTERPOL B IST DECAY
         break;
         case 2://D
             {
                 double dec_gain = (master_gain-normalizedSustain)*((-1)/(normalizedSustain-1));
                 double inv_dec_gain = (master_gain-normalizedSustain)*((1)/(normalizedSustain-1))+1;
-                interpol = (dec_gain*interpol_a + interpol_b*inv_dec_gain);
+                interpol = (dec_gain*interpolFirstTable + interpolSecondTable*inv_dec_gain);
 
             }
         break;
@@ -241,13 +257,14 @@ float getWavetableValue()
             {
                 if(loopingFlag)
                 {
-                    double loop_gain = envelope->getLoopVal();
-                    double inv_loop_gain = abs(loop_gain-1.0);
-                    interpol = (interpol_a*loop_gain)+(interpol_b*inv_loop_gain);
+                    //double loop_gain = envelope->getLoopVal();
+                    //double inv_loop_gain = abs(loop_gain-1.0);
+                    //interpol = (interpol_a*loop_gain)+(interpol_b*inv_loop_gain);
+                    interpol = interpolFirstTable; //NO LOOPING FOR NOW
                 }
                 else
                 {
-                    interpol = interpol_a;
+                    interpol = interpolFirstTable;
                 }
             }
         break;
@@ -257,15 +274,32 @@ float getWavetableValue()
                 steigung = WaveTable[2][((int)waveOscIndex + 1) % WAVE_TABLE_SIZE] - WaveTable[2][(int)waveOscIndex];
                 nachkomma_x = (int)waveOscIndex - waveOscIndex;
 
-                double interpol_c = f_x + steigung * nachkomma_x;
+                //WHEN DOING LOOPING WE NEED TO DYNAMICALLY CREATE A TABLE AT THE POINT WHERE WE LEFT THE LOOP AND WORK WITH THAT
+                double interpolSustainTable = f_x + steigung * abs(nachkomma_x);
 
-                double rel_gain = master_gain / normalizedSustain ;
+                double rel_gain = master_gain / normalizedSustain;
+                if(rel_gain > 1.0) //LIMIT INCASE WE TURN THE KNOBS WHILE PLAYING
+                {
+                    rel_gain = 1.0;
+                }
 
                 double inv_rel_gain = abs(rel_gain-1.0);
-                interpol = (rel_gain*interpol_c + inv_rel_gain*interpol_b); //INTERPOL B IS w4 INTERPOL C w2
+                interpol = (rel_gain*interpolSustainTable + inv_rel_gain*interpolSecondTable); //INTERPOL B IS w4 INTERPOL C w2
+                /*if(interpol < -1.0 || interpol > 1.0)
+                {
+                    std::cout << "STATE " << envelopeState << std::endl;
+                    std::cout << "interpol " << interpol << std::endl;
+                    std::cout << "master_gain " << master_gain << std::endl;
+                    std::cout << "normalizedSustain " << normalizedSustain << std::endl;
+                    std::cout << "interpolFirstTable " << interpolFirstTable << std::endl;
+                    std::cout << "interpolSecondTable " << interpolSecondTable << std::endl;
+                    std::cout << "interpolSustainTable " << interpolSustainTable << std::endl;
+                }*/
             }
         break;
     }
+
+
 
     waveOscIndex = waveOscIndex + step_size;
 

@@ -116,5 +116,12 @@ void transBackward(int state)
     {
         wave[screenstate][i] = (wave[screenstate][i] + wave[screenstate][i+1]) / 2.0;
     }
+    for(size_t i = 0; i < WAVE_TABLE_SIZE;i++) //JUST CLIPPING IT OFF
+    {
+        if(wave[screenstate][i] > 1.0)
+            wave[screenstate][i] = 1.0;
+        else if(wave[screenstate][i] < -1.0)
+            wave[screenstate][i] = -1.0;
+    }
 }
 
