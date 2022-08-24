@@ -263,6 +263,10 @@ void dummyAction(uint32_t tick, uint8_t id)
 void actionShutdown(uint32_t tick, uint8_t id)
 {
     clearScreen();
+    commitScreenBuffer();
+
+    //TODO DO SMTH FUN ON THE SCREEN INSTEAD OF JUST CLEARING
+
     n_shutdown_flag = false;
 }
 
