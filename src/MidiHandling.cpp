@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
+#include <vector>
 
 #include "RtMidi.h"
 
@@ -120,6 +122,9 @@ double MidiNote2Freq[120] = {16.35,
 };
 
 int numb_pressed = 0; //THIS HELPS WITH PLAYING SMOOTHLY BUT CANT BE USED WITH SUSTAIN PEDAL
+
+std::vector<unsigned char> noteHistory;
+
 void midiCallback( double deltatime, std::vector< unsigned char > *message, void *userData )
 {
     unsigned int nBytes = message->size();
@@ -128,36 +133,46 @@ void midiCallback( double deltatime, std::vector< unsigned char > *message, void
         switch ((int)message->at(i))
         {
         case 144:{
-                    std::cout << "ON " << std::endl;
-                    i++;
+                    i++; //GET NOTE DATA
+
                     double f = MidiNote2Freq[(int)message->at(i)];
+                    noteHistory.push_back(message->at(i));
                     setfreq(f);
                     envelope->gate(true);
-                    numb_pressed++;
-                    //std::cout << f;
-                    i++;
-                    //unsigned char val1 = (int)message->at(i);
-                    }break;
+
+                    i++; //SKIP VELOCITY DATA
+                }
+        break;
         case 128:{
-                    std::cout << "OFF : " << numb_pressed << std::endl;
-                    i++;
-                    numb_pressed--;
-                    if(numb_pressed == 0)
+                    i++;//GET NOTE DATA
+
+                    std::vector<unsigned char>::iterator releasedNoteIterator = std::find(noteHistory.begin(), noteHistory.end(), (int) message->at(i));
+                    for(int i = 0; i < noteHistory.size();i++)
                     {
-                        envelope->gate(false);
+                        if(*releasedNoteIterator == (unsigned char) noteHistory[i])
+                        {
+                            noteHistory.erase(releasedNoteIterator); //ERASE THE RELEASED NOTE
+                        }
+
                     }
-                    //double f = 440;
-                    //std::cout << MidiNote2Freq[(int)message->at(i)];
-                    i++;
-                    //unsigned char val2 = (int)message->at(i);
-                    }break;
-        default: //std::cout << "UNKOWN MESSAGE "//;
-            break;
+
+                    if(noteHistory.empty())
+                    {
+                        envelope->gate(false); //TURN GATE OFF IF NO NOTES LEFT
+                    }
+                    else
+                    {
+                        double f = MidiNote2Freq[noteHistory.back()]; //SWITCH TO NEW NOTE
+                        setfreq(f);
+                    }
+
+                    i++;//SKIP VELOCITY DATA
+                }
+        break;
+        default:
+        break;
         }
     }
-        //std::cout << "Byte " << i << " = " << (int)message->at(i) << ", ";
-    /*if ( nBytes > 0 )
-        std::cout << " stamp = " << deltatime << std::endl;*/
 }
 
 void initMidi()

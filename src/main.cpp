@@ -34,7 +34,7 @@ void sig_term_handler(int signum)
 
 void main_init()
 {
-    n_shutdown_flag = 1;
+    n_shutdown_flag = true;
     envelope = new ADSR();
     envelope->setTargetRatioA(fGP.ADSR.A.pRatio);
     envelope->setTargetRatioDR(fGP.ADSR.D.pRatio);

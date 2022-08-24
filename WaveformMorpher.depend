@@ -76,7 +76,7 @@
 1587297451 /home/pi/WaveformMorpher/src/FourierTransformer.hpp
 	<fftw3.h>
 
-1661279967 source:/home/pi/WaveformMorpher/src/main.cpp
+1661280636 source:/home/pi/WaveformMorpher/src/main.cpp
 	"AudioOut.hpp"
 	"FbGraphics.hpp"
 	"Touchscreen.hpp"
@@ -114,12 +114,14 @@
 
 1661252984 /home/pi/WaveformMorpher/src/UI.hpp
 
-1661008995 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
+1661336707 source:/home/pi/WaveformMorpher/src/MidiHandling.cpp
 	"MidiHandling.hpp"
 	"WaveOsc.hpp"
 	"GlobalDefinitions.hpp"
 	<iostream>
 	<cstdlib>
+	<algorithm>
+	<vector>
 	"RtMidi.h"
 
 1586772889 /home/pi/WaveformMorpher/src/RtMidi.h
@@ -128,7 +130,7 @@
 	<string>
 	<vector>
 
-1661280483 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
+1661280641 source:/home/pi/WaveformMorpher/src/TimerEvent.cpp
 	<signal.h>
 	<iostream>
 	<sys/time.h>

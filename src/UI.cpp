@@ -327,7 +327,7 @@ void *handle_input(void *arg)
         {
             case 'e' :
             {
-            n_shutdown_flag = 0;
+                n_shutdown_flag = false;
             }
             break;
             case 'f' :

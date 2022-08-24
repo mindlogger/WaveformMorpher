@@ -74,7 +74,7 @@ EXTERN double master_gain; //0 -- 1
 EXTERN int touch_is_happening_flag;
 EXTERN int fft_has_been_touched_flag;
 EXTERN int dynamic_view;
-EXTERN int n_shutdown_flag;
+EXTERN bool n_shutdown_flag;
 EXTERN int shift_flag;
 EXTERN ADSR *envelope;
 
